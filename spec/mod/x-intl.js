@@ -1,0 +1,2 @@
+require("x-intl",function(e,r){function t(){return i(n,arguments)}var n={en:{}},i=require("$").intl;r.exports=function(e,r){var t=document.getElementById("_I"+e);if(!t)return console.error("[x-intl] Element not found: "+JSON.stringify(e)),!1;if(!APP)return console.error("[x-intl] APP is missing!"),!1;var n=APP._(r)||r;return"<html>"==n.substr(0,6).toLowerCase()?(t.innerHTML=n.substr(6),t.setAttribute("style","display:inline")):t.parentNode.replaceChild(document.createTextNode(n),t),!0},r.exports._=t});
+//# sourceMappingURL=x-intl.js.map

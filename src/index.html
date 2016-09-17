@@ -1,0 +1,12 @@
+<x-html title="Cameroun" app="app">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" 
+              rel="stylesheet" type="text/css">
+    </head>
+    
+    <wdg:layout-stack $value="Home" $hash="^#([a-zA-Z0-9]+)" slot:value="onPage">
+        <content list>
+            <x-page key="Home" />
+        </content>
+    </wdg:layout-stack>
+</x-html>

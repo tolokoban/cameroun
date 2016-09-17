@@ -1,0 +1,22 @@
+Fiche identité du patient @PATIENT
+* Identification @SEARCH
+** #LASTNAME Nom
+** #FIRSTNAME Prénom
+** #SECONDNAME Deuxième nom
+** #GENDER Sexe (#GENDER)
+** #COUNTRY Adresse pays (#COUNTRY)
+*** #REGION Adresse region
+**** #DISTRICT Adresse district
+***** #HEALTH-AREA Aire de santé
+****** #VILLAGE Village de résidence
+* Contact
+* Réseau de soins
+* Informations socio-familliales
+
+Données médicales @DATA
+* Antécédent gynécologique
+** #RAGNANA Age de survenue des premières règles (INTEGER)
+** #ABOND abondance des règles (#ABOND)
+* Allergies
+** #ALLE-DRUG Médicamenteuses (#DRUG+)
+** #ALLE-OTHER Autres (#ALLERGIES+)

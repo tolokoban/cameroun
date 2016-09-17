@@ -1,0 +1,50 @@
+#GENDER
+* #H Homme
+* #F Femme
+
+#ABOND
+* #RARE Rare
+* #NORM Normale
+* #ABON Abondante
+
+#BOOL
+* #YES Oui
+* #NO Non
+
+#DRUG
+* #PENI Pénicilline
+* #ALCO Alcool
+
+#ALLERGIES
+* #BEES Abeilles
+* #COBR Cobras
+* #DUST Poussière
+
+#COUNTRY
+* #CAMEROUN Cameroun
+* #MALI Mali
+* #TCHAD Tchad
+
+#LOCALIZATION
+* Cameroun
+** Littoral
+*** District 9
+**** Village 1
+**** Village 2
+**** Village 3
+*** Un peu plus loin
+**** Village A
+**** Village B
+** Centre
+*** Pas tout près
+**** Village Toto
+*** Au fin fond du...
+**** Village Alpha
+**** Village Beta
+**** Village Gama
+** Nord
+*** Il fait froid
+**** Village Glace
+**** Village Eskimo
+*** Il fait pas chaud
+**** Village perdu
