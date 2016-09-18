@@ -1,2 +1,2 @@
-require("page.home",function(e,r){function n(){return t(i,arguments)}var i={en:{},fr:{}},t=require("$").intl;e.search=function(){},r.exports._=n});
+require("page.home",function(e,r){function t(){return u(n,arguments)}var n={en:{},fr:{}},u=require("$").intl,o=require("dom"),a=require("form"),i=require("wdg.button"),c=require("structure");e.onPage=function(){var e=c.getForm("@PATIENT","@SEARCH"),r=new a(e),t=document.getElementById("search-form"),n=document.getElementById("search-result");o.add(t,r),o.clear(n),r.focus=!0;var u=new i({text:"Enregistrer un nouveau patient",enabled:!1});o.add("search-button",u)},r.exports._=t});
 //# sourceMappingURL=page.home.js.map

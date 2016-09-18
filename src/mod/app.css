@@ -92,3 +92,7 @@ p {
     text-align: justify;
     text-shadow: none;
 }
+
+div.right {
+    text-align: right;
+}

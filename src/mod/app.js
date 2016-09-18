@@ -4,18 +4,19 @@ var $ = require("dom");
 var Form = require("form");
 var Structure = require("structure");
 
+var pages = {
+    home: require("page.home")
+};
 
 exports.start = function() {
     console.info("[app] Structure.types=...", Structure.types);
     console.info("[app] Structure.forms=...", Structure.forms);
 
-    var defSearchForm = Structure.getForm('@PATIENT', '@SEARCH');
-    var wdgSearchForm = new Form( defSearchForm );
-    var divSearchForm = document.getElementById('search-form');
-    $.add( divSearchForm, wdgSearchForm );
+    location.hash = "Home";
 };
 
 
 exports.onPage = function( pageId ) {
-
+    var page = pages[pageId.toLowerCase()];
+    if( typeof page !== 'undefined' ) page.onPage();
 };
