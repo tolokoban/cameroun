@@ -1,50 +1,65 @@
-#GENDER
-* #H Homme
-* #F Femme
+* #GENDER
+** #H Homme
+** #F Femme
 
-#ABOND
-* #RARE Rare
-* #NORM Normale
-* #ABON Abondante
+* #ABOND
+** #RARE Rare
+** #NORM Normale
+** #ABON Abondante
 
-#BOOL
-* #YES Oui
-* #NO Non
+* #BOOL
+** #YES Oui
+** #NO Non
 
-#DRUG
-* #PENI Pénicilline
-* #ALCO Alcool
+* #DRUG
+** #PENI Pénicilline
+** #ALCO Alcool
 
-#ALLERGIES
-* #BEES Abeilles
-* #COBR Cobras
-* #DUST Poussière
+* #ALLERGIES
+** #BEES Abeilles
+** #COBR Cobras
+** #DUST Poussière
 
-#COUNTRY
-* #CAMEROUN Cameroun
-* #MALI Mali
-* #TCHAD Tchad
+* #COUNTRY
+** #CAMEROUN Cameroun
+** #MALI Mali
+** #TCHAD Tchad
 
-#LOCALIZATION
-* Cameroun
-** Littoral
-*** District 9
-**** Village 1
-**** Village 2
-**** Village 3
-*** Un peu plus loin
-**** Village A
-**** Village B
-** Centre
-*** Pas tout près
-**** Village Toto
-*** Au fin fond du...
-**** Village Alpha
-**** Village Beta
-**** Village Gama
-** Nord
-*** Il fait froid
-**** Village Glace
-**** Village Eskimo
-*** Il fait pas chaud
-**** Village perdu
+*#LOCALIZATION
+** Cameroun
+*** Littoral
+**** District 9
+***** Village 1
+***** Village 2
+***** Village 3
+**** Un peu plus loin
+***** Village A
+***** Village B
+*** Centre
+**** Pas tout près
+***** Village Toto
+**** Au fin fond du...
+***** Village Alpha
+***** Village Beta
+***** Village Gama
+*** Nord
+**** Il fait froid
+***** Village Glace
+***** Village Eskimo
+**** Il fait pas chaud
+***** Village perdu
+* #RELATIONSHIP
+** #PARENT Parent
+** #BROHER Fraterie
+** #PARTNER Partenaire / Conjoint
+** Enfant
+** Relation extra familiale
+* #PROFESSION
+** #JOB-1 Agriculteur
+** #JOB-2 Artisans, commerçants, chefs d'entreprise
+** #JOB-3 Enseignant
+** #JOB-4 Cadres
+** #JOB-5 Employés
+** #JOB-6 Retraités
+** #JOB-7 Sans emploi
+** #JOB-8 Etudiant, élève

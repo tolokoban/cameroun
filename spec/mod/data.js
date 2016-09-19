@@ -1,0 +1,2 @@
+require("data",function(e,n){function r(){return i(t,arguments)}var t={en:{},fr:{}},i=require("$").intl,a=require("guid"),o=require("tfw.storage").local,u=o.get("cameroun",{});console.info("[data] data=...",u),e.findPatients=function(e,n){"undefined"==typeof n&&(n=5);var r,t,i=[];for(r in u)t=u[r];return i},e.newPatient=function(n){var r=a(),t=JSON.parse(JSON.stringify(n));return t.$id=r,t.$admission=[],u[r]=t,e.save(),r},e.save=function(){o.set("cameroun",u)},n.exports._=r});
+//# sourceMappingURL=data.js.map

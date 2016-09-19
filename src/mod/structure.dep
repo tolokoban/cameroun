@@ -1,6 +1,7 @@
 {
     "var": {
         "forms": "forms.org",
-        "types": "types.org"
+        "types": "types.org",
+        "patient": "patient.org"
     }
 }

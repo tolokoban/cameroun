@@ -1,0 +1,2 @@
+require("guid",function(r,e){function n(){return o(t,arguments)}var t={en:{},fr:{}},o=require("$").intl,u="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$#";e.exports=function(){for(var r,e=Math.floor(Date.now()/1e3),n="";e>0;)r=63&e,n=u.charAt(r)+n,e-=r,e>>=6;return n},e.exports._=n});
+//# sourceMappingURL=guid.js.map

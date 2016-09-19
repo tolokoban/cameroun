@@ -1,5 +1,18 @@
-<header id="page-patient-title"></header>
+<header id="patient.title"></header>
 
 <div>
-    Balblabla
+    <p id="patient.hint" class="theme-color-bg-B0"></p>
+    <wdg:flex>
+        <content list>
+            <wdg:button id="patient.exit" $text="Sortie du patient" $icon="user"/>
+            <wdg:button $text="Créer une nouvelle rencontre" $icon="plus"
+                        slot:action="page.patient:onNewVisit"/>
+        </content>
+    </wdg:flex>
+    <hr/>
+    <wdg:flex>
+        <content list>
+            <wdg:button $text="Retour à l'écran principal" $icon="back" $href="#Home" $type="simple"/>
+        </content>
+    </wdg:flex>
 </div>

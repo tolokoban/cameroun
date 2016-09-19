@@ -88,9 +88,11 @@ h2 {
 }
 
 p {
-    padding: 0;
+    padding: 1rem;
+    margin: 1rem;
     text-align: justify;
     text-shadow: none;
+    border-radius: 3px;
 }
 
 div.right {

@@ -5,19 +5,14 @@
  */
 var Parser = require("structure.parser");
 
-try {
-    exports.types = Parser.parse(GLOBAL.types);
-}
-catch (ex) {
-    console.error("Unable to parse `types.org`:", ex);
-}
-
-try {
-    exports.forms = Parser.parse(GLOBAL.forms);
-}
-catch (ex) {
-    console.error("Unable to parse `patient.org`:", ex);
-}
+['types', 'forms', 'patient'].forEach(function (id) {
+    try {
+        exports[id] = Parser.parse(GLOBAL[id]);
+    }
+    catch (ex) {
+        console.error("Unable to parse `" + id + ".org`:", ex);
+    }
+});
 
 
 exports.getForm = function() {

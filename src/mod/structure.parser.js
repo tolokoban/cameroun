@@ -15,7 +15,7 @@
  * ignore tous  les espaces/tabulations en  début de ligne.  Le nombre
  * d'astérisques  `*`  qui  commencent  une ligne  indique  le  niveau
  * hiérarchique.
- * Au  niveau 0,  on trouve  l'identifiant du  type qui  doit toujours
+ * Au  niveau 1,  on trouve  l'identifiant du  type qui  doit toujours
  * commencer par un dièse `#`.
  *
  * Voici un  exemple de  fichier en  entrée et de  comment on  doit le
@@ -79,9 +79,13 @@ exports.parse = function(code) {
             if (line.length == 0) return;
             // Ignorer les commentaires.
             if (line.substr(0, 2) == '//') return;
+            if (line.charAt(0) != '*') {
+                throw "Une ligne non vide et non commentée doit toujours commencer "
+                    + "par au moins une astérisque pour indiquer le niveau hiérarchique.";
+            }
 
             // Calculer le niveau hiérarchique `level`.
-            var level = 1;
+            var level = 0;
             while (line.charAt(0) == '*') {
                 line = line.substr(1);
                 level++;
@@ -102,7 +106,6 @@ exports.parse = function(code) {
                 throw "Vous avez déjà déclaré cet identifiant : `" + item.id + "` !";
             }
             levels[levels.length - 1][item.id] = item;
-            delete item.id;
             levels.push( item.children );
         }
         catch (ex) {
@@ -113,24 +116,24 @@ exports.parse = function(code) {
 };
 
 
+
 function parseLine( line ) {
     line = line.trim();
     var item = { children: {} };
     var m = RX_LINE.exec(line);
-    if (m[1]) {
-        item.id = m[1].trim();
-    }
     if (m[2]) {
         item.caption = m[2].trim();
+    }
+    if (m[1]) {
+        item.id = m[1].trim();
+    } else {
+        item.id = item.caption;
     }
     if (m[3]) {
         item.type = m[3].substr(1, m[3].length - 2).trim();
     }
     if (m[4]) {
         item.tags = m[4].trim().substr(1).split('\n').map(function(v) { return v.trim(); });
-    }
-    if (!item.id) {
-        item.id = item.caption;
     }
 
     return item;

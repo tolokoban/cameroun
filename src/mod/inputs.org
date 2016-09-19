@@ -1,4 +1,0 @@
-#LASTNAME Nom
-#FIRSTNAME Prénom
-#SECONDNAME Autre nom
-#GENDER Sexe (#GENDER)

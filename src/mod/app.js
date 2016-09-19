@@ -5,7 +5,8 @@ var Form = require("form");
 var Structure = require("structure");
 
 var pages = {
-    home: require("page.home")
+    home: require("page.home"),
+    patient: require("page.patient")
 };
 
 exports.start = function() {
