@@ -1,0 +1,5 @@
+Fiche identité du patient
+* Identification
+* Contact
+* Réseau de soins
+* Informations socio-familliales

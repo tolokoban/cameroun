@@ -25,6 +25,14 @@ exports.onPage = function() {
     addForm( container, Structure.forms );
 };
 
+
+exports.onClose = function() {
+    var visit = Data.getLastVisit( g_patient );
+    visit.exit = Date.now();
+    Data.save();
+    location.hash = "#Home";
+};
+
 /**
  * @param {DOM} parent
  * @param {object} def - Définition des zones de saisie.

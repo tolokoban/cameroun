@@ -4,4 +4,11 @@
     <div id="search-form"></div>
     <ul id="search-result"></ul>
     <div id="search-button" class="right"></div>
+    <hr/>
+    <wdg:flex>
+        <content list>
+            <wdg:button $text="Exporter la base" $icon="export" slot:action="page.home:onExport"/>
+            <wdg:button $text="Importer la base" $icon="import" $type="warning"/>
+        </content>
+    </wdg:flex>
 </div>

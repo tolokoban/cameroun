@@ -8,6 +8,11 @@
 ** #TO-WARN Personne à prévenir
 ** #RELATION Relation de cette personne avec le patient (#RELATIONSHIP)
 * Réseau de soins
+* Sections emboîtées
+** Sous-section I
+*** #BLABLA Quoi de neuf, docteur ?
+** Sous-section II
+*** #ASPIRINE Une bonne aspirine et ça repart !
 * Informations socio-familliales
 ** #CHILDREN-COUNT Nombre d'enfants (INTEGER)
 ** #PROFESSION Profession (#PROFESSION)
@@ -17,3 +22,4 @@
 * Allergies
 ** #ALLE-DRUG Médicamenteuses (#DRUG+)
 ** #ALLE-OTHER Autres (#ALLERGIES+)
+   

@@ -21,20 +21,30 @@
 ** #DUST Poussière
 
 * #COUNTRY
-** #CAMEROUN Cameroun
-** #MALI Mali
-** #TCHAD Tchad
-
-*#LOCALIZATION
-** Cameroun
+** Afrique du Sud
+** Algérie
+** Angola
+** Bénin
+** Botswana
+** Burkina Faso
+** Burundi
+** #CM Cameroun
 *** Littoral
 **** District 9
-***** Village 1
-***** Village 2
-***** Village 3
+***** Aire de santé des pieds plats
+****** La Muraz
+****** Monnetier
+****** Les Houches
 **** Un peu plus loin
 ***** Village A
-***** Village B
+**** Neufs laxistes
+***** AS 41
+****** Chamonix
+****** Andréa City
+***** AS 43
+****** Lyon
+****** Paris
+****** Marseille
 *** Centre
 **** Pas tout près
 ***** Village Toto
@@ -48,6 +58,50 @@
 ***** Village Eskimo
 **** Il fait pas chaud
 ***** Village perdu
+** #CV Cap-Vert
+** #CF République centrafricaine
+** #KM Comores
+** #CG République du Congo
+** #CD République démocratique du Congo
+** #CI Côte d'Ivoire
+** #DJ Djibouti
+** #EG Égypte
+** Érythrée
+** Éthiopie
+** Gabon
+** Gambie
+** Ghana
+** Guinée
+** Guinée-Bissau
+** Kenya
+** Lesotho
+** Liberia
+** Libye
+** Madagascar
+** Malawi
+** Mali
+** Maroc
+** Maurice
+** Mauritanie
+** Mozambique
+** Namibie
+** Niger
+** Nigeria
+** Ouganda
+** Rwanda
+** Sénégal
+** Seychelles
+** Sierra Leone
+** Somalie
+** Soudan
+** Soudan du Sud
+** Swaziland
+** Tanzanie
+** Tchad
+** Togo
+** Tunisie
+** Zambie
+** Zimbabwe
 * #RELATIONSHIP
 ** #PARENT Parent
 ** #BROHER Fraterie

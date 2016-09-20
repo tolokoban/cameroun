@@ -17,9 +17,11 @@ exports.getPatientCaption = function( patient ) {
  * donc de retrouver le texte  associé à l'identifiant, ou à retourner
  * le texte tel quel s'il ne s'agit pas d'un identifiant.
  */
-exports.expand = function( text, type ) {
+exports.expand = function( text, type, level ) {
     if( typeof text === 'undefined' ) return '';
     if( typeof type === 'undefined' ) return text;
+    if( typeof level === 'undefined' ) level = 0;
+
     var typeDic = Structure.types[type];
     if( typeof typeDic === 'undefined' ) return text;
     var expansion = typeDic.children[text.trim().toUpperCase()];
@@ -40,7 +42,7 @@ exports.date = function( ms ) {
     return WEEK_DAY[date.getDay()]
         + " " + date.getDate()
         + " " + MONTH[date.getMonth()]
-        + " " + date.getYear()
+        + " " + date.getFullYear()
         + " à " + exports.pad(date.getHours())
         + ":" + exports.pad(date.getMinutes());
 };
@@ -50,6 +52,7 @@ exports.pad = function( txt, size, prepend ) {
     if( typeof size !== 'number' ) size = 2;
     if( typeof prepend !== 'string' ) prepend = '0';
 
+    txt = "" + txt;
     while (txt.length < size) txt = prepend + txt;
     return txt;
 };

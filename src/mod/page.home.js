@@ -5,15 +5,20 @@ var Data = require("data");
 var Format = require("format");
 var Button = require("wdg.button");
 var Structure = require("structure");
+var LocalDownload = require("tfw.local-download");
 
 
 exports.onPage = function() {
     var defSearchForm = Structure.patient;
     var wdgSearchForm = new Form( defSearchForm );
     var divSearchForm = document.getElementById('search-form');
+    $.clear( divSearchForm );
     var divSearchResult = document.getElementById('search-result');
+    $.clear( divSearchResult );
+    var divSearchButton = document.getElementById('search-button');
+    $.clear( divSearchButton );
+    
     $.add( divSearchForm, wdgSearchForm );
-    $.clear(divSearchResult);
     wdgSearchForm.focus = true;
     var btnRegister = new Button({
         text: "Enregistrer un nouveau patient",
@@ -65,4 +70,10 @@ exports.onPage = function() {
         var id = Data.newPatient( wdgSearchForm.value );
         location.hash = "Patient/" + id;
     });
+};
+
+
+exports.onExport = function() {
+    var data = Data.export();
+    LocalDownload.saveAs( data, "base.json", "application/json" );
 };

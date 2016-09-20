@@ -1,8 +1,9 @@
 "use strict";
 
-/**
- *
- */
+var $ = require("dom");
+var Storage = require("tfw.storage").session;
+
+
 var Parser = require("structure.parser");
 
 ['types', 'forms', 'patient'].forEach(function (id) {
@@ -10,7 +11,9 @@ var Parser = require("structure.parser");
         exports[id] = Parser.parse(GLOBAL[id]);
     }
     catch (ex) {
-        console.error("Unable to parse `" + id + ".org`:", ex);
+        Storage.set('error', "Erreur dans le fichier `" + id + ".org` à la ligne " + ex.lineNumber
+                    + " :\n\n" + ex.message);
+        location = "error.html";
     }
 });
 
