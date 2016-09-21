@@ -28,9 +28,9 @@
 ** Botswana
 ** Burkina Faso
 ** Burundi
-** #CM Cameroun
+** #CA Cameroun
 *** Littoral
-**** District 9
+**** #D9 District 9
 ***** Aire de santé des pieds plats
 ****** La Muraz
 ****** Monnetier

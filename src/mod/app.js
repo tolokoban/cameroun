@@ -1,5 +1,7 @@
 "use strict";
 
+require("font.josefin");
+
 var $ = require("dom");
 var Form = require("form");
 var Structure = require("structure");

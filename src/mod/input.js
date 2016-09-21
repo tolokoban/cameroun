@@ -65,23 +65,76 @@ function addWidget( container, def, patient, visit ) {
         $.div([wdg])
     ]));
 
-    addWidgetMultiple( container, def, patient, visit );
+    addWidgetMultiple( container, wdg, def, patient, visit );
 }
 
-function addWidgetMultiple( container, def, patient, visit ) {
+function addWidgetMultiple( container, parentWidget, def, patient, visit ) {
     // Gérer les hiérarchies.
     var wdg;
     var parent = def;
     var child = def;
     var level = 0;
+
+    var mapValueToID = {};
+    var completion = findHierarchicalCompletion(Structure.types[def.type], mapValueToID);
+
     while (null != (child = getFirstChild(parent))) {
+        parentWidget = createHierarchicalWidget(
+            container, visit, mapValueToID, parentWidget, patient, def, child, level, completion );
         level++;
-        createHierarchicalWidget( container, patient, def, child, level );
         parent = child;
     }
 }
 
-function createHierarchicalWidget( container, patient, def, child, level ) {
+/**
+ * Recherche récursive des complétions par niveau.
+ * ```
+ * result: [
+ *   { "Europe": ["France", "Italie"], "Afrique": ["Cameroun", "Mali"] },
+ *   {
+ *     "France": ["Paris", "Marseille"],
+ *     "Italie": ["Padova", "Milano"],
+ *     "Cameroun": ["Yaoundé"],
+ *     "Mali": ["Bamako"]
+ *   }
+ * ]
+ * ```
+ */
+function findHierarchicalCompletion( typeDic, map, level, result, parentKey ) {
+    if (typeof typeDic === 'undefined') return [];
+    if( typeof level === 'undefined' ) level = 0;
+    if( typeof result === 'undefined' ) result = [];
+
+    if (result.length <= level) result.push({});
+
+    var key, child;
+    for( key in typeDic.children ) {
+        child = typeDic.children[key];
+        // On mémorise un dictionaires de clefs en fonction des valeurs.
+        // Cela va  nous servir à  stoquer la clef  en base et  nom la
+        // valeur qui peut dépendre de la langue.
+        map[child.caption.trim().toUpperCase()] = key;
+        if (level > 0) {
+            if (!result[level - 1][parentKey]) result[level - 1][parentKey] = [child.caption];
+            else result[level - 1][parentKey].push(child.caption);
+        }
+        findHierarchicalCompletion( child, map, level + 1, result, key );
+    }
+
+    return result;
+}
+
+
+function createHierarchicalWidget( container,
+                                   visit,
+                                   mapValueToID,
+                                   parentWidget,
+                                   patient,
+                                   def,
+                                   child,
+                                   level,
+                                   completion )
+{
     var type = Structure.types[def.type];
     var value = Data.getValue( patient, child.id );
     var wdg = new Text({
@@ -89,10 +142,31 @@ function createHierarchicalWidget( container, patient, def, child, level ) {
         placeholder: Format.expand(value.old, type, level),
         value: Format.expand(value.new, type, level)
     });
+    DB.bind( wdg, 'focus', function(v) {
+        if (v) {
+            var parentValue = parentWidget.value.trim().toUpperCase();
+            var key = mapValueToID[parentValue];
+            wdg.list = completion[level][key || parentValue] || [];
+        }
+    });
+    DB.bind( wdg, 'value', function(v) {
+        if (typeof v !== 'string') return;
+        v = v.trim();
+        if (v.length == 0) {
+            delete visit.data[child.id];
+        } else {
+            // Quand c'est possible, on essaie de stoquer un ID plutôt qu'un texte libre.
+            var valueID = mapValueToID[v.trim().toUpperCase()];
+            visit.data[child.id] = valueID || v;
+        }
+        Data.save();
+    });
     $.add( container, $.div([
         $.div([child.caption]),
         $.div([wdg])
     ]));
+
+    return wdg;
 }
 
 

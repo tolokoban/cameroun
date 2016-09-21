@@ -127,7 +127,7 @@ function parseLine( line ) {
     if (m[1]) {
         item.id = m[1].trim();
     } else {
-        item.id = item.caption;
+        item.id = item.caption.toUpperCase();
     }
     if (m[3]) {
         item.type = m[3].substr(1, m[3].length - 2).trim();

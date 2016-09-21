@@ -1,5 +1,5 @@
 * Géographie
-** #COUNTRY Adresse pays (#LOCALIZATION)
+** #COUNTRY Adresse pays (#COUNTRY)
 *** #REGION Adresse region
 **** #DISTRICT Adresse district
 ***** #HEALTH-AREA Aire de santé

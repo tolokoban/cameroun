@@ -1,0 +1,2 @@
+require("tfw.local-download",function(t,e){function n(){return d(o,arguments)}var o={en:{},fr:{}},d=require("$").intl;t.saveAs=function(t,e,n){"undefined"==typeof e&&(e="output.txt"),"undefined"==typeof n&&(n="text/plain");var o=document.createElement("a");o.setAttribute("href","data:"+n+";charset=UTF-8,"+encodeURIComponent(t)),o.setAttribute("download",e),o.setAttribute("title",e),o.setAttribute("target","download"),document.body.appendChild(o),o.click(),document.body.removeChild(o)},e.exports._=n});
+//# sourceMappingURL=tfw.local-download.js.map

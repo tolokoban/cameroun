@@ -1,0 +1,2 @@
+require("error",function(e,r){function t(){return o(n,arguments)}var n={en:{},fr:{}},o=require("$").intl,i=require("tfw.storage").session;document.getElementById("error").textContent=i.get("error","..."),r.exports._=t});
+//# sourceMappingURL=error.js.map

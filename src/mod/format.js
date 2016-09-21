@@ -22,12 +22,32 @@ exports.expand = function( text, type, level ) {
     if( typeof type === 'undefined' ) return text;
     if( typeof level === 'undefined' ) level = 0;
 
-    var typeDic = Structure.types[type];
-    if( typeof typeDic === 'undefined' ) return text;
-    var expansion = typeDic.children[text.trim().toUpperCase()];
-    if( typeof expansion === 'undefined' ) return text;
-    return expansion.caption || '';
+    var typeDic = type;
+    if (typeof typeDic === 'string') typeDic = Structure.types[type];
+    text = text.trim().toUpperCase();
+    var expansion = findExpansion( text, typeDic, level );
+    return expansion || '';
 };
+
+/**
+ * Recherche récursive à un certain niveau de l'arbre des types.
+ */
+function findExpansion( text, typeDic ) {
+    if (!typeDic) return undefined;
+
+    var item = typeDic.children[text];
+    if( typeof item === 'undefined' ) {
+        var k, v;
+        for( k in typeDic.children ) {
+            v = typeDic.children[k];
+            item = findExpansion( text, v );
+            if (item) return item;
+        }
+    } else {
+        return item.caption;
+    }
+    return undefined;
+}
 
 
 var WEEK_DAY = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
