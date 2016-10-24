@@ -4,22 +4,131 @@
 **** #DISTRICT Adresse district
 ***** #HEALTH-AREA Aire de santé
 ****** #VILLAGE Village de résidence
+
 * Contact
+** #TELEPHONE Téléphone
+** #MAIL Courriel
 ** #TO-WARN Personne à prévenir
-** #RELATION Relation de cette personne avec le patient (#RELATIONSHIP)
+** #TO-WARN-CONTACT Téléphone de cette personne
+** #TO-WARN-RELATION Relation de cette personne avec le patient (#TO-WARN-RELATIONSHIP)
+
 * Réseau de soins
-* Sections emboîtées
-** Sous-section I
-*** #BLABLA Quoi de neuf, docteur ?
-** Sous-section II
-*** #ASPIRINE Une bonne aspirine et ça repart !
-* Informations socio-familliales
-** #CHILDREN-COUNT Nombre d'enfants (INTEGER)
+** #NETWORK Autres médecins de référence (HIV, diabète...)
+
+* Informations socio-familiales
+** #FAMILY-SITUATION Situation familiale (#FAMILY-SITUATION)
+** #CHILDREN Nombre d’enfant (INTEGER)
 ** #PROFESSION Profession (#PROFESSION)
-* Antécédent gynécologique
-** #RAGNANA Age de survenue des premières règles (INTEGER)
-** #ABOND abondance des règles (#ABOND)
-* Allergies
-** #ALLE-DRUG Médicamenteuses (#DRUG+)
-** #ALLE-OTHER Autres (#ALLERGIES+)
+*** #PROFESSION-OTHER Si autre profession, laquelle
+
+* Antécédents familiaux
+** #FAMILY-HISTORY Antécédents familiaux
+
+* Antécédents gynécologiques
+** #FIRST-PERIOD Age de survenue des premières règles
+** #REGULARITY-PERIOD régularité (#YES-NO-UNDOCUMENTED)
+** #QUANTITY-PERIOD abondance des règles (#QUANTITY-PERIOD)
+** #PREMENSTRUAL-PERIOD Syndrome PréMenstruel (#YES-NO-UNDOCUMENTED)
+** #CONTRACEPTION Nature de la contraception (#CONTRACEPTION)
+** #MENOPAUSE Ménopause (#YES-NO-UNDOCUMENTED)
+** #GYNECOLOGICAL-TUMOR Pathologie tumorale gynécologique diagnostiquée (#GYNECOLOGICAL-TUMOR)
+*** #GYNECOLOGICAL-TUMOR-OTHER Si autre pathologie gynécologique tumorale, laquelle
+** #GYNECOLOGICAL-HISTORY-OTHER Autres antécédents gynécologiques
+
+* Antécédents obstétricaux
+** #GRAVIDIY Gestité (INTEGER)
+** #PARITY Parité (INTEGER)
+** #PREGNANCY-DATE Dates des accouchements
+** #MISCARRIAGE Nombre de Fausses couches spontanées
+** #ECTOPIC-PREGNANCY Nombre de Grossesses extra utérines (INTEGER)
+** #ABORTION Nombre interruption volontaire de la grossesse (INTEGER)
+** #OBSTETRIC-HISTORY-OTHER Autres antécédents obstétricaux
+
+* Antécédents médicaux autres
+** #HIV VIH (#YES-NO-UNDOCUMENTED)
+** #SYPHILIS Syphilis diagnostiqué (#YES-NO-UNDOCUMENTED)
+** #STD-OTHER Autre MST diagnostiquée (#YES-NO-UNDOCUMENTED)
+** #DIABETIS Diabète diagnostiqué (#YES-NO-UNDOCUMENTED)
+** #HIGH-BLOOD-PRESSURE HTA diagnostiqué (#YES-NO-UNDOCUMENTED)
+** #CARDIOVSCULAR-TROUBLE Trouble cardiovasculaire diagnostiqué (#YES-NO-UNDOCUMENTED)
+** #THROMBOEMBOLIC Maladie thromboembolique diagnostiquée (#YES-NO-UNDOCUMENTED)
+** #GYNECOLOGICAL-TUMOR-OTHER Cancer Autre que gynécologique (#YES-NO-UNDOCUMENTED)
+** #MEDICAL-HISTORY-DOCUMENTATION Complément d'informations sur les antécédents médicaux
+** #MEDICAL-HISTORY-OTHER Autres antécédents médicaux
+
+* Allergie
+** #ALLERGY-DRUG Allergie médicamenteuse (#YES-NO-UNDOCUMENTED)
+*** #ALLERGY-DRUG-WHAT Si oui, laquelle
+** #ALLERGY-OTHER Allergie Autre (#YES-NO-UNDOCUMENTED)
+*** #ALLERGY-OTHER-WHAT Si oui, laquelle
+
+* Conduites addictives
+** #TABACCO tabac (#YES-NO-UNDOCUMENTED)
+** #ALCOHOL Alcool (#YES-NO-UNDOCUMENTED)
+
+* Conjoint
+** #PARTNER Nombre de partenaire (#PARTNER)
+
+
+* #CONSULTANT Nom du consultant (#CONSULTANT)
+
+* Anamnèse
+** #MOTIF-CONSULTATION Motif de consultation
+** #MEDICAL-HISTORY Histoire clinique de l’épisode
+** #HYPOMENORRHEA hypoménorrhées règles < 3 jours (#YES-NO-UNDOCUMENTED)
+** #HYPERMENORRHEA hyperménorrhées règles > 8 jours (#YES-NO-UNDOCUMENTED)
+** #OLIGOMENORRHEA oligoménorrhées règles trop peu abondantes (#YES-NO-UNDOCUMENTED)
+** #POLYMENORRHEA polyménorrhées règles trop abondantes (#YES-NO-UNDOCUMENTED)
+** #HYPERPOLYMENORRHEA hyperpolyménorrhées= ménorragies  (#YES-NO-UNDOCUMENTED)
+** #POLLAKIMENORRHEA pollakiménorrhées cycles courts (#YES-NO-UNDOCUMENTED)
+** #SPANIOMENORRHEA spanioménorrhées cycles longs (#YES-NO-UNDOCUMENTED)
+** #METRORRHAGIA métrorragies saignements anormaux d'origine utérine sans rapport avec les règles (#YES-NO-UNDOCUMENTED)
+** #AMENORRHEA Aménorrhées absence de règles (#AMENORRHE)
+** #PELVIC-PAIN les algies pelviennes (#PELVIC-PAIN)
+** #BREAST-DISEASE Pathologie mammaire
+** #SEXUAL-TROUBLE Troubles de la vie sexuelle
+** #CONTRACEPTION-NOW Contraception actuelle (#CONTRACEPTION)
+** #PREGNANCY-NOW Grossesse connue (#YES-NO-UNDOCUMENTED)
+
+* Examen clinique général
+** #TA Tension artérielle
+** #TEMPERATURE Température
+** #WEIGHT Poids
+** #POUL Poul
+** #RESPIRATORY-FREQUENCY Fréquence respiratoire
+** #TREATMENT-NOW Traitement en cours
+** #ECG ECG
+
+* Examen clinique gynécologique
+** #VAGINAL-EXAMINATION Examen vulvo-vaginal
+** #CONDAOLYLOMA Condylomes
+** #GENITAL-PROLAPSE Prolapsus génital
+** #OTHERS Autres
+** #BREAST-EXAMINATION Examen des seins
+** #VAGINAL-TOUCH Examen bimanuel, Toucher vaginal
+
+* Tests rapides faits en salle de consultation
+** #PREGNANCY-TEST Résultat du test de grossesse (#POSITIVE-NEGATIVE-UNDOCUMENTED)
+** #URINARY-STICK Stick urinaire
+
+*Synthèse de la consultation
+** #CONSULTATION-SYNTHESIS Synthèse de la consultation
+
+* Diagnostic (basé sur ICD)
+** #CERVICAL-CANCER Cancer cervical (#DIAGNOSTIC)
+** #BREAST-CANCER Cancer du sein (#DIAGNOSTIC)
+** #GENITAL-SCHISTOSOMIASIS Schistosomiase génitale (#DIAGNOSTIC)
+** #SYPHILIS Syphilis (#DIAGNOSTIC)
+** #HIV VIH (#DIAGNOSTIC)
+** #CHLAMYDIA Chlamydia (#DIAGNOSTIC)
+** #STD-OTHERS Autres MST
+** #PREGNANCY Grossesse (#DIAGNOSTIC)
+** #DIAGNOSTIC-OTHER Autre diagnostic
+
+
+
+
+
+
+
    

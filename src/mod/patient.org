@@ -2,4 +2,7 @@
 * #PATIENT-FIRSTNAME Prénom
 * #PATIENT-SECONDNAME Deuxième nom @OPTIONAL
 * #PATIENT-GENDER Sexe (#GENDER)
-* #PATIENT-COUNTRY Adresse pays (#COUNTRY)
+* #PATIENT-BIRTH Date de naissance
+* #PATIENT-SIZE Taille en cm
+* #PATIENT-COUNTRY Nationalité (#NATIONALITY)
+

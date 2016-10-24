@@ -1,113 +1,34 @@
+* #ADMISSION
+** #EXTERNE Consultation externe
+** #HOSPITALISATION Hospitalisation
+
 * #GENDER
 ** #H Homme
 ** #F Femme
 
-* #ABOND
-** #RARE Rare
-** #NORM Normale
-** #ABON Abondante
-
-* #BOOL
+* #YES-NO-UNDOCUMENTED
 ** #YES Oui
 ** #NO Non
+** #UNDOCUMENTED Non documenté
 
 * #DRUG
 ** #PENI Pénicilline
 ** #ALCO Alcool
 
-* #ALLERGIES
-** #BEES Abeilles
-** #COBR Cobras
-** #DUST Poussière
-
-* #COUNTRY
-** Afrique du Sud
-** Algérie
-** Angola
-** Bénin
-** Botswana
-** Burkina Faso
-** Burundi
-** #CA Cameroun
-*** Littoral
-**** #D9 District 9
-***** Aire de santé des pieds plats
-****** La Muraz
-****** Monnetier
-****** Les Houches
-**** Un peu plus loin
-***** Village A
-**** Neufs laxistes
-***** AS 41
-****** Chamonix
-****** Andréa City
-***** AS 43
-****** Lyon
-****** Paris
-****** Marseille
-*** Centre
-**** Pas tout près
-***** Village Toto
-**** Au fin fond du...
-***** Village Alpha
-***** Village Beta
-***** Village Gama
-*** Nord
-**** Il fait froid
-***** Village Glace
-***** Village Eskimo
-**** Il fait pas chaud
-***** Village perdu
-** #CV Cap-Vert
-** #CF République centrafricaine
-** #KM Comores
-** #CG République du Congo
-** #CD République démocratique du Congo
-** #CI Côte d'Ivoire
-** #DJ Djibouti
-** #EG Égypte
-** Érythrée
-** Éthiopie
-** Gabon
-** Gambie
-** Ghana
-** Guinée
-** Guinée-Bissau
-** Kenya
-** Lesotho
-** Liberia
-** Libye
-** Madagascar
-** Malawi
-** Mali
-** Maroc
-** Maurice
-** Mauritanie
-** Mozambique
-** Namibie
-** Niger
-** Nigeria
-** Ouganda
-** Rwanda
-** Sénégal
-** Seychelles
-** Sierra Leone
-** Somalie
-** Soudan
-** Soudan du Sud
-** Swaziland
-** Tanzanie
-** Tchad
-** Togo
-** Tunisie
-** Zambie
-** Zimbabwe
 * #RELATIONSHIP
 ** #PARENT Parent
-** #BROHER Fraterie
+** #BROTHER Fratrie
 ** #PARTNER Partenaire / Conjoint
-** Enfant
-** Relation extra familiale
+** #CHILDREN Enfant
+** #RELATIONSHIP-OTHER Autre
+
+* #FAMILY-SITUATION
+** #SINGLE Célibataire
+** #MARRIED Marié
+** #COUPLE Vit en couple
+** #WIDOW Veuve
+** DIVORCED Divorcé, séparé
+
 * #PROFESSION
 ** #JOB-1 Agriculteur
 ** #JOB-2 Artisans, commerçants, chefs d'entreprise
@@ -117,3 +38,2185 @@
 ** #JOB-6 Retraités
 ** #JOB-7 Sans emploi
 ** #JOB-8 Etudiant, élève
+
+* #NATIONALITY
+** #NAT-ZA Afrique du Sud
+** #NAT-DZ Algérie
+** #NAT-AO Angola
+** #NAT-BJ Bénin
+** #NAT-BW Botswana
+** #NAT-BF Burkina Faso
+** #NAT-BI Burundi
+** #NAT-CM Cameroun
+** #NAT-CV Cap-Vert
+** #NAT-CF République centrafricaine
+** #NAT-KM Comores
+** #NAT-CG République du Congo
+** #NAT-CD République démocratique du Congo
+** #NAT-CI Côte d'Ivoire
+** #NAT-DJ Djibouti
+** #NAT-EG Égypte
+** #NAT-ER Érythrée
+** #NAT-ET Éthiopie
+** #NAT-GA Gabon
+** #NAT-GM Gambie
+** #NAT-GH Ghana
+** #NAT-GN Guinée
+** #NAT-GW Guinée Bissau
+** #NAT-GQ Guinée Equatoriale
+** #NAT-KE Kenya
+** #NAT-LS Lesotho
+** #NAT-LR Liberia
+** #NAT-LY Libye
+** #NAT-MG Madagascar
+** #NAT-MW Malawi
+** #NAT-ML Mali
+** #NAT-MA Maroc
+** #NAT-MU Maurice
+** #NAT-MR Mauritanie
+** #NAT-MZ Mozambique
+** #NAT-NA Namibie
+** #NAT-NI Niger
+** #NAT-NE Nigeria
+** #NAT-UG Ouganda
+** #NAT-RW Rwanda
+** #NAT-SN Sénégal
+** #NAT-SC Seychelles
+** #NAT-SL Sierra Leone
+** #NAT-SO Somalie
+** #NAT-SD Soudan
+** #NAT-SS Soudan du Sud
+** #NAT-SZ Swaziland
+** #NAT-TZ Tanzanie
+** #NAT-TD Tchad
+** #NAT-TG Togo
+** #NAT-TN Tunisie
+** #NAT-ZM Zambie
+** #NAT-ZW Zimbabwe
+
+* #AMENORRHEE
+** #No Non
+** # AMENORRHEE-PRIMAIRE aménorrhée primaire
+** # AMENORRHEE-SECONDAIRE aménorrhée secondaire
+
+* #QUANTITY-PERIOD
+** #RARE Rare
+** #NORMAL Normal
+** #PROFUSE Abondante
+** #UNDOCUMENTED Non documenté
+
+* #CONTRACEPTION
+** #CONTRACEPTION-NO Pas de contraception
+** #CONTRACEPTION-PRESERVATIF-MASC Préservatif masculin
+** #CONTRACEPTION-PRESERVATIF-FEM Préservatif féminin
+** #CONTRACEPTION-ORAL Contraceptif oral
+** #CONTRACEPTION-IMPLANT Implant
+** #CONTRACEPTION-INJ Contraceptif injectable
+** #CONTRACEPTION-OTHER Autre
+** #CONTRACEPTION-UNDOCUMENTED Non documenté
+
+* #GYNECOLOGICAL-TUMOR
+** #CANCER-SEIN Cancer du sein
+** #CANCER-CERVICAL Cancer cervical
+** #CANCER-GYNECO-OTHER Autre pathologie gynécologique tumorale
+
+* #COUNTRY
+** #ZA Afrique du Sud
+** #DZ Algérie
+** #AO Angola
+** #BJ Bénin
+** #BW Botswana
+** #BF Burkina Faso
+** #BI Burundi
+
+** #CM Cameroun
+*** #CM-ADAM Adamaoua
+**** #CM-ADAM-BAN District Banyo
+***** AS Allat
+***** AS Boumdo
+***** AS Djem
+***** AS Fada
+***** AS Hore Taram
+***** AS Mayo Darle CMA
+***** AS Mayo Darle CSPC
+***** AS Mayo Djinga
+***** AS Mayo Kelele
+***** AS Mbamti Katarko
+***** AS Ndiwawa
+***** AS Ribao
+***** AS Sambo Labo
+***** AS Taram Yabam
+***** AS Tiket
+**** District de Bankim
+***** AS Atta
+***** AS Bandam
+***** AS Bankim rural
+***** AS Bankim urbain
+***** AS Nyamboya
+***** AS Somie
+***** AS Songkolong
+**** District Djohong
+***** AS Batoua-godole
+***** AS Djohong
+***** AS Kombo - Laka
+***** AS Ngam
+***** AS Ngaoui
+***** AS Yamba
+***** AS Yarmbang
+**** District Meiganga
+***** AS Babongo
+***** AS Badjer
+***** AS Beka
+***** AS Bindiba
+***** AS Boula
+***** AS Dir CMA
+***** AS Gandinang
+***** AS Gunbela
+***** AS Kaka
+***** AS Kalaldi
+***** AS Lokoti
+***** AS Mbarang
+***** AS Meidougou
+***** AS Meiganga prive
+***** AS Meiganga public
+**** District Ngaoundal
+***** AS Bagodo
+***** AS Beka Gotto
+***** AS Danfili
+***** AS Ngaoundal Catholique
+***** AS Ngaoundal CMA
+***** AS Pangar
+**** District Ngaoundere Rural
+***** AS Beka-Hossere
+***** AS Belel
+***** AS Dang
+***** AS Dibi
+***** AS Likok
+***** AS Martap
+***** AS Mbang-Mboum
+***** AS Mbe
+***** AS Ngan-ha
+***** AS Nyambaka
+***** AS Sassa-Mbersi
+***** AS Tourningal
+***** AS Wack
+***** AS Wassande
+***** AS Bamyanga
+***** AS Boumdjere
+***** AS Ndelbe
+***** AS Sabongari
+**** District Tibati
+***** AS Allat Mengack
+***** AS Djombi
+***** AS Mbakaou
+***** AS Meidjamba
+***** AS Minim
+***** AS Ngaoubela
+***** AS Tibati CMA
+***** AS Tibati CSI
+***** AS Tongo
+**** District Tignere
+***** AS Alme
+***** AS Dode
+***** AS Doualayel
+***** AS Gadjiwan
+***** AS Galim Tignere
+***** AS Garbaya Yelwa
+***** AS Kontcha
+***** AS Libong
+***** AS Mayo Bale
+***** AS Tchabal Mbabo
+***** AS Tignere
+***** AS Wogomdou
+
+*** Centre
+**** District Akonolinga
+***** AS Abem
+***** AS Akak
+***** AS Akonolinga urbain
+***** AS Djoudjoua
+***** AS Edjom
+***** AS Ekoudou
+***** AS Emvane - So
+***** AS Endom
+***** AS Mengang
+***** AS Mengueme-si
+***** AS Yeme-yeme
+***** AS Zalom
+
+**** District Awae
+***** AS Elat minkom
+***** AS Mimbang
+***** AS Ngat
+***** AS Nkolessong
+***** AS Olanguina
+
+**** District Ayos
+***** AS Ayos
+***** AS Efoufoup
+***** AS Kobdombo
+***** AS Mang
+***** AS Mbaka
+***** AS Mboke
+***** AS Nganga
+***** AS Nkoambang
+***** AS Nyamvoudou
+***** AS Salla
+***** AS Yenassa
+
+
+**** District Bafia
+***** AS Assala
+***** AS Bafia i
+***** AS Bafia ii
+***** AS Bafia rural
+***** AS Balamba
+***** AS Baliama
+***** AS Bayomen
+***** AS Bokito
+***** AS Bongo
+***** AS Deuk
+***** AS Donenkeng
+***** AS Gbwah
+***** AS Goufan
+***** AS Kiki
+***** AS Mouko
+***** AS Ombessa
+***** AS Roum
+***** AS Tsekane
+***** AS Yangben
+
+**** District Biyem Assi
+***** AS Akok-ndoe
+***** AS Biscuiterie
+***** AS Biyem - Assi 1
+***** AS Biyem - Assi 2
+***** AS Etoug - Ebe
+***** AS Melen elig-effa
+***** AS Mendong
+***** AS Mvog betsi
+***** AS Nkolbikok 1
+***** AS Nkolbikok 2
+***** AS Simbok
+
+**** District Cite Verte
+***** AS Briqueterie
+***** AS Carriere
+***** AS Cite verte
+***** AS Ekoudou
+***** AS Messa
+***** AS Mokolo
+***** AS Nkomkana
+***** AS Tsinga
+***** AS Tsinga oliga
+
+**** District Djoungolo
+***** AS Elig essono
+***** AS Emana
+***** AS Essos
+***** AS Etoa - Meki
+***** AS Mballa 2
+***** AS Mballa 5
+***** AS Mvog ada
+***** AS Nfandena
+***** AS Nkolmesseng
+***** AS Nkolondom
+***** AS Nlongkak
+***** AS Tsinga village
+
+**** District Ebebda
+***** AS Djounyat
+***** AS Leka
+***** AS Ngoksa
+***** AS Nkolelouga
+
+
+**** District Efoulan
+***** AS Afanoyoa
+***** AS Ahala
+***** AS Efoulan
+***** AS Ngoa ekelle
+***** AS Nsimeyong
+***** AS Obili
+
+**** District Elig Mfomo
+***** AS Elig - Mfomo
+***** AS Kokodo
+***** AS Nkengue
+**** District Eseka
+***** AS Bidjocka
+***** AS Bondjock
+***** AS Eseka
+***** AS Ilanga
+***** AS Likongue
+***** AS Makak
+***** AS Messondo
+***** AS Mom
+***** AS Song bayang
+***** AS Song-badjeck
+***** AS Songbong
+**** District Esse
+***** AS Afanloum
+***** AS Edzendouan
+***** AS Esse ville
+***** AS Mvengessaboutou
+***** AS Ngondimbele
+***** AS Ngoungoumdu
+***** AS Ongandi
+**** District Evodoula
+***** AS Evodoula
+***** AS Kalngaha
+***** AS Nkolassa
+***** AS Nloudou
+**** District Mbalmayo
+***** AS Akoeman
+***** AS Angonfeme
+***** AS Assie
+***** AS Ekoumeyek
+***** AS Mbalmayo 1
+***** AS Mbalmayo 2
+***** AS Mbyo ngallan
+***** AS Mengueme
+***** AS Metet
+***** AS Minlaba
+***** AS Ngomedzap
+***** AS Nkolmeyang
+***** AS Nkolnyama
+***** AS Nkolya
+***** AS Olama
+***** AS Onanambessa
+***** AS Ossoessam
+***** AS Sep
+***** AS Zoatoupsi
+**** District Mbandjock
+***** AS Edoumdane
+***** AS Lembe yezoum
+***** AS Mbandjock
+***** AS Mebolo
+***** AS Mvebekon
+***** AS Ndjore
+***** AS Ndoumba
+***** AS Nkoteng 1
+***** AS Nkoteng 2
+***** AS Nyassi
+***** AS Zoa
+**** District Mbankomo
+***** AS Binguela
+***** AS Ebeba
+***** AS Mbankomo
+***** AS Mefomo
+***** AS Ntouessong
+**** District Mfou
+***** AS Atega
+***** AS Dzeng
+***** AS Essazok
+***** AS Komassi
+***** AS Meven
+***** AS Mfou
+***** AS Ndangueng
+***** AS Nkilzok
+***** AS Nkoabang
+***** AS Nkongoa
+***** AS Nsimalen
+***** AS Omvan
+**** District Monatele
+***** AS Eyenmeyong
+***** AS Monatele
+***** AS Mvomekak
+***** AS Ngomo
+***** AS Nkog bong
+***** AS Nkolkosse
+***** AS Nlong bon 1
+***** AS Tala
+**** District Nanga Eboko
+***** AS Bibey
+***** AS Bissaga
+***** AS Emtse
+***** AS Mbargue
+***** AS Metep
+***** AS Minta
+***** AS Mvomzock
+***** AS Nanga eboko
+***** AS Ndjassi
+***** AS Ndjombe
+***** AS Ngoulmekong
+***** AS Nguen
+***** AS Nsem
+***** AS Wall
+**** District Ndikinimeki
+***** AS Boutourou
+***** AS Makenene
+***** AS Ndikinimeki
+***** AS Ndokowanen
+***** AS Nitoukou
+***** AS Nyokon
+**** District Ngog Mapubi
+***** AS Bot makak
+***** AS Boumnyebel
+***** AS Dibang
+***** AS Hegba
+***** AS Mandoumba
+***** AS Matomb
+***** AS Mbanda
+***** AS Mbebe kikot
+***** AS Mintaba
+***** AS Ndongo
+***** AS Ngog-mapubi
+***** AS Nguibassal
+***** AS Ntouleng
+***** AS Sombo
+**** District Ngoumou
+***** AS Akono
+***** AS Bikok
+***** AS Bikop
+***** AS Evindissi
+***** AS Ngoumou
+***** AS Nkong abok
+***** AS Offounou
+**** District Nkolbisson
+***** AS Ekorozock
+***** AS Etetak
+***** AS Nkolbisson
+***** AS Nkolnkoumou
+***** AS Nkolso'o
+***** AS Nnom-nnam
+***** AS Oyom-abang
+**** District Nkoldongo
+***** AS Ekounou
+***** AS Kondengui
+***** AS Meyo
+***** AS Mimboman 1
+***** AS Mimboman 2
+***** AS Nkolndongo 1
+***** AS Nkolndongo 2
+***** AS Nkomo
+***** AS Odza
+**** District Ntui
+***** AS Biakoa
+***** AS Mbangassina
+***** AS Ndimi
+***** AS Ndjame
+***** AS Ngoro
+***** AS Nguila
+***** AS Ntui
+***** AS Nvoundou
+***** AS Nyamanga 2
+***** AS Nyamoko
+***** AS Talba
+**** District Obala
+***** AS Batchenga
+***** AS Efok
+***** AS Ekabita - mendoum
+***** AS Endinding
+***** AS Essong
+***** AS Etoud - Ayos
+***** AS Minkama
+***** AS Nkolguem
+***** AS Nkolmekok
+***** AS Nkometou
+***** AS Obala
+***** AS Yemessoa
+***** AS Ebougsi
+***** AS Ekekam 3
+***** AS Elig eyeng
+***** AS Lobo
+***** AS Mva'a
+***** AS Mvoua
+***** AS Ngoya
+***** AS Nkolpoblo
+***** AS Nlong
+***** AS Okola
+***** AS Voua 2
+**** District Sa'a
+***** AS Lebamzip
+***** AS Lepopomo
+***** AS Ndong elang
+***** AS Nkolang
+***** AS Nkolbobo
+***** AS Nkolmgbana
+***** AS Nkolvak
+***** AS Nlong onambele
+***** AS Ondondo
+***** AS Saa
+**** District Soa
+***** AS Ebang
+***** AS Koulou
+***** AS Ngali 2
+***** AS Ntouessong
+***** AS Soa
+***** AS Ting melen
+**** District Yoko
+***** AS Doume
+***** AS Linte
+***** AS Makouri
+***** AS Mankim
+***** AS Nditam
+***** AS Ndjole
+***** AS Ngambe-tikar
+***** AS Yoko
+
+
+*** Est
+**** District Abong Mbang
+***** AS Abong Mbang Nord
+***** AS Abong Mbang Sud
+***** AS Angossas
+***** AS Ankoung
+***** AS Atok
+***** AS Mbomba
+***** AS Mindourou
+***** AS Nkouak
+**** District Batouri
+***** AS Bandongoue
+***** AS Batouri Centre 1
+***** AS Batouri Centre 2
+***** AS Batouri Nord 1
+***** AS Batouri Nord 2
+***** AS Batouri Ouest 1
+***** AS Batouri Ouest 2
+***** AS Batouri Sud
+***** AS Belita 2
+***** AS Dem 2 Kambele
+***** AS Gadji
+***** AS Gounte
+***** AS Kamba Mieri
+***** AS Mbendissola
+***** AS Mbounou
+***** AS Ndjassi
+***** AS Nguelebok
+***** AS Tapare
+**** District Bertoua
+***** AS Bazzama
+***** AS Belabo
+***** AS Bombi
+***** AS Deng Deng
+***** AS Diang
+***** AS Enia
+***** AS Grand Mboulaye
+***** AS Mandjou
+***** AS Mbethen
+***** AS Mokolo 1
+***** AS Mokolo 4
+***** AS Moundi
+***** AS Ndemba 1
+***** AS Ndouan
+***** AS Nkolbikon
+***** AS Radio
+***** AS Tigaza
+**** District Betare Oya
+***** AS Betare Oya
+***** AS Dang Patou
+***** AS Mbitom
+***** AS Ngoura
+***** AS Tongo Gadima
+**** District Doume
+***** AS Bayong
+***** AS Dimako Nord
+***** AS Dimako Sud
+***** AS Doume 1
+***** AS Doume 2
+***** AS Goumbegeron
+***** AS Motcheboum
+***** AS Ngandame
+***** AS Ngomdouma
+***** AS Nkoum
+***** AS Petit Pol
+***** AS Seguelendom
+**** District Garoua Boulai
+***** AS Bindimba
+***** AS Gado Badjere
+***** AS Garoua Boulae
+***** AS Nandoungue
+**** District Kette
+***** AS Bedobo
+***** AS Bengue Tiko
+***** AS Boubara
+***** AS Gbiti
+***** AS Kette
+***** AS Lala
+***** AS Ouli
+***** AS Oundjiki
+***** AS Timangolo
+**** District Lomie
+***** AS Lomie
+***** AS Messok
+***** AS Ngoyla
+***** AS Zoulabot 1
+**** District Mbang
+***** AS Atsieck
+***** AS Bimba
+***** AS Djampiel
+***** AS Kagnol 1
+***** AS Lila
+***** AS Mbang
+**** District Messamena
+***** AS Bidjombo
+***** AS Dimpam
+***** AS Doumo Mama
+***** AS Messamena
+***** AS Ngoulemakong
+***** AS Somalomo
+**** District Moloundou
+***** AS Mikel
+***** AS Moloundou
+***** AS Ndongo/Adjala
+***** AS Nguilili
+***** AS Salapoumbe
+**** District Ndelele
+***** AS Kentzou
+***** AS Lolo
+***** AS Mbondoua
+***** AS Mindourou
+***** AS Ndelele
+***** AS Ngotto
+***** AS Pana
+**** District Nguelemendouka
+***** AS Azomekout
+***** AS Bika
+***** AS Ngoap
+***** AS Nguelemendouka HD
+**** District Yokadouma
+***** AS Gari Gombo
+***** AS Gribi
+***** AS Massea
+***** AS Moampack
+***** AS Momdjepom
+***** AS Ngatto
+***** AS Ngolla 35
+***** AS Yokadouma Nord
+***** AS Yokadouma Sud
+
+*** Extrème Nord
+**** District Bogo
+***** AS Balaza
+***** AS Balda
+***** AS Bogo
+***** AS Borai
+***** AS Guinggley
+***** AS Madaka
+***** AS Sedek
+**** District Bourha
+***** AS Boukoula
+***** AS Bourha
+***** AS Gamboura
+***** AS Guili 1
+***** AS Guili 2
+***** AS Mbola
+***** AS Oudda
+***** AS Tchevi
+***** AS Teleki
+**** District Gazawa
+***** AS Dagai
+***** AS Gawel
+***** AS Gazawa
+***** AS Loulou
+***** AS Massakal
+***** AS Ndoukoula
+***** AS Zongoya
+**** District Goulfey
+***** AS Afade
+***** AS Amdjagara
+***** AS Gana
+***** AS Goulfey
+***** AS Hilele
+***** AS Maltam
+***** AS Mara
+**** District Guere
+***** AS Bagana
+***** AS Djougoumta
+***** AS Dompya
+***** AS Gobo
+***** AS Guibi
+***** AS Nouldaina
+***** AS Polgue
+**** District Guidiguis
+***** AS Barlang
+***** AS Bizili
+***** AS Dongrosse
+***** AS Doubane
+***** AS Dziguilao 1
+***** AS Dziguilao 2
+***** AS Golonghini
+***** AS Goundaye
+***** AS Guego
+***** AS Guereme
+***** AS Guidiguis
+***** AS Kabla
+***** AS Kofide
+***** AS Kourbi
+***** AS Touloum
+**** District Hina
+***** AS Bering
+***** AS Gamdougoum
+***** AS Gawar
+***** AS Hina
+***** AS Ounangare Dimeo
+***** AS Tchamahe
+***** AS Zidim
+***** AS Zouvoul
+**** District Kaele
+***** AS Bipaing
+***** AS Boboyo
+***** AS Djidoma
+***** AS Doumrou
+***** AS Gaban
+***** AS Gadas
+***** AS Garey
+***** AS Going
+***** AS Kaele
+***** AS Lara
+***** AS Mapoussere
+***** AS Midjivin
+***** AS Mindjil
+***** AS Moubare
+**** District Kar Hay
+***** AS Datcheka
+***** AS Doukoula 1
+***** AS Doukoula 2
+***** AS Gane
+***** AS Going -Tala
+***** AS Guissia
+***** AS Kada
+***** AS Mogom
+***** AS Oulargo
+***** AS Tchatibali
+***** AS Werfeo
+***** AS Zouaye
+**** District Kolofata
+***** AS Amchide
+***** AS Gujimdele
+***** AS Kerawa
+***** AS Kolofata
+***** AS Kouyape
+***** AS Limani
+***** AS Tolkomari
+**** District Kousseri
+***** AS Amchidire
+***** AS Dabanga
+***** AS Hile Haoussa
+***** AS Holoum
+***** AS Kalakafra
+***** AS Madana
+***** AS Madiako
+***** AS Ndjagare
+***** AS Ngodeni
+***** AS Pagui
+***** AS Parpar
+***** AS Zimado
+***** AS Zina
+**** District Koza
+***** AS Assighassia
+***** AS Djingliya
+***** AS Gaboua
+***** AS Goldavi
+***** AS Gouzda Vreket
+***** AS Gouzda Wayam
+***** AS Hirche
+***** AS Koza 1
+***** AS Koza 2
+***** AS M'tskar
+***** AS Moskota
+***** AS Mozogo
+***** AS Ndouvgui Kilda
+***** AS Nghethewe
+***** AS Ouzal
+***** AS Zheleved
+**** District Mada
+***** AS Bargaram
+***** AS Blangoua
+***** AS Blaram
+***** AS Darak
+***** AS Hile  Alifa
+***** AS Kobro
+***** AS Kofia
+***** AS Mada
+***** AS Naga
+**** District Maga
+***** AS Tchika
+***** AS Guirvidig
+***** AS Maga
+***** AS Mazera
+***** AS Pouss
+***** AS Tekele
+**** District Makary
+***** AS Amchilga
+***** AS Biamo
+***** AS Bodo
+***** AS Bomboyo
+***** AS Fotokol
+***** AS Makary
+***** AS Ngouma
+***** AS Sagme
+***** AS Woulky
+**** District Maroua 1
+***** AS Beguele
+***** AS Domayo 2
+***** AS Domayo Djarma
+***** AS Domayo Kamanjo Igama
+***** AS Katoual
+***** AS Makabaye
+***** AS Meskmanjo ine
+***** AS Ngassa
+***** AS Ourotchede
+***** AS Palar
+***** AS Salak
+**** District Maroua 2
+***** AS Dogba
+***** AS Doualare
+***** AS Founangue
+***** AS Kossewa
+***** AS Lopere
+***** AS Papata
+***** AS Zokok
+**** District Maroua 3
+***** AS Birio
+***** AS Dargala
+***** AS Djarengol Kodek
+***** AS Djoulgouf
+***** AS Dougoi
+***** AS Kaewo
+***** AS Kengola
+***** AS Kodek
+***** AS Ouro Zangui
+***** AS Yoldeo
+**** District Meri
+***** AS Doulek
+***** AS Doumrou
+***** AS Douvangar
+***** AS Godola
+***** AS Kalliao
+***** AS Magawa
+***** AS Marnguirdla
+***** AS Meftek Ouazzang
+***** AS Meri
+**** District Mindif
+***** AS Djappai
+***** AS Doyang
+***** AS Loubour
+***** AS Maoudine
+***** AS Matfai
+***** AS Mendeo
+***** AS Mindif
+***** AS Modjombodi
+***** AS Mogom
+***** AS Yakang
+**** District Mogode
+***** AS Houpou
+***** AS Kila
+***** AS Kortchi
+***** AS Kossehone
+***** AS Mogode
+***** AS Rhumsiki
+***** AS Rhumzou
+***** AS Sir
+**** District Mokolo
+***** AS Gadala
+***** AS Goudour
+***** AS Magoumaz
+***** AS Mandaka Chechem
+***** AS Minawao
+***** AS Mokolo 1
+***** AS Mokolo 2
+***** AS Mokong
+***** AS Ouro Tada
+***** AS Toufou
+***** AS Tourou
+***** AS Vouzod
+***** AS Zamay
+***** AS Ziling
+**** District Mora
+***** AS Aissa Harde
+***** AS Bounderi
+***** AS Djaounde
+***** AS Godigong
+***** AS Kossa
+***** AS Kourgui
+***** AS Magdeme
+***** AS Massare
+***** AS Mehe
+***** AS Meme
+***** AS Mora
+***** AS Oudjilla
+***** AS Podoko Nord
+***** AS Tala Mokolo
+***** AS Waza
+**** District Moulvoudaye
+***** AS Daram
+***** AS Goudoum
+***** AS Guirling
+***** AS Horlong
+***** AS Kolara
+***** AS Korre
+***** AS Manga
+***** AS Moulvoudaye
+***** AS Damai
+***** AS Foulou
+***** AS Mouda
+***** AS Moutourwa
+***** AS Titing
+**** District Pette
+***** AS Alagarno
+***** AS Djaoude
+***** AS Djoutabembal
+***** AS Doubbel
+***** AS Fadare
+***** AS Malam Petel
+***** AS Pette
+**** District Roua
+***** AS Madakonai
+***** AS Medere
+***** AS Midre
+***** AS Ndimche
+***** AS Roua
+***** AS Soulede
+**** District Tokombere
+***** AS Kotraba
+***** AS Mada-Kolkoch
+***** AS Makalingae
+***** AS Mambeza
+***** AS Mangave - Dalil
+***** AS Mokio
+***** AS Ouldeme
+***** AS Palbara
+***** AS Tokombere 1
+***** AS Tokombere 2
+***** AS Warba
+**** District Vele
+***** AS Begue Palam
+***** AS Djafga
+***** AS Doreissou
+***** AS Gabaraye
+***** AS Kai Kai
+***** AS Kartoua
+***** AS Kouromokdaye
+***** AS Madalam
+***** AS Vele
+***** AS Widigue
+**** District Yagoua
+***** AS Bougaye
+***** AS Dana
+***** AS Djongdong
+***** AS Gobio
+***** AS Hougno
+***** AS Kalfou
+***** AS Mass Gaya
+***** AS Vada Toukou
+***** AS Viri
+***** AS Vounaloum
+***** AS Yagoua
+
+*** Littoral
+**** District Abo
+***** AS Bessounkang
+***** AS Mangamba
+***** AS Miang
+***** AS Nono
+***** AS Souza
+**** District Bangue
+***** AS Bangue
+***** AS Bonamoussadi
+***** AS Kotto
+***** AS Logbessou 1
+***** AS Logpom  Makepe
+***** AS Makepe Missoke
+***** AS Massoumbou
+**** District Boko
+***** AS Bobongo
+***** AS Boko Plage
+***** AS Boko Plateau
+***** AS Cite Berge
+***** AS Mbanga Pongo
+***** AS Newton Airport
+***** AS Ngodi Bakoko
+**** District Bonassama
+***** AS Bilingue
+***** AS Bojongo
+***** AS Bonamikano
+***** AS Bonassama
+***** AS Bonendale
+***** AS Djebale
+***** AS Grand Hangar
+***** AS Mambanda
+***** AS Ngwele
+***** AS Nkomba
+***** AS Sodiko
+**** District Cite Des Palmiers
+***** AS Cite des Palmiers
+***** AS Dikahe
+***** AS Genie Madiba
+***** AS Logbessou 2
+***** AS Maneke
+***** AS Ndogbong-CP
+***** AS Ndoghem 2
+***** AS Nyalla-CP
+***** AS Sodikombo
+**** District Deido
+***** AS Akwa 1
+***** AS Akwa 2
+***** AS Akwa 3
+***** AS Akwa Nord
+***** AS Bepanda omnisports
+***** AS Bepanda TSF
+***** AS Bessengue
+***** AS Bonanjo
+***** AS Cite Sic
+***** AS Deido
+***** AS Grand Moulin
+***** AS Ndogbong
+**** District Dibombari
+***** AS Bekoko
+***** AS Bomomo
+***** AS Dibombari
+***** AS Nkapa
+***** AS Yabea
+**** District Edea
+***** AS Beon
+***** AS Dehane
+***** AS Delangue
+***** AS Dizangue
+***** AS Elogbele
+***** AS Logbadjeck
+***** AS Makondo
+***** AS Malimba
+***** AS Mouanko
+***** AS Ngonga
+***** AS Plateau administratif
+**** District Japoma
+***** AS Bwang
+***** AS Japoma
+***** AS Kambo
+***** AS Mbanga
+***** AS Nkembe
+***** AS Nyalla
+***** AS Yambong
+***** AS Yassa
+**** District Logbaba
+***** AS Kongui
+***** AS Logbaba Centre
+***** AS Logbaba Plateau
+***** AS Mboppi
+***** AS Ndogbati
+***** AS Ndogpassi 1
+***** AS Ndogpassi 2
+***** AS Ndogsimbi
+***** AS Ndokoti
+***** AS St Micheal
+**** District Loum
+***** AS Babong
+***** AS Loum 1
+***** AS Loum 2
+***** AS Loum 3
+***** AS Loum chantiers
+**** District Manjo
+***** AS Kolla
+***** AS Manjo 1
+***** AS Manjo 2
+***** AS Moumekeng
+***** AS N'lohe
+***** AS Njoumbeng
+**** District Manoka
+***** AS Cap Cameroum
+***** AS Kombo Moukoko
+***** AS Manoka Centre
+***** AS Sio Sio
+***** AS Toube
+**** District Mbanga
+***** AS Boubou
+***** AS Dikouma
+***** AS EEC
+***** AS Kotto
+***** AS Matouke
+***** AS Mission Cath
+***** AS Mombo
+***** AS Mouyouka
+**** District Melong
+***** AS Bare
+***** AS Barehock
+***** AS Essekou
+***** AS Lelem
+***** AS Mbokambo
+***** AS Mbouroukou
+***** AS Melong 2
+***** AS Melong centre
+***** AS Ndokou
+***** AS Ndom Bakem
+**** District Ndom
+***** AS Bodi
+***** AS Ibong
+***** AS Kelleng
+***** AS Likounmbiam
+***** AS Ndogbatolgue
+***** AS Ndom Centre
+***** AS Nsongmbongo
+***** AS Nyanon
+***** AS Omeng
+***** AS Pockmahonda
+**** District New Bell
+***** AS Camp Yabassi
+***** AS Makea
+***** AS Mbam Ewondo
+***** AS New-Bell Bamileke
+***** AS Ngangue
+***** AS Nkolmintag
+***** AS Nkololoun
+***** AS Nkongmondo
+***** AS Sebenjongo
+***** AS Youpwe
+**** District Ngambe
+***** AS Bikat
+***** AS Botbea
+***** AS Mgog Mbog
+***** AS Ngambe centre
+***** AS Saha
+***** AS Song Mbengue
+***** AS Tomel
+**** District Njombe Penja
+***** AS Bouba
+***** AS Njombe 1
+***** AS Njombe 2
+***** AS Penja 1
+***** AS Penja 2
+**** District Nkondjock
+***** AS Dissouck
+***** AS Mabombe
+***** AS Moya
+***** AS Ndobian
+***** AS Ndoctiba
+***** AS Nkondjock Centre
+***** AS Sohock
+**** District Nkongsamba
+***** AS Bakwat
+***** AS Baressoumtou
+***** AS Bonangoh
+***** AS Ebone
+***** AS Eboum Mbeng
+***** AS Ekangte
+***** AS Ekel Mbeng
+***** AS Ekol Mbeng
+***** AS Nkoundou
+***** AS Nlonko'o
+**** District Nylon
+***** AS Barcelone
+***** AS Bonadiwoto
+***** AS Diboum 2
+***** AS Ndogpassi 3 Centre
+***** AS Ndogpassi 3 ZR
+***** AS Oyack 1
+***** AS Oyack 3
+***** AS Soboum
+**** District Pouma
+***** AS Makob
+***** AS Nkonga
+***** AS Pouma
+***** AS Saint Andre
+***** AS Song Simouth
+**** District Yabassi
+***** AS Benga
+***** AS Bonepoupa
+***** AS Longtoka
+***** AS Solle
+***** AS Tonde
+***** AS Yabassi
+***** AS Yingui
+
+*** Nord
+**** District Bibemi
+***** AS Adoumri
+***** AS Bibemi
+***** AS Bide
+***** AS Dengui
+***** AS Djaloumi
+***** AS Hamalade
+***** AS Houla
+***** AS Lam
+***** AS Mandjola
+***** AS Mayo lope
+***** AS Mbella
+***** AS Ndiam badi
+***** AS Padarme
+**** District Figuil
+***** AS Badadji
+***** AS Batao
+***** AS Bidzar
+***** AS Biou
+***** AS Djougui
+***** AS Figuil
+***** AS Karewa
+***** AS Kong kong
+***** AS Lam
+***** AS Pelgue
+**** District Garoua I
+***** AS Bangli
+***** AS Djamboutou
+***** AS Garoua winde
+***** AS Kollere
+***** AS Nakong
+***** AS Ouro kanadi
+***** AS Ouro malam amadou
+***** AS Souari
+**** District Garoua II
+***** AS Foulbere
+***** AS Lainde
+***** AS Nassarao
+***** AS Poumpoumre
+***** AS Roumde adjia
+***** AS Takasco
+**** District Gaschiga
+***** AS Barndake
+***** AS Bascheo
+***** AS Dembo
+***** AS Demsa
+***** AS Djatoumi
+***** AS Gaschiga
+***** AS Hamakoussou
+***** AS Kobossi
+***** AS Pomla manga
+***** AS Rognou
+**** District Golombe
+***** AS Babouri
+***** AS Bissoli
+***** AS Djabi
+***** AS Sorawel
+***** AS Sossilim
+***** AS Tchontchi
+**** District Guider
+***** AS Balga
+***** AS Douroum
+***** AS Gaval
+***** AS Gorom
+***** AS Guider
+***** AS Larbak
+***** AS Libe
+***** AS Lougguere
+***** AS Matafal
+***** AS Morija
+***** AS Mousgoy
+***** AS Sainte martine
+***** AS Soukoundou
+**** District Lagdo
+***** AS Badankali
+***** AS Bakona
+***** AS Bame
+***** AS Bocki
+***** AS Dingale
+***** AS Djipporde
+***** AS Gouna
+***** AS Gounougou
+***** AS Lamoudam
+***** AS Na'ari
+***** AS Ouro kessoum
+***** AS Tongo
+**** District Mayo Oulo
+***** AS Bossoum
+***** AS Doumo
+***** AS Dourbeye
+***** AS Guirviza
+***** AS Mandama
+***** AS Mayo oulo
+***** AS Mouroum
+***** AS Pologozom
+***** AS Wafo
+**** District Ngong
+***** AS Babla
+***** AS Badang
+***** AS Boumedje
+***** AS Djalingo
+***** AS Djefatou
+***** AS Lainde tchitta
+***** AS Mbaga
+***** AS Ndjola
+***** AS Ngong
+***** AS Sanguere ngal
+***** AS Tcheboa
+***** AS Touroua
+**** District Pitoa
+***** AS Badjouma centre
+***** AS Badjouma radier
+***** AS Bajengo
+***** AS Banaye
+***** AS Be
+***** AS Boula ibib
+***** AS Dola
+***** AS Holma
+***** AS Langui
+***** AS Pitoa
+**** District Poli
+***** AS Balkossa
+***** AS Beka
+***** AS Bimba
+***** AS Boumba
+***** AS Djoumte
+***** AS Fignole
+***** AS Poli
+***** AS Tapare
+***** AS Tchamba
+***** AS Voko
+***** AS Wangai
+**** District Rey Bouba
+***** AS Alpha
+***** AS Baikwa
+***** AS Bere
+***** AS Djamare
+***** AS Djouroum
+***** AS Dobinga
+***** AS Koinderi
+***** AS Kong rong
+***** AS Mombore
+***** AS Rey bouba
+***** AS Sinassi
+***** AS Somessi
+**** District Tchollire
+***** AS Djaba
+***** AS Gamba
+***** AS Gor
+***** AS Hormbali
+***** AS Kali
+***** AS Madingring
+***** AS Sakdje
+***** AS Sorombeo
+***** AS Tchollire
+**** District Touboro
+***** AS Djom
+***** AS Dompta
+***** AS Mafare
+***** AS Mbai-mboum
+***** AS Mbaka
+***** AS Mbang-rey
+***** AS Mbeing
+***** AS Ngai-lara
+***** AS Touboro
+***** AS Vogzom
+***** AS Yanli
+
+*** Nord Ouest
+**** District Ako
+***** AS Abongshie
+***** AS Ako urban
+***** AS Akwaja
+***** AS Berabe
+***** AS Buku
+***** AS Jevi
+***** AS Kuta
+**** District Bafut
+***** AS Akofunguba
+***** AS Akossia
+***** AS Buwe - Bukari
+***** AS Mambu
+***** AS Manji
+***** AS Mankanikong
+***** AS Mankwi
+***** AS Mbakong
+***** AS Mforya
+***** AS Mundum
+***** AS Nchum
+***** AS Nsem
+***** AS Nsoh
+***** AS Tingoh
+**** District Bali
+***** AS Bali catholic
+***** AS Bali urban
+***** AS Bawock
+***** AS Bossa
+***** AS Gungong
+***** AS Njenka
+***** AS Wosing
+**** District Bamenda
+***** AS Akumlam
+***** AS Alabukam
+***** AS Alakuma
+***** AS Alamandom
+***** AS Atuakom
+***** AS Azire
+***** AS Mankon
+***** AS Mbachogwa
+***** AS Mendankwe
+***** AS Mulang
+***** AS Ndzah
+***** AS Nkwen Baptist
+***** AS Nkwen rural
+***** AS Nkwen urban
+***** AS Ntambag
+***** AS Ntamulung
+***** AS Ntankah
+**** District Batibo
+***** AS Ashong
+***** AS Batibo urban
+***** AS Bifang
+***** AS Eka
+***** AS Ewai
+***** AS Ewoh
+***** AS Guzang
+***** AS Gwofon
+***** AS Kugwe
+***** AS Kulabei
+***** AS Larinji
+***** AS Olorunti
+***** AS Tiben
+***** AS Widikum
+**** District Benakuma
+***** AS Baworo
+***** AS Beba-Batomo
+***** AS Befang
+***** AS Benabinge
+***** AS Benade
+***** AS Benakuma
+***** AS Modelle
+***** AS Okoromanjang
+**** District Fundong
+***** AS Aduk
+***** AS Anyajua
+***** AS Belo
+***** AS Faunantui
+***** AS Fundong urban
+***** AS Kikfuini
+***** AS Konene
+***** AS Mbengkas
+***** AS Mbessa
+***** AS Mejang
+***** AS Mentang
+***** AS Ndawara
+**** District Kumbo East
+***** AS Dzeng
+***** AS Jakiri cma
+***** AS Jakiri IHC
+***** AS Kwanso
+***** AS Lip
+***** AS Mbah
+***** AS Mbam
+***** AS Mbiame
+***** AS Mbokam
+***** AS Mbonso
+***** AS Ngendzen
+***** AS Ngorin
+***** AS Nkar
+***** AS Shisong
+***** AS Sop
+***** AS Tatum
+***** AS Vekovi
+***** AS Wainamah
+***** AS Wasi Ber
+***** AS Wvem
+**** District Kumbo West
+***** AS BBH
+***** AS Buh
+***** AS Kai
+***** AS Kikaikom
+***** AS Kikiakelaki
+***** AS Kitiwum
+***** AS Kumbo CMA
+***** AS Kumbo urban
+***** AS Kuvlu
+***** AS Melim
+***** AS Nkumkov
+**** District Mbengwi
+***** AS Abebung
+***** AS Acha tugi
+***** AS Ajei
+***** AS Andek
+***** AS Azem
+***** AS Bome
+***** AS Etwii
+***** AS Kob
+***** AS Mbengeghang
+***** AS Mbengwi urban
+***** AS Munam
+***** AS Ngyen mbo
+***** AS Njah etu
+***** AS Njindom
+***** AS Nkon mengom
+***** AS Teze
+***** AS Tinechung
+**** District Ndop
+***** AS Baba 1
+***** AS Babessi
+***** AS Babungo
+***** AS Bafanji
+***** AS Balikumbat
+***** AS Bamali
+***** AS Bambalang
+***** AS Bamessing
+***** AS Bamunka rural
+***** AS Bamunka urban
+***** AS Bamunkumbit
+***** AS Bangolan
+***** AS Mbangsalle
+***** AS Mbissa
+***** AS Mighang
+**** District Ndu
+***** AS kakar
+***** AS Luh
+***** AS Mangu
+***** AS Mbawrong
+***** AS Mbiyeh
+***** AS Mbongong
+***** AS Ndu urban
+***** AS Ntumbaw
+***** AS Sop
+**** District Njikwa
+***** AS Akanunku
+***** AS Bassa
+***** AS Konda
+***** AS Kuttin
+***** AS Njikwa
+***** AS Oshie
+**** District Nkambe
+***** AS Bih
+***** AS Binka
+***** AS Binshua
+***** AS Bua-bua
+***** AS Dumbu
+***** AS Fonfuka
+***** AS Kom
+***** AS Lus
+***** AS Mbot
+***** AS Misaje
+***** AS Njap
+***** AS Nkambe urban
+***** AS Tabenken
+***** AS Wat
+**** District Nwa
+***** AS Gom
+***** AS Lih
+***** AS Ngu
+***** AS Ntem
+***** AS Ntong
+***** AS Nwa
+***** AS Yang
+**** District Oku
+***** AS Djottin
+***** AS Elak
+***** AS Ibal
+***** AS Ichim
+***** AS Jikijem
+***** AS Kevu
+***** AS Lassin
+***** AS Mboh
+***** AS Ngeptang
+***** AS Nkor
+***** AS Simonkoh
+**** District Santa
+***** AS Akum
+***** AS Awing
+***** AS Baligham
+***** AS Buchi
+***** AS Mbeme
+***** AS Mbu
+***** AS Menka
+***** AS Ndepang
+***** AS Ntoh
+***** AS Pinyin
+***** AS Santa urban
+**** District Tubah
+***** AS Baforkum
+***** AS Bambili
+***** AS Bambui
+***** AS Finge
+***** AS Kedjom keku
+***** AS Kedjom ketinguh
+***** AS Kwighe
+***** AS Lih
+***** AS Ntehmbang
+***** AS Sabga
+***** AS Tikebeng
+**** District Wum
+***** AS Abar
+***** AS Bafmen
+***** AS Bu
+***** AS Esu
+***** AS Furuawa
+***** AS Furubana
+***** AS Ise
+***** AS Kpep
+***** AS Kumfutu
+***** AS Munkep
+***** AS St Martin
+***** AS Weh
+***** AS Weh azoh
+***** AS Wum urban
+***** AS Yemge
+***** AS Zhoa
+
+*** Ouest
+**** District Bafang
+***** AS Babouate
+***** AS Baboutcha-Fongam
+***** AS Baboutcheu-Ngaleu
+***** AS Bafang-Chefferie
+***** AS Bakou
+***** AS Bana
+***** AS Manila
+***** AS Mouankeu
+***** AS Ndokovi
+***** AS Baham
+**** District Baham
+***** AS Bahiala Cheffou
+***** AS Bametchoue Fodom
+***** AS Bangou-Carrefour
+***** AS Bangou-Ville
+***** AS Bapa Bametchetcha
+***** AS Batie
+***** AS Kassim
+***** AS Ngougoua
+**** District Bamendjou
+***** AS Baboum
+***** AS Bahouan I
+***** AS Bahouan II
+***** AS Balatsit
+***** AS Bameka
+***** AS Bamendjou
+***** AS Bangam
+***** AS Batchoum
+***** AS Ngouang
+**** District Bandja
+***** AS Babouantou
+***** AS Bandja-Chefferie
+***** AS Bandja-Ville
+***** AS Baving
+***** AS Fondanti
+***** AS Fondjomekwet
+***** AS Fotouni
+**** District Bandjoun
+***** AS Batoufam
+***** AS Bayagam
+***** AS Demdemg
+***** AS Dja
+***** AS Djiomghouo
+***** AS Famla II
+***** AS Ha'a
+***** AS Mbouo
+***** AS Pete
+***** AS Semto
+***** AS Tesse
+***** AS Tsela
+***** AS Yom
+**** District Bangangte
+***** AS Badounga
+***** AS Bakong
+***** AS Balengou
+***** AS Bamena
+***** AS Bangang-Fokam
+***** AS Bangangte
+***** AS Bangoua
+***** AS Bangoulap
+***** AS Bantoum I
+***** AS Bassamba
+***** AS Batchingou
+***** AS Bazou
+***** AS Feugnoun
+***** AS Ndipta III
+***** AS Projet Route du Noun
+***** AS Tonga
+***** AS Toukop
+**** District Bangourain
+***** AS Bangambi
+***** AS Bangourain
+***** AS Kouhouat
+***** AS Koumengba
+***** AS Kourom
+***** AS Koutoukpi
+**** District Batcham
+***** AS Baladjeutsa
+***** AS Baleghang
+***** AS Balena
+***** AS Bambi
+***** AS Bamougong
+***** AS Bangang Chefferie Est
+***** AS Bangang Chefferie Ouest
+***** AS Batcham Chefferie
+***** AS Batcham Fiela
+***** AS Batcham Ville
+***** AS Batsintchuet
+***** AS Nzindong
+**** District Dschang
+***** AS Baleveng
+***** AS Balevoni
+***** AS Doumbouo
+***** AS Fiala Foreke
+***** AS Fokoue
+***** AS Fometa
+***** AS Fomopea
+***** AS Fonakeukeu
+***** AS Fondonera
+***** AS Fongo-Ndeng
+***** AS Fontsa Touala
+***** AS Fotsetsa
+***** AS Latchouet
+***** AS Lepoh
+***** AS Lingang-Foto
+***** AS Maka
+***** AS Mbeng
+***** AS Mboua
+***** AS Mekouale
+***** AS Ndoh-Djutsitsa
+***** AS Nkeuli
+***** AS siteu
+**** District Foumban
+***** AS Bafole
+***** AS Foumban Nord
+***** AS Foumban Ouest
+***** AS Foumban Sud
+***** AS Foyet
+***** AS Kouchankap
+***** AS Kouffen
+***** AS Koundja
+***** AS Koupa Kagnam
+***** AS Koupa Matapit
+***** AS Koutie
+***** AS Mambain
+***** AS Mancha
+***** AS Mapouoche
+***** AS Mataket
+***** AS Matoumbain
+***** AS Mayap
+***** AS Njimom
+***** AS Njindare
+***** AS Njisse
+**** District Foumbot
+***** AS Baegom
+***** AS Baegom II
+***** AS Fosset
+***** AS Foumbot I
+***** AS Foumbot II
+***** AS Foumbot III
+***** AS Foumbot IV
+***** AS Foumbot V
+***** AS Maka II
+***** AS Momo
+***** AS Njone
+**** District Galim
+***** AS Bagam
+***** AS Bagam Est
+***** AS Bagam Nord
+***** AS Bamendjing
+***** AS Bamenyam
+***** AS Bati
+***** AS Galim
+***** AS Galim-Est
+***** AS Menfoung
+**** District Kekem
+***** AS Balembo
+***** AS Bamengui
+***** AS Bangui-Chari
+***** AS Banwa
+***** AS Bapoungue
+***** AS Bayon
+***** AS Kekem
+***** AS Mboebo
+**** District Kouoptamo
+***** AS Chanas
+***** AS Kouoptamo
+***** AS Koupara
+***** AS Ngbetsoueen
+***** AS Njidoun
+***** AS Njingoumbe
+***** AS Njintapon
+**** District Malantouen
+***** AS Fejemkwet
+***** AS Koula
+***** AS Magba
+***** AS Mahoua
+***** AS Makoutam
+***** AS Makpa
+***** AS Malantouen
+***** AS Malien
+***** AS Manda
+***** AS Manguiembou
+***** AS Manjouom
+***** AS Manki II
+***** AS Mantoum
+***** AS Mapou Njipoute
+***** AS Matoupou
+***** AS Matta
+***** AS Mayo
+**** District Massangam
+***** AS Ngounso
+***** AS Magna
+***** AS Makom
+***** AS Malanden
+***** AS Mamognan
+***** AS Mankouombi
+***** AS Mansouen
+***** AS Massangam
+***** AS Matoufa
+***** AS Mayakoue
+**** District Mbouda
+***** AS Babete
+***** AS Bafounda
+***** AS Balatchi
+***** AS Balepo
+***** AS Bamelo
+***** AS Bamendjinda
+***** AS Bamenkombo
+***** AS Bamesso
+***** AS Mbouda Nord
+***** AS Mbouda Sud
+***** AS Mbouda-Ouest
+***** AS Toumaka
+**** District Mifi
+***** AS Badiembou
+***** AS Bapi
+***** AS Batoukop
+***** AS Baye
+***** AS Djeleng
+***** AS Djietcha
+***** AS Djunang
+***** AS Famla
+***** AS Famtchouet
+***** AS Kamkop
+***** AS Keuleu
+***** AS King Place
+***** AS Kongso
+***** AS Kouogouo
+***** AS Lafe
+***** AS Tchada
+***** AS Tocket
+***** AS Tyo
+***** AS Wouong
+***** AS Yagou
+**** District Penka Michel
+***** AS Badjeghang
+***** AS Balefock
+***** AS Balessing
+***** AS Baloum
+***** AS Bambi
+***** AS Bamendou II
+***** AS Bamendou Leo
+***** AS Bamendou-Chefferie
+***** AS Baneghang
+***** AS Bani-Baloum
+***** AS Bansoa Chefferie
+***** AS Batotcha
+***** AS Centre urbain
+***** AS Penka michel
+**** District Santchou
+***** AS Bale
+***** AS Fombap
+***** AS Ngah-Kou
+***** AS Ngwatta
+***** AS Santchou
+
+*** Sud
+**** District Ambam
+***** AS Abang - Minko
+***** AS Ambam
+***** AS Evouzok
+***** AS Kye - Ossi
+***** AS Ma'an
+***** AS Mbam Essa Obam
+***** AS Mebang
+***** AS Mefoup
+***** AS Mendjimi
+***** AS Messama 1
+***** AS Meyo Centre
+***** AS Mfoua
+***** AS Minkan- Mengale
+***** AS Ndjazeng
+***** AS Nong
+***** AS Nsessoum
+***** AS Nyabessang
+**** District Djoum
+***** AS Alati
+***** AS Djoum
+***** AS Melen-Zaman
+***** AS Mfem
+***** AS Mintom
+***** AS Mveng
+***** AS Nkolenyeng
+***** AS Oveng Fang
+**** District Ebolowa
+***** AS Abang
+***** AS Biba I
+***** AS Bissam
+***** AS Bitsogman
+***** AS Biwong Bane
+***** AS Dispensaire Urbain
+***** AS Doum
+***** AS Efoulan
+***** AS Enongal
+***** AS Ma'amezam
+***** AS Mefo
+***** AS Melangue 1
+***** AS Mengong
+***** AS Meyo Ville
+***** AS Ngoulemakong
+***** AS Ngoulessaman
+***** AS Nkoetye
+***** AS Nnemeyong 2
+***** AS Soumou
+**** District Kribi
+***** AS Adjap
+**** District Lolodorf
+***** AS Akom Bikoe
+***** AS Akom II
+***** AS Atog Boga
+***** AS Bandevouri
+***** AS Bipindi
+***** AS Campo
+***** AS Elog - Batindi
+***** AS Elon
+***** AS Grand Batanga
+***** AS Hevecam
+***** AS Kribi
+***** AS Lolodorf
+***** AS Londji
+***** AS Melondo
+***** AS Mvengue
+***** AS Ngovayang
+***** AS Nkoampoer
+***** AS Nkollo
+***** AS Socapalm
+**** District Meyomessala
+***** AS Bengbis
+***** AS Ekong
+***** AS Enyeng
+***** AS Koum Yetotan
+***** AS Mbometa
+***** AS Mekas
+***** AS Mengon
+***** AS Messok
+***** AS Meyomessala
+***** AS Ngoasse
+***** AS Nkolenyeng
+***** AS Olembe
+**** District Mvangan
+***** AS Amvom
+***** AS Biwong Bulu
+***** AS Endengue
+***** AS Koungoulou
+***** AS Mvangan
+***** AS Nselang
+**** District Olamze
+***** AS Mekomengona
+***** AS Olamze
+**** District Sangmelima
+***** AS Akomessing
+***** AS Akon
+***** AS Avebe Esse
+***** AS Elom Yemfek
+***** AS Meyomadjom
+***** AS Meyomessi
+***** AS Mezesse
+***** AS Nkolnguet
+***** AS Nkolotou'outou
+***** AS Olounou
+***** AS Oveng Yemvak
+**** District Zoetele
+***** AS Ebamina
+***** AS Ekombite
+***** AS Fibot
+***** AS Messam
+***** AS Mfouladja
+***** AS Ndele
+***** AS Nden
+***** AS Nkolbang
+***** AS Zoetele
+
+*** Sud Ouest
+**** District Akwaya
+***** AS Akwa
+***** AS Akwaya
+***** AS Amassi
+***** AS Bagundu
+***** AS Bassa
+**** District Bakassi
+***** AS Idabato
+***** AS Isangele
+***** AS Kombo Abedimo
+***** AS Kombo Itindi
+**** District Bangem
+***** AS Bangem
+***** AS Ebamut
+***** AS Ekajoh Bajoh
+***** AS Muabi
+***** AS Muambong
+***** AS Nkack
+**** District Buea
+***** AS Bokwaongo
+***** AS Bova
+***** AS Buea Road
+***** AS Buea Town
+***** AS Molyko
+***** AS Muea
+***** AS Tole
+**** District Ekondo Titi
+***** AS Bafaka
+***** AS Bamusso
+***** AS Bekora
+***** AS Bekumu
+***** AS Bisoro
+***** AS Ekondo Titi
+***** AS Illor
+***** AS Kumbe Balue
+***** AS Lobe
+**** District Eyumodjock
+***** AS Afap
+***** AS Ekok
+***** AS Eyumojock
+***** AS Kembong
+***** AS Ogurang
+**** District Fontem
+***** AS Azi
+***** AS Essoh Attah
+***** AS Fojumetaw
+***** AS Fotabong
+***** AS Mbetta
+***** AS Menji
+***** AS Njungo
+***** AS Takwai
+**** District Konye
+***** AS Ibemi
+***** AS Ikiliwindi
+***** AS Konye
+***** AS Kurume
+***** AS Matoh
+***** AS Mbakwa Supe
+***** AS Nyandong
+***** AS Wone
+**** District Kumba
+***** AS Banga Bakundu
+***** AS Big Bekondo
+***** AS Big Ngbandi
+***** AS Dikome Balue
+***** AS Ekombe Bonji
+***** AS Fiango
+***** AS Kumba Mbeng
+***** AS Kumba Pulletin
+***** AS Kumba Town
+***** AS Massaka
+***** AS Mukonje
+***** AS Ntam
+**** District Limbe
+***** AS Batoke
+***** AS Bojongo
+***** AS Bota
+***** AS Idenua
+***** AS Mabeta
+***** AS Moliwe
+***** AS Sea Port
+***** AS Zone 2
+**** District Mamfe
+***** AS Bachuo Akagbe
+***** AS Kajifu
+***** AS Kendem
+***** AS Mamfe
+***** AS Tali
+**** District Mbonge
+***** AS Boa Balondo
+***** AS Bokosso
+***** AS Kombone
+***** AS Kotto Barombi
+***** AS Mbonge
+**** District Mundemba
+***** AS Lipenja
+***** AS Madie Ngollo
+***** AS Mundemba
+***** AS Pamol Ndian
+**** District Muyuka
+***** AS Bafia
+***** AS Ekona
+***** AS Malende
+***** AS Meanja
+***** AS Muyuka
+**** District Nguti
+***** AS Ayong
+***** AS Bakogo
+***** AS Elumba Mbo
+***** AS Eyang Atemako
+***** AS Manyemen
+***** AS Nguti 1
+***** AS Nguti 2
+***** AS Ntale
+**** District Tiko
+***** AS Holforth
+***** AS Kange
+***** AS Likomba
+***** AS Misselele
+***** AS Mondoni
+***** AS Mudeka
+***** AS Mutengene
+***** AS Tiko Town
+**** District Tombel
+***** AS Baseng
+***** AS Ebonji
+***** AS Edibenjock
+***** AS Ndibenjock
+***** AS Ndom
+***** AS Nyassosso
+***** AS Tombel Town
+**** District Wabane
+***** AS Bamumbu
+***** AS Bechati
+***** AS Fotang
+
+
+** #CV Cap-Vert
+** #CF République centrafricaine
+** #KM Comores
+** #CG République du Congo
+** #CD République démocratique du Congo
+** #CI Côte d'Ivoire
+** #DJ Djibouti
+** #EG Égypte
+** #ER Érythrée
+** #ET Éthiopie
+** #GA Gabon
+** #GM Gambie
+** #GH Ghana
+** #GN Guinée
+** #GW Guinée Bissau
+** #GQ Guinée Equatoriale
+** #KE Kenya
+** #LS Lesotho
+** #LR Liberia
+** #LY Libye
+** #MG Madagascar
+** #MW Malawi
+** #ML Mali
+** #MA Maroc
+** #MU Maurice
+** #MR Mauritanie
+** #MZ Mozambique
+** #NA Namibie
+** #NI Niger
+** #NE Nigeria
+** #UG Ouganda
+** #RW Rwanda
+** #SN Sénégal
+** #SC Seychelles
+** #SL Sierra Leone
+** #SO Somalie
+** #SD Soudan
+** #SS Soudan du Sud
+** #SZ Swaziland
+** #TZ Tanzanie
+** #TD Tchad
+** #TG Togo
+** #TN Tunisie
+** #ZM Zambie
+** #ZW Zimbabwe
+
+* #CONSULTANT
+** #DOCTOR-1 Médecin 1
+** #DOCTOR-2 Médecin 2
+** #NURSE-1 Infirmier 1
+** #NURSE-2 Infirmier 2
+
+* #AMENORRHE
+** #NO Non
+** #PRIMARY-AMENORRHEA aménorrhée primaire
+** #SECONDAIRE-AMENORRHEA aménorrhée secondaire
+
+* #PELVIC-PAIN
+** #NO Non
+** #CHRONIC-PAIN Douleur chronique
+** #ACUTE-PAIN Douleur aigũe
+
+* #POSITIVE-NEGATIVE-UNDOCUMENTED
+** POSITIVE
+** NEGATIVE
+** UNDOCUMENTED
+
+* #DIAGNOSTIC
+** Evoqué
+** Confirmé
+** Non documenté
