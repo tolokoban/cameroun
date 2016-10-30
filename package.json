@@ -27,7 +27,15 @@
                 "\\.html$"
             ]
         },
-        "output": "www"
+        "consts": {
+            "debug": {
+                "tfw": "http://localhost/Cameroun/tfw/"
+            },
+            "release": {
+                "tfw": "http://tolokoban.org/Cameroun/"
+            }
+        },
+        "output": "../../www/Cameroun"
     },
     "version": "0.0.2",
     "reservedModules": [],

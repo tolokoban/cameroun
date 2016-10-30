@@ -1,2 +1,2 @@
-require("admin",function(r,n){function e(){return t(i,arguments)}var i={en:{},fr:{}},t=require("$").intl;n.exports._=e});
+require("admin",function(e,t){function i(){return r(n,arguments)}var n={en:{},fr:{}},r=require("$").intl,d=require("dom"),o=require("$"),u=require("wdg.button");e.start=function(){var e=new u({text:"Editer les TYPES",icon:"edit"}),t=new u({text:"Editer les FORMS",icon:"edit"}),i=new u({text:"Editer les PATIENT",icon:"edit"});d.add(document.body,i,t,e),console.info("[admin] Cfg=...",o)},t.exports._=i});
 //# sourceMappingURL=admin.js.map
