@@ -1,13 +1,5 @@
 exports.config={
-    name:"cameroun",
-    description:"Cameroun",
-    author:"tolokoban",
-    version:"0.0.2",
-    major:0,
-    minor:0,
-    revision:2,
-    date:new Date(2016,9,24,18,51,13)
-};
+{"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.0.2\"","major":"0","minor":"0","revision":"2","date":"2016-10-30T18:04:05.000Z","consts":{}}};
 var currentLang = null;
 exports.lang = function(lang) {
     if (lang === undefined) {
