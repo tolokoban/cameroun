@@ -4,22 +4,40 @@
  * @module admin
  *
  * @description
- * 
+ *
  *
  * @example
  * var mod = require('admin');
  */
+require('font.josefin');
+
 var $ = require("dom");
+var W = require("x-widget").getById;
+var WS = require("tfw.web-service");
 var Cfg = require("$");
-var Button = require("wdg.button");
+var Structure = require("structure");
 
 
 exports.start = function() {
-    var btnEditTypes = new Button({ text: "Editer les TYPES", icon: 'edit' });
-    var btnEditForms = new Button({ text: "Editer les FORMS", icon: 'edit' });
-    var btnEditPatient = new Button({ text: "Editer les PATIENT", icon: 'edit' });
-
-    $.add( document.body, btnEditPatient, btnEditForms, btnEditTypes );
-
-    console.info("[admin] Cfg=...", Cfg);
+    location.hash = "#Loading";
+    Structure.load().then(function() {
+        if( location.hash == "#Admin" ) checkLogin();
+        else location.hash = "#Admin";
+    });
 };
+
+
+exports.onPage = function( pageId ) {
+    console.info("[admin] pageId=...", pageId);
+    if( !checkLogin() )  return;
+};
+
+
+function checkLogin() {
+    if( !WS.isLogged() ) {
+        W('modal.login').attach();
+        W('login').focus = true;
+        return false;
+    }
+    return true;
+}

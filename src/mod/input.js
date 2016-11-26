@@ -43,6 +43,7 @@ function addWidget( container, def, patient, visit ) {
     var completion = getCompletion( def.type );
     var wdg = new Text({
         wide: true,
+        label: def.caption,
         list: completion.list,
         placeholder: Format.expand(value.old, def.type),
         value: Format.expand(value.new, def.type)
@@ -139,6 +140,7 @@ function createHierarchicalWidget( container,
     var value = Data.getValue( patient, child.id );
     var wdg = new Text({
         wide: true,
+        label: def.caption,
         placeholder: Format.expand(value.old, type, level),
         value: Format.expand(value.new, type, level)
     });

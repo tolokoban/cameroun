@@ -7,16 +7,17 @@ var Form = require("form");
 var Structure = require("structure");
 
 var pages = {
+    loading: require("page.loading"),
     home: require("page.home"),
     patient: require("page.patient"),
     visit: require("page.visit")
 };
 
 exports.start = function() {
-    console.info("[app] Structure.types=...", Structure.types);
-    console.info("[app] Structure.forms=...", Structure.forms);
-
-    location.hash = "Home";
+    location.hash = "#Loading";
+    Structure.load().then(function() {
+        location.hash = "#Home";
+    });
 };
 
 
