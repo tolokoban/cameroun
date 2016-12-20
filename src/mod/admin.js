@@ -10,19 +10,22 @@
  * var mod = require('admin');
  */
 require('font.josefin');
+require('font.mystery-quest');
 
 var $ = require("dom");
 var W = require("x-widget").getById;
 var WS = require("tfw.web-service");
 var Cfg = require("$");
+var Err = require("tfw.message").error;
+var Msg = require("tfw.message").info;
 var Structure = require("structure");
 
 
 exports.start = function() {
     location.hash = "#Loading";
     Structure.load().then(function() {
-        if( location.hash == "#Admin" ) checkLogin();
-        else location.hash = "#Admin";
+        if( location.hash != "#Loading" ) checkLogin();
+        else location.hash = "#Loading";
     });
 };
 
@@ -30,6 +33,26 @@ exports.start = function() {
 exports.onPage = function( pageId ) {
     console.info("[admin] pageId=...", pageId);
     if( !checkLogin() )  return;
+};
+
+exports.onEditData = function( id ) {
+    alert( id );
+};
+
+exports.onLogin = function() {
+    var modal = W('modal.login');
+    modal.visible = false;
+    var user = W('login').value;
+    var password = W('password').value;
+    WS.login(user, password).then(function(ret) {
+        alert("OK : " + JSON.stringify(ret));
+    }, function(err) {
+        console.error( err );
+        Err( "L'authentification a échoué !" );
+        window.setTimeout(function() {
+            modal.visible = true;            
+        }, 3000);
+    });
 };
 
 

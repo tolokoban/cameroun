@@ -1,5 +1,5 @@
 <x-html title="Cameroun (Administration)" app="admin">
-    <wdg:layout-stack $hash="^#([a-zA-Z0-9]+)" slot:value="onPage">
+    <wdg:layout-stack $hash="^#([a-zA-Z0-9]+)" slot:value="onPage" value="Loading">
         <content list>
             <x-page key="Loading"/>
             <x-page key="Admin"/>
@@ -8,11 +8,18 @@
 
     <wdg:modal id="modal.login" $padding="true">
         <content>
-            <wdg:text id="login" $label="Utilisateur" $wide="true"/>
-            <wdg:text id="password" $label="Mot de passe" $wide="true" $type="password"/>
+            <wdg:text id="login" 
+                      $label="Utilisateur" 
+                      $wide="true"/>
+            <wdg:text id="password" 
+                      $label="Mot de passe" 
+                      $wide="true" 
+                      $type="password"
+                      bind:focus="login:action"
+                      slot:action="onLogin"/>
             <hr/>
             <center>
-                <wdg:button id="modal.login.btnOK" $text="Connexion"/>
+                <wdg:button id="modal.login.btnOK" $text="Connexion" slot:action="onLogin"/>
             </center>
         </content>
     </wdg:modal>

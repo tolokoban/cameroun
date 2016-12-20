@@ -1,2 +1,2 @@
-require("guid",function(r,n,t){function e(){return u(o,arguments)}var o={en:{},fr:{}},u=r("$").intl,f="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$#";n.exports=function(){for(var r,n=Math.floor(Date.now()/1e3),t="";n>0;)r=63&n,t=f.charAt(r)+t,n-=r,n>>=6;return t},n.exports._=e});
+require("guid",function(r,n,t){var e=function(){function n(){return e(t,arguments)}var t={en:{},fr:{}},e=r("$").intl;return n.all=t,n}(),o="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$#";n.exports=function(){for(var r,n=Math.floor(Date.now()/1e3),t="";n>0;)r=63&n,t=o.charAt(r)+t,n-=r,n>>=6;return t},n.exports._=e});
 //# sourceMappingURL=guid.js.map
