@@ -1,2 +1,2 @@
-require("error",function(e,r){function t(){return o(n,arguments)}var n={en:{},fr:{}},o=require("$").intl,i=require("tfw.storage").session;document.getElementById("error").textContent=i.get("error","..."),r.exports._=t});
+require("error",function(n,e,r){function t(n,e){document.getElementById(n).textContent=e}var o=function(){function e(){return t(r,arguments)}var r={en:{},fr:{}},t=n("$").intl;return e.all=r,e}(),i=n("tfw.storage").session,u=i.get("error",{});t("error","Erreur dans le fichier '"+u.name+"' à la ligne "+u.line+" !\n\n"+u.message),t("content",(""+u.content).split("\n").map(function(n,e){for(var r=""+(1+e);r.length<4;)r=" "+r;return r+". "+n})),e.exports._=o});
 //# sourceMappingURL=error.js.map

@@ -1,21 +1,38 @@
 "use strict";
 
+require("polyfill.promise");
 var $ = require("dom");
+var WS = require("tfw.web-service");
+var Parser = require("structure.parser");
 var Storage = require("tfw.storage").session;
 
+var promise = WS.get("GetOrg");
 
-var Parser = require("structure.parser");
-
-['types', 'forms', 'patient'].forEach(function (id) {
-    try {
-        exports[id] = Parser.parse(GLOBAL[id]);
-    }
-    catch (ex) {
-        Storage.set('error', "Erreur dans le fichier `" + id + ".org` à la ligne " + ex.lineNumber
-                    + " :\n\n" + ex.message);
-        location = "error.html";
-    }
-});
+exports.load = function() {
+    return new Promise(function (resolve, reject) {
+        promise.then(function(data) {
+            console.info("[structure] data=...", data);
+            var key, val;
+            for( key in data ) {
+                val = data[key];
+                if( typeof val !== 'string' ) val = '';
+                try {
+                    exports[key] = Parser.parse( val );
+                }
+                catch (ex) {
+                    Storage.set('error', {
+                        name: key,
+                        content: val,
+                        line: ex.lineNumber,
+                        message: ex.message
+                    });
+                    location = "error.html";
+                }
+                resolve();
+            }
+        }, reject);
+    });
+};
 
 
 exports.getForm = function() {

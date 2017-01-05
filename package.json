@@ -35,9 +35,9 @@
                 "tfw": "http://tolokoban.org/Cameroun/"
             }
         },
-        "output": "../../www/Cameroun"
+        "output": "www"
     },
-    "version": "0.0.2",
+    "version": "0.0.4",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2.5.2",
@@ -45,6 +45,6 @@
         "karma-chrome-launcher": "^0.2.3",
         "karma-firefox-launcher": "^0.1.7",
         "karma-jasmine": "^0.3.8",
-        "toloframework": "^0.39"
+        "toloframework": "^0.39.28"
     }
 }

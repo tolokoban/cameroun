@@ -1,9 +1,26 @@
-<x-html title="Cameroun (Adminstration)" app="admin">
-    <wdg:layout-stack $hash="^#([a-zA-Z0-9]+)" slot:value="onPage">
+<x-html title="Cameroun (Administration)" app="admin">
+    <wdg:layout-stack $hash="^#([a-zA-Z0-9]+)" slot:value="onPage" value="Loading">
         <content list>
-            <x-page key="Home" />
-            <x-page key="Patient" />
-            <x-page key="Visit" />
+            <x-page key="Loading"/>
+            <x-page key="Admin"/>
         </content>
     </wdg:layout-stack>
+
+    <wdg:modal id="modal.login" $padding="true">
+        <content>
+            <wdg:text id="login" 
+                      $label="Utilisateur" 
+                      $wide="true"/>
+            <wdg:text id="password" 
+                      $label="Mot de passe" 
+                      $wide="true" 
+                      $type="password"
+                      bind:focus="login:action"
+                      slot:action="onLogin"/>
+            <hr/>
+            <center>
+                <wdg:button id="modal.login.btnOK" $text="Connexion" slot:action="onLogin"/>
+            </center>
+        </content>
+    </wdg:modal>
 </x-html>

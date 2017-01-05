@@ -72,6 +72,7 @@ var RX_LINE = /^(#[A-Z0-9-]+)?([^\(@]*)(\([^\)]*\)\+?)?(@[A-Z0-9,-]+)?/;
 exports.parse = function(code) {
     var types = {};
     var levels = [types];
+    if( typeof code !== 'string' ) code = '' + code;
     code.split('\n').forEach(function (line, lineNumber) {
         try {
             line = line.trim();
