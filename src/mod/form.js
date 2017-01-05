@@ -88,12 +88,12 @@ function createInputs( table, def ) {
     for( id in def ) {
         item = def[id];
         completion = getCompletion(item.type);
-        wdg = new Text({ wide: true, list: completion.list });
-        wdg.$id = id;
+        wdg = new Text({ label: item.caption, wide: true, list: completion.list });
+        wdg.$id = id;        
         wdg.$map = completion.map;
         inputs.push( wdg );
         row = $.div([
-            $.div([item.caption]),
+            //$.div([item.caption]),    // Il faut retirer le texte sur la gauche.
             $.div([wdg])
         ]);
         $.add( table, row );

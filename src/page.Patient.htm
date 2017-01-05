@@ -5,10 +5,13 @@
     <wdg:flex>
         <content list>
             <wdg:button id="patient.exit" $text="Sortie du patient" $icon="user"/>
-            <wdg:button $text="Créer une nouvelle rencontre" $icon="plus"
+            <wdg:button $text="Créer une nouvelle visite" $icon="plus"
                         slot:action="page.patient:onNewVisit"/>
         </content>
     </wdg:flex>
+    <hr/>
+    <h2><intl:vaccination/></h2>
+    <div id="vaccins"></div>
     <hr/>
     <wdg:flex>
         <content list>

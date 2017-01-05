@@ -1,0 +1,22 @@
+#vaccins {
+    display: block;
+}
+
+#vaccins > div {
+    display: table;
+    margin: .2rem 0;
+    width: 100%;
+    transition: all .2s;
+    pointer: cursor;
+}
+
+#vaccins > div > div {
+    display: table-cell;
+    padding: 0 1rem;
+    vertical-align: middle;
+    height: 1.5rem;
+}
+
+#vaccins > div > div:last-child {
+    text-align: right;
+}

@@ -29,10 +29,10 @@
         },
         "consts": {
             "debug": {
-                "tfw": "http://localhost/Cameroun/tfw/"
+                "tfw": "http://localhost/www/Cameroun"
             },
             "release": {
-                "tfw": "http://tolokoban.org/Cameroun/"
+                "tfw": "http://tolokoban.org/Cameroun"
             }
         },
         "output": "www"

@@ -5,6 +5,7 @@ var W = require("x-widget").getById;
 var Data = require("data");
 var Modal = require("wdg.modal");
 var Format = require("format");
+var Structure = require("structure");
 
 
 var g_patient;
@@ -35,7 +36,41 @@ exports.onPage = function() {
                 + Format.date(admission.exit) + "</b>.</li></ul>";
         }
     }
+
+    initVaccins();
 };
+
+function onVaccinHover( down ) {
+    if( down ) {
+        $.addClass( this, 'theme-elevation-8', 'theme-color-bg-A4' );
+        $.removeClass( this, 'theme-elevation-2', 'theme-color-bg-A1' );
+    } else {
+        $.removeClass( this, 'theme-elevation-8', 'theme-color-bg-A4' );
+        $.addClass( this, 'theme-elevation-2', 'theme-color-bg-A1' );
+    }
+}
+
+function onVaccinTap( id ) {
+    console.info("[page.patient] id=...", id);
+}
+
+function initVaccins() {
+    $.clear( 'vaccins' );
+    var id, caption, row;
+    for( id in Structure.vaccins ) {
+        caption = Structure.vaccins[id].caption;
+        row = $.div( 'theme-elevation-2', 'theme-color-bg-A1', [
+            $.div([ caption ]),
+            $.div([ '---' ])
+        ]);
+        $.add( 'vaccins', row );
+        $.on( row, {
+            down: onVaccinHover.bind( row, true ),
+            up: onVaccinHover.bind( row, false ),
+            tap: onVaccinTap.bind( row, id )
+        });
+    }
+}
 
 
 exports.onNewVisit = function() {
@@ -52,7 +87,7 @@ exports.onNewVisit = function() {
             $.tag('br'),
             "Voulez-vous la poursuivre ?",
             $.tag('hr'),
-            $.tag('em', ["Si vous choisissez NON, nous créerons une nouvelle rencontre."])            
+            $.tag('em', ["Si vous choisissez NON, nous créerons une nouvelle visite."])            
         ]);
         Modal.confirm(
             content,

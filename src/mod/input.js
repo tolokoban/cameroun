@@ -62,7 +62,7 @@ function addWidget( container, def, patient, visit ) {
     });
 
     $.add( container, $.div([
-        $.div([def.caption]),
+        //$.div([def.caption]),
         $.div([wdg])
     ]));
 
@@ -140,7 +140,7 @@ function createHierarchicalWidget( container,
     var value = Data.getValue( patient, child.id );
     var wdg = new Text({
         wide: true,
-        label: def.caption,
+        label: child.caption + "  (" + def.caption + ")",
         placeholder: Format.expand(value.old, type, level),
         value: Format.expand(value.new, type, level)
     });
@@ -163,10 +163,7 @@ function createHierarchicalWidget( container,
         }
         Data.save();
     });
-    $.add( container, $.div([
-        $.div([child.caption]),
-        $.div([wdg])
-    ]));
+    $.add( container, wdg );
 
     return wdg;
 }

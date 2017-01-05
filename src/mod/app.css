@@ -1,4 +1,5 @@
 html {
+    font-family: josefin;
     text-align: center;
     background-color: #cdc;
     margin: 0;
@@ -67,29 +68,23 @@ body > div.wdg-layout-stack {
     padding: 0;
 }
 
-h1 {
-    font-size: 1.1rem;
-    color: #FFA500;
-    margin: 0;
+h1, h2 {
     padding: 0 0 0 .5em;
+    color: #000;
+    margin: 4px 0px 12px;
+    padding: 0 1rem;
     width: 100%;
-    text-overflow: ellipsis;
-    text-shadow: 2px 2px 2px #000;
-    font-weight: 500;
+    line-height: 150%;
+    text-shadow: none;
+    font-weight: 700;
+    border: none;    
+    background: rgba(0,0,0,.1);
+    text-align: left;
 }
 
-h2 {
-    font-size: 1rem;
-    padding: 0 0 0 .5em;
-    color: #ff0;
-    margin: 4px 0px 12px;
-    padding: 0 1rem 0 0;
-    width: 100%;
-    text-shadow: 2px 2px 0px #000;
-    font-weight: 300;
-    border-bottom: 1px solid #ff0;
-    text-align: right;
-}
+h1 { font-size: 1.3rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1.1rem; }
 
 p {
     padding: 1rem;

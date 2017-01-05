@@ -3,6 +3,10 @@
 require("font.josefin");
 
 var $ = require("dom");
+var Err = require("tfw.message").error;
+var Msg = require("tfw.message").info;
+var Modal = require("wdg.modal");
+
 var Form = require("form");
 var Structure = require("structure");
 
@@ -17,6 +21,10 @@ exports.start = function() {
     location.hash = "#Loading";
     Structure.load().then(function() {
         location.hash = "#Home";
+    }, function(err) {
+        err.context = "Loading...";
+        console.error( err );
+        Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
     });
 };
 
