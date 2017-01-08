@@ -32,12 +32,12 @@
                 "tfw": "http://localhost/www/Cameroun"
             },
             "release": {
-                "tfw": "http://tolokoban.org/Cameroun"
+                "tfw": "tfw"
             }
         },
         "output": "www"
     },
-    "version": "0.0.4",
+    "version": "0.0.7",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2.5.2",

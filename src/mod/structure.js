@@ -11,7 +11,7 @@ var promise = WS.get("GetOrg");
 exports.load = function() {
     return new Promise(function (resolve, reject) {
         promise.then(function(data) {
-            console.info("[structure] data=...", data);
+            exports.data = data;
             var key, val;
             for( key in data ) {
                 val = data[key];

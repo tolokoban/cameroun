@@ -2,6 +2,7 @@
 
 var $ = require("dom");
 var W = require("x-widget").getById;
+var Err = require("tfw.message").error;
 var Data = require("data");
 var Modal = require("wdg.modal");
 var Format = require("format");
@@ -9,6 +10,7 @@ var Structure = require("structure");
 
 
 var g_patient;
+var g_currentVaccinID;
 
 
 exports.onPage = function() {
@@ -51,7 +53,12 @@ function onVaccinHover( down ) {
 }
 
 function onVaccinTap( id ) {
-    console.info("[page.patient] id=...", id);
+    g_currentVaccinID = id;
+    W('vaccin-edit').attach();
+    $('vaccin-name').textContent = Structure.vaccins[id].caption;
+    var dateVaccin = Data.getVaccin( g_patient, id );
+    if( !dateVaccin ) dateVaccin = new Date();
+    else W('vaccin-date').value = dateVaccin;
 }
 
 function initVaccins() {
@@ -59,10 +66,20 @@ function initVaccins() {
     var id, caption, row;
     for( id in Structure.vaccins ) {
         caption = Structure.vaccins[id].caption;
-        row = $.div( 'theme-elevation-2', 'theme-color-bg-A1', [
-            $.div([ caption ]),
-            $.div([ '---' ])
-        ]);
+        var dateVaccin = Data.getVaccin( g_patient, id );
+        if( dateVaccin ) {
+            var delta = Math.ceil( (Date.now() - dateVaccin.getTime()) / 31557600000 );
+            row = $.div( 'theme-elevation-2', 
+                         'level-' + (delta < 6 ? '0' : (delta < 11 ? '1' : '2')), [
+                $.div([ caption ]), $.div([ delta < 2 ? "Moins d'un an" : delta + " ans" ])
+            ]);            
+        } else {
+            row = $.div( 'theme-elevation-2', 'level-3', [
+                $.div([ caption ]), $.div( 'unknown', ['Inconnu...'] )
+            ]);
+        }
+
+
         $.add( 'vaccins', row );
         $.on( row, {
             down: onVaccinHover.bind( row, true ),
@@ -72,6 +89,26 @@ function initVaccins() {
     }
 }
 
+function closeVaccin() {
+    W('vaccin-edit').detach();
+    initVaccins();
+}
+
+exports.onVaccinOK = function() {
+    var d = W('vaccin-date').value;
+    if( d.getTime() > Date.now() ) {
+        Err('La date spécifiée est dans le futur !');
+        return;
+    }
+    Data.setVaccin( g_patient, g_currentVaccinID, d );
+    console.info("[page.patient] Data.getPatient(g_patient)=...", Data.getPatient(g_patient));
+    closeVaccin();
+};
+
+exports.onVaccinDel = function() {
+    Data.delVaccin( g_patient, g_currentVaccinID );
+    closeVaccin();
+};
 
 exports.onNewVisit = function() {
     var visit = Data.getLastVisit( g_patient );
@@ -87,7 +124,7 @@ exports.onNewVisit = function() {
             $.tag('br'),
             "Voulez-vous la poursuivre ?",
             $.tag('hr'),
-            $.tag('em', ["Si vous choisissez NON, nous créerons une nouvelle visite."])            
+            $.tag('em', ["Si vous choisissez NON, nous créerons une nouvelle visite."])
         ]);
         Modal.confirm(
             content,
@@ -102,3 +139,9 @@ exports.onNewVisit = function() {
         );
     }
 };
+
+
+function formatDate( d ) {
+    if( typeof d === 'string' ) return d;
+    return d.toString();
+}

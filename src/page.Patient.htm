@@ -7,15 +7,48 @@
             <wdg:button id="patient.exit" $text="Sortie du patient" $icon="user"/>
             <wdg:button $text="Créer une nouvelle visite" $icon="plus"
                         slot:action="page.patient:onNewVisit"/>
+            <wdg:button $text="Prescrire des examens" $icon="print" $href="#Exam"/>
         </content>
     </wdg:flex>
     <hr/>
-    <h2><intl:vaccination/></h2>
-    <div id="vaccins"></div>
+    <wdg:showhide $label="Liste des vaccins" $value="false">
+        <content>
+            <div id="vaccins"></div>
+        </content>
+    </wdg:showhide>
     <hr/>
     <wdg:flex>
         <content list>
-            <wdg:button $text="Retour à l'écran principal" $icon="back" $href="#Home" $type="simple"/>
+            <wdg:button $text="Retour à l'écran principal"
+                        $icon="back"
+                        $href="#Home"
+                        $type="simple"/>
         </content>
     </wdg:flex>
+    <wdg:modal id="vaccin-edit"
+               $visible="false"
+               bind:visible="btnVaccinCancel:action"
+               $padding="true">
+        <content>
+            <h1 id="vaccin-name"></h1>
+            <center>
+                <span>Date de la dernière vaccination : </span>
+                <wdg:date id="vaccin-date" $format="DMY"/>
+                <x-spc h="2rem"/>
+                <wdg:flex>
+                    <content>
+                        <wdg:button id="btnVaccinCancel"
+                                    $text="Annuler" $type="simple" $value="false"/>
+                        <wdg:button $text="Valider" 
+                                    bind:enabled="vaccin-date:valid"
+                                    bind:action="vaccin-date:action"
+                                    slot:action="page.patient:onVaccinOK"/>
+                    </content>
+                </wdg:flex>
+                <hr/>
+                <wdg:button $text="Supprimer la date" $type="warning" $icon="delete"
+                            slot:action="page.patient:onVaccinDel"/>
+            </center>
+        </content>
+    </wdg:modal>
 </div>

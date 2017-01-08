@@ -14,7 +14,8 @@ var pages = {
     loading: require("page.loading"),
     home: require("page.home"),
     patient: require("page.patient"),
-    visit: require("page.visit")
+    visit: require("page.visit"),
+    exam: require("page.exam")
 };
 
 exports.start = function() {

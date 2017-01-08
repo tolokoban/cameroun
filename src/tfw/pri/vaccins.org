@@ -1,0 +1,25 @@
+* #CH Choléra
+* #CO Coqueluche
+* #DI Diphtérie
+* #EJ Encéphalite Japonaise
+* #ET Encéphalite à Tiques
+* #FJ Fièvre Jaune
+* #GS Grippe Saisonnière
+* #IN Haemophilus influenzae de type B
+* #HA Hépatite A
+* #HB Hépatite B
+* #LE Leptospirose
+* #ME Méningocoque
+* #OR Oreillons
+* #PA Papillomavirus Humain
+* #PN Pneumocoque
+* #PO Poliomyélite
+* #RA Rage
+* #RO Rotavirus
+* #RG Rougeole
+* #RU Rubéole
+* #TE Tétanos
+* #TU Tuberculose
+* #TY Typhoïde
+* #VA Varicelle
+* #ZO Zona

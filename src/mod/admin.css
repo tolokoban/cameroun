@@ -102,3 +102,16 @@ p {
 div.right {
     text-align: right;
 }
+
+#content {
+    border: none;
+    padding: 1rem;
+    width: 100%;
+    transition: color .4s;
+    color: #000;
+}
+
+#content.flash {
+    transition: none;
+    color: transparent;
+}

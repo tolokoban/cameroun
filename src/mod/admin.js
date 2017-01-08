@@ -15,11 +15,16 @@ require('font.mystery-quest');
 var $ = require("dom");
 var W = require("x-widget").getById;
 var WS = require("tfw.web-service");
+var DB = require("tfw.data-binding");
 var Cfg = require("$");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
+var Modal = require("wdg.modal");
+var Parser = require("structure.parser");
 var Structure = require("structure");
 
+// ID of the combo of structures.
+var g_id;
 
 exports.start = function() {
     location.hash = "#Loading";
@@ -35,8 +40,39 @@ exports.onPage = function( pageId ) {
     if( !checkLogin() )  return;
 };
 
-exports.onEditData = function( id ) {
-    alert( id );
+exports.onSave = function() {
+    try {
+        var content = $('content').value.trim();
+        var data = Parser.parse( content );
+        var id = g_id;
+        var modal = new Modal({ 
+            padding: true,
+            content: ['Sauvegarde en cours...'] 
+        });
+        modal.attach();
+        window.setTimeout(function() {
+            WS.get('PutOrg', { id: id, text: content }).then(function(ret) {
+                console.info("[admin] ret=...", ret);
+                modal.detach();
+                Msg("Sauvegarde réussie !");
+            }, function(err) {
+                console.info("[admin] err=...", err);
+                Err( err );
+            });
+        }, 1000 );
+    }
+    catch( err ) {
+        Err( err );
+        $('content').focus();
+    }
+};
+
+exports.onCombo = function( id ) {
+    g_id = id;
+    var area = $('content');
+    area.value = '' + Structure.data[id];
+    $.addClass( area, 'flash' );
+    window.setTimeout( $.removeClass.bind( $, area, 'flash' ) );
 };
 
 exports.onLogin = function() {
@@ -45,12 +81,20 @@ exports.onLogin = function() {
     var user = W('login').value;
     var password = W('password').value;
     WS.login(user, password).then(function(ret) {
-        alert("OK : " + JSON.stringify(ret));
+        Msg("Bienvenue !");
+        Structure.load().then(function() {
+            location.hash = "#Admin";
+            exports.onCombo( 'patient' );
+        }, function(err) {
+            err.context = "Loading...";
+            console.error( err );
+            Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
+        });
     }, function(err) {
         console.error( err );
         Err( "L'authentification a échoué !" );
         window.setTimeout(function() {
-            modal.visible = true;            
+            modal.visible = true;
         }, 3000);
     });
 };

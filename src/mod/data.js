@@ -25,7 +25,7 @@ var data = Storage.get("cameroun", {});
 console.info("[data] data=...", data);
 
 /**
- * Retourner une lsite de patients' id.
+ * Retourner une liste de patients' id.
  */
 exports.findPatients = function(criteria, limit) {
     if( typeof limit === 'undefined' ) limit = 5;
@@ -108,6 +108,25 @@ console.info("[data] patient=...", patient);
     return result;
 };
 
+exports.setVaccin = function(patient, id, dte) {
+    if( typeof patient.$vaccins === 'undefined' ) patient.$vaccins = {};
+    if( dte instanceof Date ) dte = dte.toString();
+    patient.$vaccins[id] = dte;
+    exports.save();
+};
+
+exports.delVaccin = function(patient, id) {
+    if( typeof patient.$vaccins === 'undefined' ) return;
+    delete patient.$vaccins[id];
+    exports.save();
+};
+
+exports.getVaccin = function(patient, id) {
+    if( typeof patient.$vaccins === 'undefined' ) return undefined;
+    var d = patient.$vaccins[id];
+    if( typeof d !== 'string' ) return d;
+    return new Date( d );
+};
 
 /**
  * Find the last patient's visit or return `null`.
