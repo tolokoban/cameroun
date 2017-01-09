@@ -10,7 +10,7 @@ exports.onPage = function() {
     // Page / Section / Exam.
     var div = $('exam.data');
     $.clear( div );
-    var pages = Structure.exam || {};
+    var pages = Structure.exams || {};
     var page, pageId, pageCaption;
     for( pageId in pages ) {
         page = pages[pageId];
@@ -21,15 +21,9 @@ exports.onPage = function() {
         for( sectionId in sections ) {
             section = pages[pageId].children[sectionId];
             sectionCaption = section.caption;
-            var showhideContent = [];
-            var showhide = new ShowHide({
-                label: sectionCaption,
-                value: false,
-                content: showhideContent
-            });
-            $.add( div, showhide );
             var exams = section.children;
             var exam, examId, examCaption;
+            var showhideContent = [];
             for( examId in exams ) {
                 exam = exams[examId];
                 examCaption = exam.caption;
@@ -38,6 +32,12 @@ exports.onPage = function() {
                 });
                 showhideContent.push( chkbox );
             }
+            var showhide = new ShowHide({
+                label: sectionCaption,
+                value: false,
+                content: showhideContent
+            });
+            $.add( div, showhide );
         }
     }
 };

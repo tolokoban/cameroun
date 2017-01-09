@@ -56,9 +56,11 @@ function onVaccinTap( id ) {
     g_currentVaccinID = id;
     W('vaccin-edit').attach();
     $('vaccin-name').textContent = Structure.vaccins[id].caption;
-    var dateVaccin = Data.getVaccin( g_patient, id );
+    var vaccin = Data.getVaccin( g_patient, id ) || {};
+    var dateVaccin = vaccin.date;
     if( !dateVaccin ) dateVaccin = new Date();
-    else W('vaccin-date').value = dateVaccin;
+    W('vaccin-date').value = dateVaccin;
+    W('vaccin-lot').value = vaccin.lot || "";
 }
 
 function initVaccins() {
@@ -66,8 +68,9 @@ function initVaccins() {
     var id, caption, row;
     for( id in Structure.vaccins ) {
         caption = Structure.vaccins[id].caption;
-        var dateVaccin = Data.getVaccin( g_patient, id );
-        if( dateVaccin ) {
+        var vaccin = Data.getVaccin( g_patient, id );
+        if( vaccin ) {
+            var dateVaccin = vaccin.date;
             var delta = Math.ceil( (Date.now() - dateVaccin.getTime()) / 31557600000 );
             row = $.div( 'theme-elevation-2', 
                          'level-' + (delta < 6 ? '0' : (delta < 11 ? '1' : '2')), [
@@ -78,7 +81,6 @@ function initVaccins() {
                 $.div([ caption ]), $.div( 'unknown', ['Inconnu...'] )
             ]);
         }
-
 
         $.add( 'vaccins', row );
         $.on( row, {
@@ -100,7 +102,7 @@ exports.onVaccinOK = function() {
         Err('La date spécifiée est dans le futur !');
         return;
     }
-    Data.setVaccin( g_patient, g_currentVaccinID, d );
+    Data.setVaccin( g_patient, g_currentVaccinID, { date: d, lot: W('vaccin-lot').value } );
     console.info("[page.patient] Data.getPatient(g_patient)=...", Data.getPatient(g_patient));
     closeVaccin();
 };

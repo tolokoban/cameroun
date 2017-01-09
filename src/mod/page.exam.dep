@@ -1,0 +1,12 @@
+{
+    "var": {
+        "META-INF/manifest.xml": "@/exam-fr/META-INF/manifest.xml",
+        "content.head.xml": "@/exam-fr/content.head.xml",
+        "content.foot.xml": "@/exam-fr/content.foot.xml",
+        "manifest.rdf": "@/exam-fr/manifest.rdf",
+        "meta.xml": "@/exam-fr/meta.xml",
+        "mimetype": "@/exam-fr/mimetype",
+        "settings.xml": "@/exam-fr/settings.xml",
+        "styles.xml": "@/exam-fr/styles.xml"
+    }
+}

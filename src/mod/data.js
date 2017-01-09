@@ -108,10 +108,13 @@ console.info("[data] patient=...", patient);
     return result;
 };
 
-exports.setVaccin = function(patient, id, dte) {
+exports.setVaccin = function(patient, id, vaccin) {
     if( typeof patient.$vaccins === 'undefined' ) patient.$vaccins = {};
+    var dte = vaccin.date;
+    var lot = vaccin.lot;
+    if( typeof lot !== 'string' ) lot = '';
     if( dte instanceof Date ) dte = dte.toString();
-    patient.$vaccins[id] = dte;
+    patient.$vaccins[id] = {date: dte, lot: lot};
     exports.save();
 };
 
@@ -123,9 +126,15 @@ exports.delVaccin = function(patient, id) {
 
 exports.getVaccin = function(patient, id) {
     if( typeof patient.$vaccins === 'undefined' ) return undefined;
-    var d = patient.$vaccins[id];
-    if( typeof d !== 'string' ) return d;
-    return new Date( d );
+    var vaccin = patient.$vaccins[id];
+    if( !vaccin ) return undefined;
+    if( typeof vaccin === 'string' ) return undefined;
+    if( typeof vaccin.date !== 'string' ) return undefined;
+    var dte = new Date( vaccin.date );
+    if( isNaN( dte.getTime() ) ) return undefined;
+    var lot = vaccin.lot;
+    if( typeof lot !== 'string' ) lot = '';
+    return { date: dte, lot: lot };
 };
 
 /**

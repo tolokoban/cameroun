@@ -29,13 +29,13 @@
         },
         "consts": {
             "debug": {
-                "tfw": "http://localhost/www/Cameroun"
+                "tfw": "http://localhost/www/Cameroun/tfw"
             },
             "release": {
                 "tfw": "tfw"
             }
         },
-        "output": "www"
+        "output": "../../www/Cameroun"
     },
     "version": "0.0.7",
     "reservedModules": [],

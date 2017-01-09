@@ -34,6 +34,8 @@
             <center>
                 <span>Date de la dernière vaccination : </span>
                 <wdg:date id="vaccin-date" $format="DMY"/>
+                <wdg:text id="vaccin-lot" $label="Numéro de lot" $wide="true"
+                          bind:focus="vaccin-date:action"/>
                 <x-spc h="2rem"/>
                 <wdg:flex>
                     <content>
@@ -41,7 +43,7 @@
                                     $text="Annuler" $type="simple" $value="false"/>
                         <wdg:button $text="Valider" 
                                     bind:enabled="vaccin-date:valid"
-                                    bind:action="vaccin-date:action"
+                                    bind:action="vaccin-lot:action"
                                     slot:action="page.patient:onVaccinOK"/>
                     </content>
                 </wdg:flex>
