@@ -20,6 +20,12 @@ var Structure = require("structure");
  */
 var g_pages;
 
+var MONTHES = [
+    'Janvier', 'Février', 'Mars', 'Avril',
+    'Mai', 'Juin', 'Juillet', 'Août',
+    'Septembre', 'Octobre', 'Novembre', 'Décembre'
+];
+
 exports.onPage = function() {
     // Page / Section / Exam.
     var div = $('exam.data');
@@ -82,6 +88,12 @@ exports.onPrint = function() {
 
 
 function buildContent() {
+    var patient = {
+        lastname: "LASTNAME",
+        firstname: "FIRSTNAME",
+        birthdate: "BIRTHDATE"
+    };
+
     var out = GLOBAL['content.head.xml'];
     g_pages.forEach(function (itmTitle) {
         var titlePrinted = false;
@@ -91,17 +103,43 @@ function buildContent() {
                 if( chkbox.value == false ) return;
 
                 if( !titlePrinted ) {
+                    var today = new Date();
                     out += tag("text:p", {"text:style-name": "P18"}, itmTitle[0]);
+                    out += tag('text:p', {'text:style-name': 'P2'},
+                               tag('text:p', {'text:style-name': 'T5'}, "Nom du patient : "),
+                               tag('text:p', {'text:style-name': 'T3'}, patient.lastname),
+                               tag('text:p', {'text:style-name': 'T6'}, tag('text:tab')),
+                               tag('text:p', {'text:style-name': 'T5'}, "Prénom : "),
+                               tag('text:p', {'text:style-name': 'T3'}, patient.firstname));
+                    out += tag('text:p', {'text:style-name': 'P1'},
+                               tag('text:p', {'text:style-name': 'T5'}, "Date de naissance : "),
+                               tag('text:p', {'text:style-name': 'T3'}, patient.birthdate));
+                    out += tag('text:p', {'text:style-name': 'P4'});
+                    out += tag('text:p', {'text:style-name': 'P15'},
+                               tag('text:p', {'text:style-name': 'T5'},
+                                   "Date de demande de l'examen : ",
+                                   tag('text:p', {'text:style-name': 'T3'},
+                                       today.getDate() + " "
+                                       + MONTHES[today.getMonth()] + " "
+                                       + today.getFullYear())));
+                    out += tag('text:p', {'text:style-name': 'P15'},
+                               tag('text:p', {'text:style-name': 'T5'},
+                                   "Nom du prescripteur : ",
+                                   tag('text:tab')));
+                    out += tag('text:p', {'text:style-name': 'P15'},
+                               tag('text:p', {'text:style-name': 'T5'},
+                                   "Nom du service prescripteur de l'examen : ",
+                                   tag('text:tab')));
                     titlePrinted = true;
                 }
                 if( !sectionPrinted ) {
-                    out += tag("text:p", {"text:style-name": "Heading_20_2"}, itmTitle[0]);
+                    out += tag("text:p", {"text:style-name": "Heading_20_2"}, itmSection[0]);
                     sectionPrinted = true;
                 }
                 out += tag('text:list', { 'text:style-name': 'L1' },
                            tag('text:list-item',
                                tag('text:p', {'text:style-name': 'P16'},
-                                   chkbox.label + " : "
+                                   chkbox.text + " : "
                                    + tag('text:tab'))));
             });
         });
@@ -111,16 +149,25 @@ function buildContent() {
 }
 
 
-function tag(name, attribs, content) {
-    if( typeof attribs === 'undefined' ) return "<" + name + "/>";
-    if( typeof attribs === 'string' ) return "<" + name + ">" + attribs + "</" + name + ">";
+function tag(name, args) {
+    if( typeof args === 'undefined' ) return "<" + name + "/>";
+    if( typeof args === 'string' ) return "<" + name + ">" + args + "</" + name + ">";
     var out = '<' + name;
+    var attribs = {};
+    var content = '';
+    var i, arg;
+    for (i = 1 ; i < arguments.length ; i++) {
+        arg = arguments[i];
+        if( typeof arg === 'string' ) content += arg;
+        else attribs = arg;
+    }
+
     var key, val;
     for( key in attribs ) {
         val = attribs[key];
         out += ' ' + key + "=" + JSON.stringify( val );
     }
-    if( typeof content === 'string' ) {
+    if( content.length > 0 ) {
         out += ">" + content + "</" + name + ">";
     } else {
         out += "/>";
