@@ -130,6 +130,7 @@ function buildContent() {
                                tag('text:p', {'text:style-name': 'T5'},
                                    "Nom du service prescripteur de l'examen : ",
                                    tag('text:tab')));
+                    out += tag('text:p', {'text:style-name': "Heading_20_2"});
                     titlePrinted = true;
                 }
                 if( !sectionPrinted ) {
