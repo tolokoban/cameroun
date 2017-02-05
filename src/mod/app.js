@@ -1,5 +1,6 @@
 "use strict";
 
+require("offline");
 require("font.josefin");
 
 var $ = require("dom");
