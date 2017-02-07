@@ -11,29 +11,45 @@ var promise = WS.get("GetOrg");
 exports.load = function() {
     return new Promise(function (resolve, reject) {
         promise.then(function(data) {
-            exports.data = data;
-            var key, val;
-            for( key in data ) {
-                val = data[key];
-                if( typeof val !== 'string' ) val = '';
-                try {
-                    exports[key] = Parser.parse( val );
-                }
-                catch (ex) {
-                    Storage.set('error', {
-                        name: key,
-                        content: val,
-                        line: ex.lineNumber,
-                        message: ex.message
-                    });
-                    location = "error.html";
-                }
+            loadData( data );
+            resolve();
+        }, function( err ) {
+            console.error( err );
+            var data = Storage.get( 'structure', null );
+            if( !data ) {
+                reject( "No connection and no structure in cache!" );
+            } else {
+                loadData( data );
                 resolve();
             }
-        }, reject);
+        });
     });
 };
 
+
+function loadData( data ) {
+    exports.data = data;
+    // Save structure for off-line usage.
+    Storage.set( 'structure', data );
+
+    var key, val;
+    for( key in data ) {
+        val = data[key];
+        if( typeof val !== 'string' ) val = '';
+        try {
+            exports[key] = Parser.parse( val );
+        }
+        catch (ex) {
+            Storage.set('error', {
+                name: key,
+                content: val,
+                line: ex.lineNumber,
+                message: ex.message
+            });
+            location = "error.html";
+        }
+    }
+}
 
 exports.getForm = function() {
     var path = [];
