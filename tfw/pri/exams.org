@@ -1,0 +1,39 @@
+* Prescription d'examen biologique
+** Numération formule sanguine
+*** Hématie
+*** Hémoglobine
+*** Hématocrite
+*** Leucocytes
+*** Polynucléaires neutrophiles
+*** Polynucléaires éosinophiles
+*** Polynucléaires basophiles
+*** Lymphocytes
+*** Monocytes
+*** Plaquette
+** Biologie sanguine
+*** Na
+*** Cl
+*** K
+*** Urée
+** Test urinaire
+*** Test uninaire
+*** Examen direct Diplocoque
+*** Schisto urine
+** Test rapide
+*** Test rapide syphilis
+*** Test chlamydia
+*** Sero-triage HPV
+*** Dépistage des hépatites B
+*** Dépistage des hépatites C
+*** Dépistage VIH test 1
+*** Dépistage VIH test 2
+*** Test malaria
+* Prescription d’examen imagerie (radiographie ou échographie)
+** Radiographie
+*** Radio thoracique face
+*** Radio thoracique profil
+*** Autre radiographie
+** Echographie
+*** Abdominale
+*** Pelvienne
+*** Autre échographie
