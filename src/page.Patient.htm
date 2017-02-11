@@ -7,7 +7,8 @@
             <wdg:button id="patient.exit" $text="Sortie du patient" $icon="user"/>
             <wdg:button $text="Créer une nouvelle visite" $icon="plus"
                         slot:action="page.patient:onNewVisit"/>
-            <wdg:button $text="Prescrire des examens" $icon="print" $href="#Exam"/>
+            <wdg:button $text="Prescrire des examens" $icon="print"
+                        slot:action="page.patient:onExam"/>
         </content>
     </wdg:flex>
     <hr/>

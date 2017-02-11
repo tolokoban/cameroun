@@ -1,5 +1,6 @@
 var $ = require("dom");
 var DB = require("tfw.data-binding");
+var Cfg = require("$").config;
 var Form = require("form");
 var Data = require("data");
 var Format = require("format");
@@ -9,6 +10,8 @@ var LocalDownload = require("tfw.local-download");
 
 
 exports.onPage = function() {
+    $('version').textContent = "Version " + Cfg.version + " - " + Cfg.date.substr(0, 10);
+
     var defSearchForm = Structure.patient;
     var wdgSearchForm = new Form( defSearchForm );
     var divSearchForm = document.getElementById('search-form');

@@ -1,4 +1,4 @@
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.0.11\"","major":"0","minor":"0","revision":"11","date":"2017-02-05T17:14:59.000Z","consts":{"tfw":"tfw"}};
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.1.1\"","major":"0","minor":"1","revision":"1","date":"2017-02-11T12:38:09.000Z","consts":{"tfw":"tfw"}};
 var currentLang = null;
 exports.lang = function(lang) {
     if (lang === undefined) {

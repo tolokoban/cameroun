@@ -10,12 +10,14 @@ var Structure = require("structure");
 
 
 var g_patient;
+var g_patientId;
 var g_currentVaccinID;
 
 
 exports.onPage = function() {
     var hash = location.hash.split('/');
     var patientId = hash[1];
+    g_patientId = patientId;
     g_patient = Data.getPatient( patientId );
     document.getElementById('patient.title').textContent = Format.getPatientCaption( g_patient );
 
@@ -110,6 +112,11 @@ exports.onVaccinOK = function() {
 exports.onVaccinDel = function() {
     Data.delVaccin( g_patient, g_currentVaccinID );
     closeVaccin();
+};
+
+exports.onExam = function() {
+    console.info("[page.patient] g_patient=", g_patient);
+    location = "#Exam/" + g_patientId;
 };
 
 exports.onNewVisit = function() {
