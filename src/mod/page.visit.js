@@ -66,7 +66,6 @@ function addForm( parent, def ) {
 }
 
 exports.onNewVisit = function() {
-    console.info("[page.patient] g_patient=...", g_patient);
     var currentAdmission = g_patient.$admissions[g_patient.$admissions.length - 1];
     if (!currentAdmission) {
         currentAdmission = {

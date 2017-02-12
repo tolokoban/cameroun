@@ -3,6 +3,7 @@
 require("polyfill.promise");
 var $ = require("dom");
 var Err = require("tfw.message").error;
+var Msg = require("tfw.message").info;
 var Data = require("data");
 var Archive = require("tfw.archive");
 var FileAPI = require("tfw.fileapi");
@@ -74,6 +75,9 @@ exports.onPage = function() {
     }
 };
 
+exports.onBack = function() {
+    location = "#Patient/" + g_patientId;
+};
 
 exports.onPrint = function() {
     var arch = new Archive();
@@ -86,6 +90,7 @@ exports.onPrint = function() {
         .addText("styles.xml", GLOBAL["styles.xml"])
         .close("application/vnd.oasis.opendocument.text").then(function(blob) {
             FileAPI.saveAs(blob, "presciption-examens.odt");
+            Msg( "Le fichier LibreOffice a été téléchargé !" );
         }, function(err) {
             Err( err );
         });
@@ -97,7 +102,7 @@ function buildContent() {
     var patient = {
         lastname: data["#PATIENT-LASTNAME"],
         firstname: data["#PATIENT-FIRSTNAME"],
-        birthdate: data["#PATIENT-BIRTHDATE"]
+        birthdate: data["#PATIENT-BIRTH"]
     };
     var out = GLOBAL['content.head.xml'];
     g_pages.forEach(function (itmTitle) {

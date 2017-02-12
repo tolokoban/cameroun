@@ -105,7 +105,6 @@ exports.onVaccinOK = function() {
         return;
     }
     Data.setVaccin( g_patient, g_currentVaccinID, { date: d, lot: W('vaccin-lot').value } );
-    console.info("[page.patient] Data.getPatient(g_patient)=...", Data.getPatient(g_patient));
     closeVaccin();
 };
 
@@ -115,7 +114,6 @@ exports.onVaccinDel = function() {
 };
 
 exports.onExam = function() {
-    console.info("[page.patient] g_patient=", g_patient);
     location = "#Exam/" + g_patientId;
 };
 
