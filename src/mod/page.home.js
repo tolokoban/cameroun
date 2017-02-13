@@ -1,7 +1,10 @@
 var $ = require("dom");
+var W = require("x-widget").getById;
 var DB = require("tfw.data-binding");
+var Cfg = require("$").config;
 var Form = require("form");
 var Data = require("data");
+var Modal = require("wdg.modal");
 var Format = require("format");
 var Button = require("wdg.button");
 var Structure = require("structure");
@@ -9,6 +12,9 @@ var LocalDownload = require("tfw.local-download");
 
 
 exports.onPage = function() {
+    $('version').textContent = "Version " + Cfg.version + " - " + Cfg.date.substr(0, 10);
+    var count = Data.countPatients();
+    W('patients-count').text = count + " patient" + (count < 2 ? "" : "s");
     var defSearchForm = Structure.patient;
     var wdgSearchForm = new Form( defSearchForm );
     var divSearchForm = document.getElementById('search-form');

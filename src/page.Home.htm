@@ -8,7 +8,10 @@
     <wdg:flex>
         <content list>
             <wdg:button $text="Exporter la base" $icon="export" slot:action="page.home:onExport"/>
-            <wdg:button $text="Importer la base" $icon="import" $type="warning"/>
+            <wdg:button id="patients-count" $type="simple" $href="#List" />
+            <!-- <wdg:button $text="Importer la base" $icon="import" $type="warning"/> -->
         </content>
     </wdg:flex>
+    <hr/>
+    <div id="version"></div>
 </div>

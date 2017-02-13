@@ -36,7 +36,6 @@ exports.start = function() {
 
 
 exports.onPage = function( pageId ) {
-    console.info("[admin] pageId=...", pageId);
     if( !checkLogin() )  return;
 };
 

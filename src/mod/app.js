@@ -1,6 +1,6 @@
 "use strict";
 
-require("offline");
+//require("offline");
 require("font.josefin");
 
 var $ = require("dom");
@@ -14,6 +14,7 @@ var Structure = require("structure");
 var pages = {
     loading: require("page.loading"),
     home: require("page.home"),
+    list: require("page.list"),
     patient: require("page.patient"),
     visit: require("page.visit"),
     exam: require("page.exam")

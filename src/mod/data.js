@@ -9,7 +9,7 @@
  *   data: {}
  *   prescriptions: []
  * }
- * 
+ *
  *
  * @example
  * var mod = require('data');
@@ -22,7 +22,34 @@ var Structure = require("structure");
 
 
 var data = Storage.get("cameroun", {});
-console.info("[data] data=...", data);
+
+/**
+ * Compter le nombre de patients.
+ */
+exports.countPatients = function() {
+    var count = 0;
+    for( var key in data ) count++;
+    return count;
+};
+
+exports.getAllPatients = function() {
+    var patients = [];
+    var key, val;
+    for( key in data ) {
+        val = data[key];
+        patients.push([
+            key, val['#PATIENT-LASTNAME'], val['#PATIENT-FIRSTNAME'], val['#PATIENT-BIRTH']
+        ]);
+    }
+    patients.sort(function(a,b) {
+        var A = a[1] + "     " + a[2] + "     " + a[3];
+        var B = b[1] + "     " + b[2] + "     " + b[3];
+        if( A < B ) return -1;
+        if( A > B ) return +1;
+        return 0;
+    });
+    return patients;
+};
 
 /**
  * Retourner une liste de patients' id.
@@ -33,18 +60,26 @@ exports.findPatients = function(criteria, limit) {
     // Mettre les critères en minuscule.
     var critKey, critVal;
     for( critKey in criteria ) {
-        criteria[critKey] = criteria[critKey].trim().toLowerCase();
+        critVal = criteria[critKey];
+        if( typeof critVal !== 'string' ) continue;
+        criteria[critKey] = critVal.trim().toLowerCase();
     }
-    
+
     var result = [];
     var patientKey, patientVal, patientAtt, score;
     var percent, pos;
     for( patientKey in data ) {
         patientVal = data[patientKey];
+        if( !patientVal ) console.error("No patient with id: ", patientKey);
         score = 0;
         for( critKey in criteria ) {
             critVal = criteria[critKey];
-            patientAtt = patientVal[critKey].toLowerCase();
+            patientAtt = patientVal[critKey];
+            if( !patientAtt ) {
+                console.error("Bad criteria: ", critKey);
+                continue;
+            }
+            patientAtt = patientAtt.toLowerCase();
             if (patientAtt.length == 0) continue;
             percent = critVal.length / patientAtt.length;
             if (percent > 1) continue;
@@ -52,7 +87,7 @@ exports.findPatients = function(criteria, limit) {
             if (pos < 0) continue;
             score = Math.max( 0, 100 * percent - pos );
             result.push([score, patientKey]);
-        }        
+        }
     }
 
     // Trier par score décroissant.
@@ -88,7 +123,6 @@ exports.newPatient = function(value) {
  * @return `{ old: '', new: '' }`
  */
 exports.getValue = function( patient, id ) {
-console.info("[data] patient=...", patient);    
     var visit = exports.getLastVisit( patient );
     var result = {
         new: visit.data[id]
@@ -157,7 +191,7 @@ exports.createVisit = function( patient ) {
     } else {
         admission = patient.$admissions[patient.$admissions.length - 1];
     }
-    
+
     var visit = { enter: Date.now(), data: {}, prescriptions: [] };
     admission.visits.push( visit );
     exports.save();
@@ -176,7 +210,7 @@ exports.createAdmission = function( patient ) {
         patient.$admissions = [admission];
     } else {
         patient.$admissions.push( admission );
-    }    
+    }
     exports.save();
     return admission;
 };

@@ -30,17 +30,6 @@ body {
     padding: 0;
 }
 
-@media all and (orientation: landscape) {
-    html, select {
-        font-size: 2vw;
-    }
-}
-@media all and (orientation: portrait) {
-    html, select {
-        font-size: 3vw;
-    }
-}
-
 @media (min-width: 1000px) {
     html, select {
         font-size: 16px;

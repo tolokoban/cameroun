@@ -3,6 +3,8 @@
 require("polyfill.promise");
 var $ = require("dom");
 var Err = require("tfw.message").error;
+var Msg = require("tfw.message").info;
+var Data = require("data");
 var Archive = require("tfw.archive");
 var FileAPI = require("tfw.fileapi");
 var ShowHide = require("wdg.showhide");
@@ -20,6 +22,8 @@ var Structure = require("structure");
  */
 var g_pages;
 
+var g_patientId;
+
 var MONTHES = [
     'Janvier', 'Février', 'Mars', 'Avril',
     'Mai', 'Juin', 'Juillet', 'Août',
@@ -27,6 +31,8 @@ var MONTHES = [
 ];
 
 exports.onPage = function() {
+    var hash = location.hash.split('/');
+    g_patientId = hash[1];
     // Page / Section / Exam.
     var div = $('exam.data');
     $.clear( div );
@@ -69,6 +75,9 @@ exports.onPage = function() {
     }
 };
 
+exports.onBack = function() {
+    location = "#Patient/" + g_patientId;
+};
 
 exports.onPrint = function() {
     var arch = new Archive();
@@ -81,6 +90,7 @@ exports.onPrint = function() {
         .addText("styles.xml", GLOBAL["styles.xml"])
         .close("application/vnd.oasis.opendocument.text").then(function(blob) {
             FileAPI.saveAs(blob, "presciption-examens.odt");
+            Msg( "Le fichier LibreOffice a été téléchargé !" );
         }, function(err) {
             Err( err );
         });
@@ -88,12 +98,12 @@ exports.onPrint = function() {
 
 
 function buildContent() {
+    var data = Data.getPatient( g_patientId );
     var patient = {
-        lastname: "LASTNAME",
-        firstname: "FIRSTNAME",
-        birthdate: "BIRTHDATE"
+        lastname: data["#PATIENT-LASTNAME"],
+        firstname: data["#PATIENT-FIRSTNAME"],
+        birthdate: data["#PATIENT-BIRTH"]
     };
-
     var out = GLOBAL['content.head.xml'];
     g_pages.forEach(function (itmTitle) {
         var titlePrinted = false;
@@ -106,28 +116,28 @@ function buildContent() {
                     var today = new Date();
                     out += tag("text:p", {"text:style-name": "P18"}, itmTitle[0]);
                     out += tag('text:p', {'text:style-name': 'P2'},
-                               tag('text:p', {'text:style-name': 'T5'}, "Nom du patient : "),
-                               tag('text:p', {'text:style-name': 'T3'}, patient.lastname),
-                               tag('text:p', {'text:style-name': 'T6'}, tag('text:tab')),
-                               tag('text:p', {'text:style-name': 'T5'}, "Prénom : "),
-                               tag('text:p', {'text:style-name': 'T3'}, patient.firstname));
+                               tag('text:span', {'text:style-name': 'T5'}, "Nom du patient : "),
+                               tag('text:span', {'text:style-name': 'T3'}, patient.lastname),
+                               tag('text:span', {'text:style-name': 'T6'}, tag('text:tab')),
+                               tag('text:span', {'text:style-name': 'T5'}, "Prénom : "),
+                               tag('text:span', {'text:style-name': 'T3'}, patient.firstname));
                     out += tag('text:p', {'text:style-name': 'P1'},
-                               tag('text:p', {'text:style-name': 'T5'}, "Date de naissance : "),
-                               tag('text:p', {'text:style-name': 'T3'}, patient.birthdate));
+                               tag('text:span', {'text:style-name': 'T5'}, "Date de naissance : "),
+                               tag('text:span', {'text:style-name': 'T3'}, patient.birthdate));
                     out += tag('text:p', {'text:style-name': 'P4'});
                     out += tag('text:p', {'text:style-name': 'P15'},
-                               tag('text:p', {'text:style-name': 'T5'},
+                               tag('text:span', {'text:style-name': 'T5'},
                                    "Date de demande de l'examen : ",
-                                   tag('text:p', {'text:style-name': 'T3'},
+                                   tag('text:span', {'text:style-name': 'T3'},
                                        today.getDate() + " "
                                        + MONTHES[today.getMonth()] + " "
                                        + today.getFullYear())));
                     out += tag('text:p', {'text:style-name': 'P15'},
-                               tag('text:p', {'text:style-name': 'T5'},
+                               tag('text:span', {'text:style-name': 'T5'},
                                    "Nom du prescripteur : ",
                                    tag('text:tab')));
                     out += tag('text:p', {'text:style-name': 'P15'},
-                               tag('text:p', {'text:style-name': 'T5'},
+                               tag('text:span', {'text:style-name': 'T5'},
                                    "Nom du service prescripteur de l'examen : ",
                                    tag('text:tab')));
                     out += tag('text:p', {'text:style-name': "Heading_20_2"});
