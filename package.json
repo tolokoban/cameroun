@@ -29,15 +29,15 @@
         },
         "consts": {
             "debug": {
-                "tfw": "https://tolokoban.org/Cameroun/tfw"
+                "tfw": "http://tolokoban.org/Cameroun/tfw"
             },
             "release": {
-                "tfw": "https://tolokoban.org/Cameroun/tfw"
+                "tfw": "http://tolokoban.org/Cameroun/tfw"
             }
         },
         "output": "../../www/Cameroun"
     },
-    "version": "0.2.3",
+    "version": "0.2.13",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2.5.2",

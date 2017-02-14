@@ -27,7 +27,7 @@ function readFiles( $id ) {
         "version" => $version,
         "icons" => $manifest['icons'],
         "files" => $files,
-        "root" => $id) );
+        "root" => $id), JSON_PRETTY_PRINT );
 }
 
 function addFiles( &$arr, $folder ) {

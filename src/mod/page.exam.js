@@ -5,11 +5,14 @@ var $ = require("dom");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
 var Data = require("data");
+var Files = require("files");
 var Archive = require("tfw.archive");
-var FileAPI = require("tfw.fileapi");
 var ShowHide = require("wdg.showhide");
 var Checkbox = require("wdg.checkbox");
 var Structure = require("structure");
+
+var FS = require("node://fs");
+var Path = require("node://path");
 
 /**
  * [
@@ -80,6 +83,7 @@ exports.onBack = function() {
 };
 
 exports.onPrint = function() {
+    Msg( "Création du document de prescription d'examen en cours..." );
     var arch = new Archive();
     arch.addText("META-INF/manifest.xml", GLOBAL["META-INF/manifest.xml"])
         .addText("content.xml", buildContent())
@@ -89,8 +93,14 @@ exports.onPrint = function() {
         .addText("settings.xml", GLOBAL["settings.xml"])
         .addText("styles.xml", GLOBAL["styles.xml"])
         .close("application/vnd.oasis.opendocument.text").then(function(blob) {
-            FileAPI.saveAs(blob, "presciption-examens.odt");
-            Msg( "Le fichier LibreOffice a été téléchargé !" );
+            console.info("[page.exam] blob=...", blob);
+            debugger;
+            Files.saveBlobAs( blob, "presciption-examens.odt" ).then(function(filename) {
+                var path = Path.resolve( filename );
+                console.info("[page.exam] path=...", path);
+                nw.Shell.openItem( path );
+                Msg( "<html>Le fichier suivant va bientôt s'ouvrir dans LibreOffice:<br/>" + path );
+            });
         }, function(err) {
             Err( err );
         });
