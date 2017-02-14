@@ -95,7 +95,7 @@ exports.onPrint = function() {
         .close("application/vnd.oasis.opendocument.text").then(function(blob) {
             console.info("[page.exam] blob=...", blob);
             debugger;
-            Files.saveBlobAs( blob, "presciption-examens.odt" ).then(function(filename) {
+            Files.saveBlob( "presciption-examens.odt", blob ).then(function(filename) {
                 var path = Path.resolve( filename );
                 console.info("[page.exam] path=...", path);
                 nw.Shell.openItem( path );

@@ -17,8 +17,27 @@
 
 
 var Guid = require("guid");
+var Files = require("files");
 var Storage = require("tfw.storage").local;
 var Structure = require("structure");
+
+
+exports.patient = {
+    create: function() {
+        return new Promise(function (resolve, reject) {
+            
+        });
+    }
+};
+
+
+
+
+
+
+
+
+
 
 
 var data = Storage.get("cameroun", {});
