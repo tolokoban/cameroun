@@ -9,7 +9,8 @@ if( $qs == 'akonolinga' ) {
 
 
 function readFiles( $id ) {
-    $version = getVersion( $id );
+    $manifest = getManifest( $id );
+    $version = $manifest['version'];
     if( $version == '' ) return "[]";
     $files = Array();
     addFiles( $files, "./$id" );
@@ -22,7 +23,9 @@ function readFiles( $id ) {
         "url" => $_SERVER['REQUEST_SCHEME'] . "://"
              . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT']
              . $folder,
+        "name" => $manifest['name'],
         "version" => $version,
+        "icons" => $manifest['icons'],
         "files" => $files,
         "root" => $id) );
 }
@@ -41,10 +44,10 @@ function addFiles( &$arr, $folder ) {
     }
 }
 
-function getVersion($id) {
+function getManifest($id) {
     $manifest = @file_get_contents( $id . '/manifest.webapp' );
-    if( $manifest == '' ) return '';
+    if( $manifest == '' ) return Array();
     $data = json_decode( $manifest, true );
-    return $data['version'];
+    return $data;
 }
 ?>
