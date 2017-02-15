@@ -28,6 +28,7 @@ exports.load = function() {
 
 
 function loadData( data ) {
+debugger;
     exports.data = data;
     // Save structure for off-line usage.
     Storage.set( 'structure', data );
