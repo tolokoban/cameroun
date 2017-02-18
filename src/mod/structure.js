@@ -29,21 +29,8 @@ exports.load = function() {
                 return response.json();
             })
             .then(function( data ) {
-                var key, val;
-                for( key in data ) {
-                    val = data[key];
-                    if( typeof val !== 'string' ) val = '';
-                    try {
-                        exports[key] = Parser.parse( val );
-                    }
-                    catch (ex) {
-                        Modal.alert($.div([
-                            "Error in structure `" + key + "` at line " + ex.lineNumber,
-                            $.tag('code', [ex.message])
-                        ]));
-                        reject();
-                        return;
-                    }
+                if( !loadStructure( data ) ) {
+                    throw( "Unparsable JSON!" );
                 }
                 FS.writeFile( FILENAME, JSON.stringify( data, null, '    ' ) );
                 resolve();
@@ -59,13 +46,33 @@ exports.load = function() {
                         if( err ) {
                             reject( "Unable to read backup file for structure!\n" + err );
                         } else {
-                            resolve( JSON.parse( data.toString() ) );
+                            loadStructure( JSON.parse( data.toString() ) );
+                            resolve();
                         }
                     });
                 }
             });
     });
 };
+
+function loadStructure( data ) {
+    var key, val;
+    for( key in data ) {
+        val = data[key];
+        if( typeof val !== 'string' ) val = '';
+        try {
+            exports[key] = Parser.parse( val );
+        }
+        catch (ex) {
+            Modal.alert($.div([
+                "Error in structure `" + key + "` at line " + ex.lineNumber,
+                $.tag('code', [ex.message])
+            ]));
+            return false;
+        }
+    }
+    return true;
+}
 
 exports.getForm = function() {
     var path = [];
