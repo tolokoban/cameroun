@@ -2,7 +2,15 @@
 /**
  * @module data
  *
+ * File `patients.json`.
  * ```
+ * {
+ *   '14hB': "O'HARA Germaine Lucienne"
+ * }
+ * ```
+ * The key is the ID of the patient and the value is the text for searchings.
+ *
+ *
  * visit := {
  *   enter: <number>
  *   exit: <number>

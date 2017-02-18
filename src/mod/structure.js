@@ -3,54 +3,69 @@
 require("polyfill.promise");
 var $ = require("dom");
 var WS = require("tfw.web-service");
+var Files = require("files");
+var Modal = require("wdg.modal");
 var Parser = require("structure.parser");
 var Storage = require("tfw.storage").session;
 
-var promise = WS.get("GetOrg");
+var FS = require("node://fs");
+
+// Name of the local backup for structure.
+var FILENAME = "data/structure.json";
+// URL of the service delivering structure.
+var URL = "https://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
+
 
 exports.load = function() {
     return new Promise(function (resolve, reject) {
-        promise.then(function(data) {
-            loadData( data );
-            resolve();
-        }, function( err ) {
-            console.error( err );
-            var data = Storage.get( 'structure', null );
-            if( !data ) {
-                reject( "No connection and no structure in cache!" );
-            } else {
-                loadData( data );
+        Files.mkdir( "data" )
+            .then(function() {
+                return fetch( URL );
+            })
+            .then(function( response ) {
+                if( response.ok == false) {
+                    throw( "Error " + response.status + " - " + response.statusText );
+                }
+                return response.json();
+            })
+            .then(function( data ) {
+                var key, val;
+                for( key in data ) {
+                    val = data[key];
+                    if( typeof val !== 'string' ) val = '';
+                    try {
+                        exports[key] = Parser.parse( val );
+                    }
+                    catch (ex) {
+                        Modal.alert($.div([
+                            "Error in structure `" + key + "` at line " + ex.lineNumber,
+                            $.tag('code', [ex.message])
+                        ]));
+                        reject();
+                        return;
+                    }
+                }
+                FS.writeFile( FILENAME, JSON.stringify( data, null, '    ' ) );
                 resolve();
-            }
-        });
+            })
+            .catch(function( err ) {
+                // Unable to  retrieve structure from the  network (or
+                // structure is corrupted). We  try to get the locally
+                // stored backup.
+                if( !FS.existsSync( FILENAME ) ) {
+                    reject( "No connection and no structure in cache!" );
+                } else {
+                    FS.readFile( FILENAME, function(err, data) {
+                        if( err ) {
+                            reject( "Unable to read backup file for structure!\n" + err );
+                        } else {
+                            resolve( JSON.parse( data.toString() ) );
+                        }
+                    });
+                }
+            });
     });
 };
-
-
-function loadData( data ) {
-debugger;
-    exports.data = data;
-    // Save structure for off-line usage.
-    Storage.set( 'structure', data );
-
-    var key, val;
-    for( key in data ) {
-        val = data[key];
-        if( typeof val !== 'string' ) val = '';
-        try {
-            exports[key] = Parser.parse( val );
-        }
-        catch (ex) {
-            Storage.set('error', {
-                name: key,
-                content: val,
-                line: ex.lineNumber,
-                message: ex.message
-            });
-            location = "error.html";
-        }
-    }
-}
 
 exports.getForm = function() {
     var path = [];

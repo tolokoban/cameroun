@@ -59,6 +59,7 @@ exports.loadJson = function( filename, data ) {
 /**
  * Create directories recursively.
  * If they are already created, no problem.
+ * Resolves in `undefined`.
  */
 exports.mkdir = function(folder) {
     var sep = findSeparator(folder);
@@ -82,7 +83,9 @@ exports.mkdir = function(folder) {
                 return;
             }
             var dir = directories.shift();
-            if( !FS.existsSync( dir ) ) {
+            if( FS.existsSync( dir ) ) {
+                next();
+            } else {
                 FS.mkdir( dir, function( err ) {
                     if( err ) reject( err );
                     else next();
