@@ -84,21 +84,29 @@ function createInputs( table, def ) {
         that._lockValueSet = false;
     };
 
-    var completion; 
+    var completion, cellIndex = 0; 
     for( id in def ) {
+        if( (cellIndex & 1) == 0 ) {
+            if( row ) {
+                $.add( table, row );
+            }
+            row = $.div();
+        }
+        cellIndex++;
+
         item = def[id];
         completion = getCompletion(item.type);
         wdg = new Text({ label: item.caption, wide: true, list: completion.list });
+        if( item.type == "#DATE" ) {
+            wdg.type = "date";
+        }
         wdg.$id = id;        
         wdg.$map = completion.map;
         inputs.push( wdg );
-        row = $.div([
-            //$.div([item.caption]),    // Il faut retirer le texte sur la gauche.
-            $.div([wdg])
-        ]);
-        $.add( table, row );
         DB.bind( wdg, 'value', slotChange );
+        $.add( row, $.div([ wdg ]));
     }
+    $.add( table, row );
 
     var i;
     for (i = 0 ; i < inputs.length - 1 ; i++) {

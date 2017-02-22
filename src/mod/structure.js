@@ -16,6 +16,10 @@ var FILENAME = "data/structure.json";
 var URL = "https://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
 
 
+/**
+ * Load structure from internet or from local disk if network is unreachable.
+ * Resolves to `undefined`.
+ */
 exports.load = function() {
     return new Promise(function (resolve, reject) {
         Files.mkdir( "data" )
@@ -56,12 +60,15 @@ exports.load = function() {
 };
 
 function loadStructure( data ) {
+    exports.data = data;
+
     var key, val;
     for( key in data ) {
         val = data[key];
         if( typeof val !== 'string' ) val = '';
         try {
             exports[key] = Parser.parse( val );
+            console.info("[structure] exports[", key, "]=", exports[key]);
         }
         catch (ex) {
             Modal.alert($.div([

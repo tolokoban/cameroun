@@ -1,22 +1,24 @@
-<header><intl:title-home/></header>
+<header><wdg:flex><content>
+    <wdg:button $text="Retour"
+                $icon="back"
+                $type="simple"
+                $href="index.html"/>
+    <intl:title-home/>
+    <wdg:button $text="Mettre en ligne"
+                $icon="import"
+                $type="simple"
+                slot:action="onSave"/>
+</content></wdg:flex></header>
 
-<div>
-    <wdg:flex><content>
-        <wdg:combo id="cboData" $label="Type de données" $wide="true" 
-                   value="patient"
-                   slot:value="onCombo">
-            <content json>{
-            "patient": "Champs liés au patient",
-            "forms": "Formulaire de visite",
-            "types": "Types de données",
-            "vaccins": "Liste des vaccins",
-            "exams": "Détail des examens possibles"
-}</content>
-        </wdg:combo>
-        <wdg:button $text="Mettre en ligne" 
-                    $icon="import"
-                    slot:action="onSave"/>
-    </content></wdg:flex>
-    <textarea id="content" class="theme-elevation-4" 
-              rows="35"></textarea>
+<div id="body">
+    <p>
+Il existe trois types primitifs: <b>#INT</b> (nombre entier),
+<b>#FLOAT</b> (nombre décimal), <b>#DATE</b> (date).
+Ensuite, vous pouvez définir les votres sous forme de textes libres avec suggestions.
+    </p>
+    <div id="body.types" />
+    <div id="body.patient" />
+    <div id="body.forms" />
+    <div id="body.vaccins" />
+    <div id="body.exams" />
 </div>

@@ -19,6 +19,7 @@ var DB = require("tfw.data-binding");
 var Cfg = require("$");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
+var Area = require("wdg.area");
 var Modal = require("wdg.modal");
 var Parser = require("structure.parser");
 var Structure = require("structure");
@@ -26,52 +27,84 @@ var Structure = require("structure");
 // ID of the combo of structures.
 var g_id;
 
+var SECTIONS = {
+    types: "Types de données",
+    patient: "Champs liés au patient",
+    forms: "Formulaire de visite",
+    vaccins: "Liste des vaccins",
+    exams: "Détail des examens possibles"
+};
+
+// Map of Area widgets. The keys are the same keys as in `SECTIONS`.
+var g_sections = {};
+
+
 exports.start = function() {
-    location.hash = "#Loading";
     Structure.load().then(function() {
-        if( location.hash != "#Loading" ) checkLogin();
-        else location.hash = "#Loading";
+        checkLogin();
     });
 };
 
 
 exports.onPage = function( pageId ) {
-    if( !checkLogin() )  return;
+    if( pageId == 'Admin' ) {
+        var key, val, area;
+        for( key in SECTIONS ) {
+            val = SECTIONS[key];
+            area = new Area({ label: val, value: Structure.data[key] });
+            g_sections[key] = area;
+            $.add( 'body.' + key, area );
+        }
+    }
 };
 
 exports.onSave = function() {
-    try {
-        var content = $('content').value.trim();
-        var data = Parser.parse( content );
-        var id = g_id;
-        var modal = new Modal({ 
-            padding: true,
-            content: ['Sauvegarde en cours...'] 
-        });
-        modal.attach();
-        window.setTimeout(function() {
-            WS.get('PutOrg', { id: id, text: content }).then(function(ret) {
-                console.info("[admin] ret=...", ret);
+    var modal = new Modal({
+        padding: true,
+        content: ['Sauvegarde en cours...']
+    });
+    modal.attach();
+    window.setTimeout(function() {
+        var tasks = [];
+        var key, val;
+        for( key in SECTIONS ) {
+            val = g_sections[key];
+console.info("[admin] key=", key);
+console.info("[admin] val=", val);
+            tasks.push({ id: key, text: val.value, area: val });
+console.info("[admin] tasks=", tasks);
+        }
+        var next = function() {
+            if( tasks.length == 0 ) {
                 modal.detach();
-                Msg("Sauvegarde réussie !");
+                return;
+            }
+            var task = tasks.shift();
+            try {
+                Parser.parse( task.text );
+            } catch( ex ) {
+                modal.detach();
+                Modal.alert(
+                    "<html>Il y a une erreur dans le code de <b>"
+                        + SECTIONS[task.id] + "</b> à la ligne <b>"
+                        + ex.lineNumber + ".<pre class='error'>"
+                        + ex.message + "</pre>",
+                    function() {
+                        task.area.focus = true;
+                    }
+                );                
+                return;
+            }
+            WS.get('PutOrg', task).then(function(ret) {
+                console.info("[admin] ret=...", ret);
+                next();
             }, function(err) {
                 console.info("[admin] err=...", err);
                 Err( err );
             });
-        }, 1000 );
-    }
-    catch( err ) {
-        Err( err );
-        $('content').focus();
-    }
-};
-
-exports.onCombo = function( id ) {
-    g_id = id;
-    var area = $('content');
-    area.value = '' + Structure.data[id];
-    $.addClass( area, 'flash' );
-    window.setTimeout( $.removeClass.bind( $, area, 'flash' ) );
+        };
+        next();
+    });
 };
 
 exports.onLogin = function() {
@@ -83,7 +116,6 @@ exports.onLogin = function() {
         Msg("Bienvenue !");
         Structure.load().then(function() {
             location.hash = "#Admin";
-            exports.onCombo( 'patient' );
         }, function(err) {
             err.context = "Loading...";
             console.error( err );
@@ -93,7 +125,7 @@ exports.onLogin = function() {
         console.error( err );
         Err( "L'authentification a échoué !" );
         window.setTimeout(function() {
-            modal.visible = true;
+            location = "index.html";
         }, 3000);
     });
 };

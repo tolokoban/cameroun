@@ -1,15 +1,22 @@
 <header><intl:title-home/></header>
 
 <div>
-    <div id="search-form"></div>
-    <ul id="search-result"></ul>
-    <div id="search-button" class="right"></div>
+    <wdg:flex>
+        <content>
+            <div id="search"></div>
+            <wdg:button $text="Nouveau patient" $icon="add" slot:action="page.home:onNewPatient"/>
+        </content>
+    </wdg:flex>
     <hr/>
     <wdg:flex>
         <content list>
             <wdg:button $text="Exporter la base" $icon="export" slot:action="page.home:onExport"/>
             <wdg:button id="patients-count" $type="simple" $href="#List" />
-            <!-- <wdg:button $text="Importer la base" $icon="import" $type="warning"/> -->
+            <wdg:button id="admin"
+                        $text="Administrateurs"
+                        $icon="gear"
+                        $type="warning"
+                        slot:action="page.home:onAdmin" />
         </content>
     </wdg:flex>
     <hr/>

@@ -1,5 +1,6 @@
 {
     "res": {
-        "../index.php": "index.php"
+        "../index.php": "index.php",
+        "../../package.json": "package.json"
     }
 }

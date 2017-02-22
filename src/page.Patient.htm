@@ -1,4 +1,9 @@
-<header id="patient.title"></header>
+<header>
+    <wdg:flex><content>
+        <wdg:button $text="Retour" $icon="back" $href="#Home" $type="simple" />
+        <div id="patient.title"></div>
+    </content></wdg:flex>
+</header>
 
 <div>
     <p id="patient.hint" class="theme-color-bg-B0"></p>
@@ -42,7 +47,7 @@
                     <content>
                         <wdg:button id="btnVaccinCancel"
                                     $text="Annuler" $type="simple" $value="false"/>
-                        <wdg:button $text="Valider" 
+                        <wdg:button $text="Valider"
                                     bind:enabled="vaccin-date:valid"
                                     bind:action="vaccin-lot:action"
                                     slot:action="page.patient:onVaccinOK"/>

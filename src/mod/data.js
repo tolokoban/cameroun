@@ -29,25 +29,6 @@ var Files = require("files");
 var Storage = require("tfw.storage").local;
 var Structure = require("structure");
 
-
-exports.patient = {
-    create: function() {
-        return new Promise(function (resolve, reject) {
-            
-        });
-    }
-};
-
-
-
-
-
-
-
-
-
-
-
 var data = Storage.get("cameroun", {});
 
 /**
@@ -65,7 +46,11 @@ exports.getAllPatients = function() {
     for( key in data ) {
         val = data[key];
         patients.push([
-            key, val['#PATIENT-LASTNAME'], val['#PATIENT-FIRSTNAME'], val['#PATIENT-BIRTH']
+            key,
+            val['#PATIENT-LASTNAME'],
+            val['#PATIENT-FIRSTNAME']
+                + ' ' + val['#PATIENT-SECONDNAME'],
+            val['#PATIENT-BIRTH']
         ]);
     }
     patients.sort(function(a,b) {

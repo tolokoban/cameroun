@@ -36,8 +36,9 @@
             }
         },
         "output": "../../www/Cameroun"
+        "copy-to": "../tlk-app-shell/www"
     },
-    "version": "0.2.48",
+    "version": "0.2.34",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2",
@@ -47,7 +48,7 @@
         "karma-jasmine": "^0",
         "toloframework": "^0"
     },
-    "main": "index.html",
+    "main": "tlk-app-shell.html",
     "window": {
         "fullscreen": true
     }

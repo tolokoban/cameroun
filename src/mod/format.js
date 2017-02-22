@@ -6,8 +6,8 @@ var Structure = require("structure");
 exports.getPatientCaption = function( patient ) {
     return patient['#PATIENT-LASTNAME'].toUpperCase()
         + " " + patient['#PATIENT-FIRSTNAME']
-        + " " + exports.expand(patient['#PATIENT-SECONDNAME'])
-        + " (" + exports.expand(patient['#PATIENT-COUNTRY'], '#COUNTRY') + ")";
+        + " " + patient['#PATIENT-SECONDNAME']
+        + " (" + exports.expand(patient['#PATIENT-COUNTRY'], '#NATIONALITY') + ")";
 };
 
 

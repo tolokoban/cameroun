@@ -5,15 +5,13 @@ div.form > div.table {
 
 div.form > div.table > div {
     display: table-row;
+    width: 100%;
 }
 
 div.form > div.table > div > div {
     display: table-cell;
     text-align: left;
-    vertical-align: middle;
-    padding: 0 .5rem;
-}
-
-div.form > div.table > div > div:first-child {
-    width: 33%;
+    vertical-align: top;
+    padding: 0 .25rem;
+    width: 50%;
 }
