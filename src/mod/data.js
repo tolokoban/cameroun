@@ -116,6 +116,7 @@ exports.findPatients = function(criteria, limit) {
 
 
 exports.getPatient = function(id) {
+    console.log("Patient " + id, data[id]);
     return data[id];
 };
 

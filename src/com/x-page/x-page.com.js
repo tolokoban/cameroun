@@ -26,10 +26,10 @@ exports.compile = function(root, libs) {
     root.children = node.children;
     root.children.forEach(function (child) {
         if (child.name && child.name.toLowerCase() == 'header') {
-            child.attribs.class = 'theme-color-bg-B5';
+            child.attribs.class = 'theme-color-bg-B2';
         }
     });
-    root.attribs.class = 'x-page theme-color-bg-B3';
+    root.attribs.class = 'x-page'; // theme-color-bg-B3';
     root.attribs.$$key = key;
     root.name = 'div';
 };
