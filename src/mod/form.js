@@ -6,6 +6,8 @@
 var $ = require("dom");
 var DB = require("tfw.data-binding");
 var Text = require("wdg.text");
+var Date2 = require("wdg.date2");
+var Format = require("format");
 var Structure = require("structure");
 
 
@@ -23,9 +25,12 @@ var Form = function( def ) {
         if (that._lockValueSet) return;
         that._lockValueGet = true;
         inputs.forEach(function (input) {
-            input.value = v[input.$id] || '';
+            input.value = Format.expand( v[input.$id] || '', input.$type );
         });
         that._lockValueGet = false;
+    });
+    DB.propInteger( this, 'level' )(function(v) {
+        $.css( elem, { "margin-left": v + "rem"} );
     });
     DB.propBoolean( this, 'focus' )(function(v) {
         if (v) {
@@ -68,12 +73,15 @@ function createInputs( table, def ) {
         if (that._lockValueGet) return;
         var value = {};
         inputs.forEach(function (input) {
-            var v = input.value.trim();
-            var w = input.$map[v.toLowerCase()];
-            if (typeof w !== 'undefined') {
-                // S'il  y a  un identifiant  associé à  ce texte,  on
-                // l'utilise comme valeur.
-                v = w;
+            var v = input.value;
+            var w;
+            if( typeof v === 'string' ) {
+                w = input.$map[v.trim().toLowerCase()];
+                if (typeof w !== 'undefined') {
+                    // S'il  y a  un identifiant  associé à  ce texte,  on
+                    // l'utilise comme valeur.
+                    v = w;
+                }
             }
             if (v != '') {
                 value[input.$id] = v;
@@ -84,7 +92,7 @@ function createInputs( table, def ) {
         that._lockValueSet = false;
     };
 
-    var completion, cellIndex = 0; 
+    var completion, cellIndex = 0;
     for( id in def ) {
         if( (cellIndex & 1) == 0 ) {
             if( row ) {
@@ -96,12 +104,14 @@ function createInputs( table, def ) {
 
         item = def[id];
         completion = getCompletion(item.type);
-        wdg = new Text({ label: item.caption, wide: true, list: completion.list });
         if( item.type == "#DATE" ) {
-            wdg.type = "date";
+            wdg = new Date2({ label: item.caption, wide: true });
+        } else {
+            wdg = new Text({ label: item.caption, wide: true, list: completion.list });
         }
-        wdg.$id = id;        
+        wdg.$id = id;
         wdg.$map = completion.map;
+        wdg.$type = item.type;
         inputs.push( wdg );
         DB.bind( wdg, 'value', slotChange );
         $.add( row, $.div([ wdg ]));
@@ -121,7 +131,7 @@ var NO_COMPLETION = { list: [], map: {} };
 
 function getCompletion( type ) {
     if( typeof type === 'undefined' ) return NO_COMPLETION;
-    type = Structure.types[type];
+    type = Structure.value.types[type];
     if( typeof type === 'undefined' ) return NO_COMPLETION;
     type = type.children;
     if( typeof type === 'undefined' ) return NO_COMPLETION;

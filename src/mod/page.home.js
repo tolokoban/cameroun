@@ -3,10 +3,10 @@ var W = require("x-widget").getById;
 var DB = require("tfw.data-binding");
 var Cfg = require("$").config;
 var Form = require("form");
-var Data = require("data");
 var Modal = require("wdg.modal");
 var Format = require("format");
 var Button = require("wdg.button");
+var Patients = require("patients");
 var Structure = require("structure");
 var InputSearch = require("input.search");
 var ModalPatient = require("modal.patient");
@@ -20,15 +20,22 @@ exports.onPage = function() {
     
     $('version').textContent = "Version " + Cfg.version 
         + " - " + Cfg.date.substr(0, 10) + " "
-    + Cfg.date.substr(11, 8);
-    var count = Data.countPatients();
-    W('patients-count').text = count + " patient" + (count < 2 ? "" : "s");
+        + Cfg.date.substr(11, 8);
+    var patientCount = W('patients-count');
+    patientCount.visible = false;
+    Patients.count().then(function(count) {
+        patientCount.visible = count > 0;
+        patientCount.text = count + " patient" + (count < 2 ? "" : "s");
+    });
 };
 
 
 exports.onExport = function() {
+    Patients.export();
+/*
     var data = Data.export();
     LocalDownload.saveAs( data, "base.json", "application/json" );
+*/
 };
 
 
@@ -41,8 +48,9 @@ exports.onAdmin = function() {
 
 
 exports.onNewPatient = function() {
-    ModalPatient("Nouveau patient", function(patient) {
-        var id = Data.newPatient( patient );
-        location.hash = "Patient/" + id;
+    ModalPatient("Nouveau patient", function(patientData) {
+        Patients.create( patientData ).then(function( patient ) {
+            location.hash = "Patient/" + patient.id;
+        });
     });
 };

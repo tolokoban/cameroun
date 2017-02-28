@@ -6,8 +6,9 @@
 var $ = require("dom");
 var DB = require("tfw.data-binding");
 var Text = require("wdg.text");
-var Data = require("data");
+var Format = require("format");
 var Button = require("wdg.button");
+var Patients = require("patients");
 
 
 /**
@@ -29,6 +30,7 @@ var Search = function(opts) {
         text: "Aucune correspondance...", icon: "user", type: "simple", enabled: false, wide: true
     });
     var elem = $.elem( this, 'div', [input, btnUser] );
+    $.css( elem, { width: '480px' } );
 
     DB.propRemoveClass( this, 'visible', 'hide' );
     DB.propBoolean( this, 'focus' )(function(v) {
@@ -46,14 +48,16 @@ var Search = function(opts) {
 
     var reverseLookup = {};
     var list = [];
-    var patients = Data.getAllPatients();
-    patients.forEach(function (patient) {
-        var id = patient[0];
-        var name = patient[1].toUpperCase() + " " + patient[2] + " (" + patient[3] + ")";
-        reverseLookup[name.trim().toLowerCase()] = id;
-        list.push( name );
+    Patients.all().then(function( patients ) {
+        var id, patientData;
+        for( id in patients.records ) {
+            patientData = patients.records[id];
+            var name = Format.getPatientCaption( patientData );
+            reverseLookup[name.trim().toLowerCase()] = id;
+            list.push( name );
+        }
+        input.list = list;
     });
-    input.list = list;
     DB.bind( input, 'value', function( v ) {
         var key = (v || '').toLowerCase();
         var id = reverseLookup[key];

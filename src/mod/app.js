@@ -21,8 +21,12 @@ var pages = {
 };
 
 exports.start = function() {
+    nw.Window.get().showDevTools( null, start );
+};
+
+function start() {
     location.hash = "#Loading";
-    Structure.load().then(function() {
+    Structure.then(function() {
         location.hash = "#Home";
     }, function(err) {
         err.context = "Loading...";

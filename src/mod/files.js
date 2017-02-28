@@ -4,6 +4,7 @@
 "use strict";
 
 var FS = require("node://fs");
+var Fatal = require("fatal");
 
 
 /**
@@ -28,15 +29,15 @@ exports.saveBlob = function( filename, blob ) {
 
 /**
  * Save an JSON representation of an object to a file.
- * Resolves to the filename.
+ * Resolves to `data`.
  */
-exports.saveJson = function( filename, data ) {
+exports.writeJson = function( filename, data ) {
     return new Promise(function (resolve, reject) {
         exports.mkdir( dirname( filename ) ).then(function() {
             var text = JSON.stringify( data );
             FS.writeFile( filename, text, function( err ) {
-                if( err ) reject( err );
-                else resolve( filename );
+                if( err ) Fatal( reject, "Unable to write file `" + filename + "`!",  err );
+                else resolve( data );
             });
         });
     });
@@ -46,12 +47,18 @@ exports.saveJson = function( filename, data ) {
  * Load a file and parse it as a JSON.
  * Resolves to the object.
  */
-exports.loadJson = function( filename, data ) {
+exports.readJson = function( filename ) {
     return new Promise(function (resolve, reject) {
-        var text = JSON.stringify( data );
-        FS.readFile( filename, text, function( err, data ) {
-            if( err ) reject( err );
-            else resolve( JSON.parse( data.toString() ) );
+        FS.readFile( filename, function( err, data ) {
+            if( err ) Fatal( reject, "Unable to read file `" + filename + "`!",  err );
+            else {
+                try {
+                    resolve( JSON.parse( data.toString() ) );
+                } catch( ex ) {
+                    Fatal( reject, "Unable to parse JSON file `" + filename + "`!",
+                         { ex: ex, data: data } );
+                }
+            }
         });
     });
 };
@@ -94,6 +101,27 @@ exports.mkdir = function(folder) {
         };
 
         next();
+    });
+};
+
+exports.read = function( filename ) {
+    return new Promise(function (resolve, reject) {
+        FS.readFile( filename, function( err, data ) {
+            if( err ) Fatal( reject, "Unable to read file `" + filename + "`!", err );
+            else resolve( data );
+        });
+    });
+};
+
+exports.write = function( filename, data ) {
+    return new Promise(function (resolve, reject) {
+        exports.mkdir( dirname( filename ) ).then(function() {
+            FS.writeFile( filename, data, function( err ) {
+                if( err ) Fatal( reject, "Unable to write file `" + filename + "`!",
+                                 { ex: err, data: data } );
+                else resolve( data );
+            });
+        }, reject );
     });
 };
 

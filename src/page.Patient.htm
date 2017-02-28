@@ -9,7 +9,10 @@
     <p id="patient.hint" class="theme-color-bg-B0"></p>
     <wdg:flex>
         <content list>
-            <wdg:button id="patient.exit" $text="Sortie du patient" $icon="user"/>
+            <wdg:button $text="Sortie du patient" id="patient.exit"
+                        $icon="close" slot:action="page.patient:onPatientExit"/>
+            <wdg:button $text="Identité du patient" 
+                        $icon="user" slot:action="page.patient:onPatientEdit"/>
             <wdg:button $text="Créer une nouvelle visite" $icon="plus"
                         slot:action="page.patient:onNewVisit"/>
             <wdg:button $text="Prescrire des examens" $icon="print"
@@ -38,17 +41,14 @@
         <content>
             <h1 id="vaccin-name"></h1>
             <center>
-                <span>Date de la dernière vaccination : </span>
-                <wdg:date id="vaccin-date" $format="DMY"/>
-                <wdg:text id="vaccin-lot" $label="Numéro de lot" $wide="true"
-                          bind:focus="vaccin-date:action"/>
+                <wdg:date2 id="vaccin-date" $label="Date de la dernière vaccination" />
+                <wdg:text id="vaccin-lot" $label="Numéro de lot" $wide="true" />
                 <x-spc h="2rem"/>
                 <wdg:flex>
                     <content>
-                        <wdg:button id="btnVaccinCancel"
+                        <wdg:button id="btnVaccinCancel" $icon="cancel"
                                     $text="Annuler" $type="simple" $value="false"/>
-                        <wdg:button $text="Valider"
-                                    bind:enabled="vaccin-date:valid"
+                        <wdg:button $text="Valider" $icon="ok"
                                     bind:action="vaccin-lot:action"
                                     slot:action="page.patient:onVaccinOK"/>
                     </content>

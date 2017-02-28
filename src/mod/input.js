@@ -2,9 +2,9 @@
 
 var $ = require("dom");
 var DB = require("tfw.data-binding");
-var Data = require("data");
 var Text = require("wdg.text");
 var Format = require("format");
+var Patients = require("patients");
 var Structure = require("structure");
 
 
@@ -18,7 +18,7 @@ var Input = function( args ) {
         throw Error("[input] Missing mandatory argument: `patient`!");
     }
     var patient = args.patient;
-    visit = Data.getLastVisit( patient );
+    visit = Patients.lastVisit( patient );
 
     var def = args.def;
     addWidget( elem, def, patient, visit );
@@ -39,7 +39,7 @@ function addWidget( container, def, patient, visit ) {
         return;
     }
 
-    var value = Data.getValue( patient, def.id );
+    var value = Patients.value( patient, def.id );
     var completion = getCompletion( def.type );
     var wdg = new Text({
         wide: true,
@@ -58,7 +58,7 @@ function addWidget( container, def, patient, visit ) {
             var valueID = completion.map[v.toLowerCase()];
             visit.data[def.id] = valueID || v;
         }
-        Data.save();
+        Patients.save( patient );
     });
 
     $.add( container, $.div([
@@ -77,7 +77,7 @@ function addWidgetMultiple( container, parentWidget, def, patient, visit ) {
     var level = 0;
 
     var mapValueToID = {};
-    var completion = findHierarchicalCompletion(Structure.types[def.type], mapValueToID);
+    var completion = findHierarchicalCompletion(Structure.value.types[def.type], mapValueToID);
 
     while (null != (child = getFirstChild(parent))) {
         parentWidget = createHierarchicalWidget(
@@ -136,16 +136,17 @@ function createHierarchicalWidget( container,
                                    level,
                                    completion )
 {
-    var type = Structure.types[def.type];
-    var value = Data.getValue( patient, child.id );
+    var type = Structure.value.types[def.type];
+    var value = Patients.value( patient, child.id );
     var wdg = new Text({
         wide: true,
-        label: child.caption + "  (" + def.caption + ")",
+        label: child.caption,
         placeholder: Format.expand(value.old, type, level),
         value: Format.expand(value.new, type, level)
     });
+    $.css( wdg, { "margin-left": (1 + level) + "rem" } );
     DB.bind( wdg, 'focus', function(v) {
-        if (v) {
+        if( v ) {
             var parentValue = parentWidget.value.trim().toUpperCase();
             var key = mapValueToID[parentValue];
             wdg.list = completion[level][key || parentValue] || [];
@@ -161,7 +162,7 @@ function createHierarchicalWidget( container,
             var valueID = mapValueToID[v.trim().toUpperCase()];
             visit.data[child.id] = valueID || v;
         }
-        Data.save();
+        Patients.save( patient );
     });
     $.add( container, wdg );
 
@@ -183,7 +184,7 @@ var NO_COMPLETION = { list: [], map: {} };
 
 function getCompletion( type ) {
     if( typeof type === 'undefined' ) return NO_COMPLETION;
-    type = Structure.types[type];
+    type = Structure.value.types[type];
     if( typeof type === 'undefined' ) return NO_COMPLETION;
     type = type.children;
     if( typeof type === 'undefined' ) return NO_COMPLETION;

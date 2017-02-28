@@ -1,13 +1,29 @@
 "use strict";
 
+
+var Utils = require("utils");
+var DateUtil = require("date");
 var Structure = require("structure");
 
 
-exports.getPatientCaption = function( patient ) {
-    return patient['#PATIENT-LASTNAME'].toUpperCase()
-        + " " + patient['#PATIENT-FIRSTNAME']
-        + " " + patient['#PATIENT-SECONDNAME']
-        + " (" + exports.expand(patient['#PATIENT-COUNTRY'], '#NATIONALITY') + ")";
+/**
+ * @param {object} patientData.
+ */
+exports.getPatientCaption = function( patientData ) {
+    var lastname = (patientData['#PATIENT-LASTNAME'] || '').trim();
+    var firstname = (patientData['#PATIENT-FIRSTNAME'] || '').trim();
+    var secondname = (patientData['#PATIENT-SECONDNAME'] || '').trim();
+    var birth = patientData['#PATIENT-BIRTH'];
+    if( typeof birth === 'number' ) {
+        var dat = DateUtil.toDate( birth );
+        birth = dat.getFullYear() + "-" + (1 + dat.getMonth()) + "-" + dat.getDate();
+    }
+    var name = lastname.toUpperCase()
+            + ' ' + Utils.capitalize( firstname );
+    if( secondname.length > 0 ) name += ' ' + Utils.capitalize( secondname );
+    name += ' (' + birth + ') @' 
+        + exports.expand(patientData['#PATIENT-COUNTRY'], '#NATIONALITY');
+    return name;
 };
 
 
@@ -23,7 +39,7 @@ exports.expand = function( text, type, level ) {
     if( typeof level === 'undefined' ) level = 0;
 
     var typeDic = type;
-    if (typeof typeDic === 'string') typeDic = Structure.types[type];
+    if (typeof typeDic === 'string') typeDic = Structure.value.types[type];
     text = text.trim().toUpperCase();
     var expansion = findExpansion( text, typeDic, level );
     return expansion || '';
@@ -57,8 +73,8 @@ var MONTH = [
     'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 
-exports.date = function( ms ) {
-    var date = new Date( ms );
+exports.date = function( seconds ) {
+    var date = new Date( seconds * 1000 );
     return WEEK_DAY[date.getDay()]
         + " " + date.getDate()
         + " " + MONTH[date.getMonth()]

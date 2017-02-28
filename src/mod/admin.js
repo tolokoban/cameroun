@@ -40,7 +40,7 @@ var g_sections = {};
 
 
 exports.start = function() {
-    Structure.load().then(function() {
+    Structure.value.load().then(function() {
         checkLogin();
     });
 };
@@ -51,7 +51,7 @@ exports.onPage = function( pageId ) {
         var key, val, area;
         for( key in SECTIONS ) {
             val = SECTIONS[key];
-            area = new Area({ label: val, value: Structure.data[key] });
+            area = new Area({ label: val, value: Structure.value.data[key] });
             g_sections[key] = area;
             $.add( 'body.' + key, area );
         }
@@ -114,7 +114,7 @@ exports.onLogin = function() {
     var password = W('password').value;
     WS.login(user, password).then(function(ret) {
         Msg("Bienvenue !");
-        Structure.load().then(function() {
+        Structure.then(function() {
             location.hash = "#Admin";
         }, function(err) {
             err.context = "Loading...";

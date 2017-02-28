@@ -23,9 +23,9 @@ module.exports = function( caption, patient, onOK, onCancel ) {
     }
     var btnCancel = Button.Cancel();
     var btnOK = Button.Ok();
-    var defSearchForm = Structure.patient;
+    var defSearchForm = Structure.value.patient;
     var wdgSearchForm = new Form( defSearchForm );
-    wdgSearchForm.value = patient;
+    wdgSearchForm.value = patient.data;
     var modal = new Modal({
         content: $.div({
             style: "width: 600px"
@@ -52,13 +52,16 @@ module.exports = function( caption, patient, onOK, onCancel ) {
                 }
             }
             val = patient[key];
-            if (!val || val.trim().length == 0) {
-                Err("<html>Champ obligatoire !<br/><code>" + defSearchForm[key].caption + "</code>");                
+            console.info("[modal.patient] patient[" + key + "]=", patient[key]);
+            if( !val ) {
+                Err("<html>Champ obligatoire !<br/><code>" 
+                    + defSearchForm[key].caption + "</code>");
                 return;
             }
         }
         
         modal.detach();
+        wdgSearchForm.focus = true;
         onOK( patient );
     });
     btnCancel.on(function() {

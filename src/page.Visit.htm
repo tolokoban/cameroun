@@ -1,9 +1,14 @@
-<header id="visit.title"></header>
+<header>
+    <wdg:flex><content>
+        <wdg:button $text="Retour" $type="simple" $icon="back" slot:action="page.visit:onBack"/>
+        <div id="visit.title"></div>
+    </content></wdg:flex>
+</header>
 
 <div>
     <div id="visit.data"></div>
     <hr/>
     <center>
-        <wdg:button $text="Terminer la rencontre" $icon="ok" slot:action="page.visit:onClose"/>        
+        <wdg:button $text="Terminer la rencontre" $icon="ok" slot:action="page.visit:onClose"/>
     </center>
 </div>

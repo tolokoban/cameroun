@@ -3,10 +3,12 @@
 var $ = require("dom");
 var W = require("x-widget").getById;
 var Err = require("tfw.message").error;
-var Data = require("data");
 var Modal = require("wdg.modal");
 var Format = require("format");
+var DateUtil = require("date");
+var Patients = require("patients");
 var Structure = require("structure");
+var ModalPatient = require("modal.patient");
 
 
 var g_patient;
@@ -18,30 +20,33 @@ exports.onPage = function() {
     var hash = location.hash.split('/');
     var patientId = hash[1];
     g_patientId = patientId;
-    g_patient = Data.getPatient( patientId );
-    document.getElementById('patient.title').textContent = Format.getPatientCaption( g_patient );
+    Patients.get( patientId ).then(function(patient) {
+        g_patient = patient;
+        document.getElementById('patient.title').textContent = 
+            Format.getPatientCaption( g_patient.data );
 
-    var hint = document.getElementById('patient.hint');
-    var btnExit = W('patient.exit');
-    btnExit.visible = false;
+        var hint = document.getElementById('patient.hint');
+        var btnExit = W('patient.exit');
+        btnExit.visible = false;
 
-    if (!Array.isArray(g_patient.$admissions) || g_patient.$admissions.length == 0) {
-        hint.textContent = "Ce patient n'a encore jamais été admis dans ce service.";
-    } else {
-        var admission = g_patient.$admissions[g_patient.$admissions.length - 1];
-        if (typeof admission.exit === 'undefined') {
-            // Toujours admis dans l'hôpital.
-            hint.innerHTML = "Ce patient est admis dans ce service depuis<br/><b>"
-                + Format.date(admission.enter) + "</b>.";
-            btnExit.visible = true;
+        if( !Array.isArray(g_patient.admissions) || g_patient.admissions.length == 0 ) {
+            hint.textContent = "Ce patient n'a encore jamais été admis dans ce service.";
         } else {
-            hint.innerHTML = "Ce patient a été admis dans ce service du <ul><li><b>"
-                + Format.date(admission.enter) + "</b></li><li>au <b>"
-                + Format.date(admission.exit) + "</b>.</li></ul>";
+            var admission = g_patient.admissions[g_patient.admissions.length - 1];
+            if (typeof admission.exit === 'undefined') {
+                // Toujours admis dans l'hôpital.
+                hint.innerHTML = "Ce patient est admis dans ce service depuis<br/><b>"
+                    + Format.date(admission.enter) + "</b>.";
+                btnExit.visible = true;
+            } else {
+                hint.innerHTML = "Ce patient a déjà été admis dans ce service du <ul><li><b>"
+                    + Format.date(admission.enter) + "</b></li><li>au <b>"
+                    + Format.date(admission.exit) + "</b>.</li></ul>";
+            }
         }
-    }
 
-    initVaccins();
+        initVaccins();
+    }, Err );
 };
 
 function onVaccinHover( down ) {
@@ -57,10 +62,10 @@ function onVaccinHover( down ) {
 function onVaccinTap( id ) {
     g_currentVaccinID = id;
     W('vaccin-edit').attach();
-    $('vaccin-name').textContent = Structure.vaccins[id].caption;
-    var vaccin = Data.getVaccin( g_patient, id ) || {};
+    $('vaccin-name').textContent = Structure.value.vaccins[id].caption;
+    var vaccin = g_patient.vaccins[id] || {};
     var dateVaccin = vaccin.date;
-    if( !dateVaccin ) dateVaccin = new Date();
+    //if( !dateVaccin ) dateVaccin = DateUtil.now();
     W('vaccin-date').value = dateVaccin;
     W('vaccin-lot').value = vaccin.lot || "";
 }
@@ -68,16 +73,18 @@ function onVaccinTap( id ) {
 function initVaccins() {
     $.clear( 'vaccins' );
     var id, caption, row;
-    for( id in Structure.vaccins ) {
-        caption = Structure.vaccins[id].caption;
-        var vaccin = Data.getVaccin( g_patient, id );
+    for( id in Structure.value.vaccins ) {
+        caption = Structure.value.vaccins[id].caption;
+        var vaccin = g_patient.vaccins[id];
         if( vaccin ) {
             var dateVaccin = vaccin.date;
-            var delta = Math.ceil( (Date.now() - dateVaccin.getTime()) / 31557600000 );
-            row = $.div( 'theme-elevation-2', 
+            // `delta`is computed in years.
+            var delta = Math.floor(DateUtil.age(vaccin.date) / 31557600);
+            row = $.div( 'theme-elevation-2',
                          'level-' + (delta < 6 ? '0' : (delta < 11 ? '1' : '2')), [
-                $.div([ caption ]), $.div([ delta < 2 ? "Moins d'un an" : delta + " ans" ])
-            ]);            
+                             $.div([ caption ]), 
+                             $.div([ delta < 2 ? "Moins d'un an" : delta + " ans" ])
+                         ]);
         } else {
             row = $.div( 'theme-elevation-2', 'level-3', [
                 $.div([ caption ]), $.div( 'unknown', ['Inconnu...'] )
@@ -99,17 +106,25 @@ function closeVaccin() {
 }
 
 exports.onVaccinOK = function() {
-    var d = W('vaccin-date').value;
-    if( d.getTime() > Date.now() ) {
-        Err('La date spécifiée est dans le futur !');
+    var dat = W('vaccin-date').value;
+    if( typeof dat !== 'number' ) {
+        Err("La date est obligatoire !");
+        W('vaccin-date').focus = true;
         return;
     }
-    Data.setVaccin( g_patient, g_currentVaccinID, { date: d, lot: W('vaccin-lot').value } );
+    if( DateUtil.age(dat) < 0 ) {
+        Err('La date spécifiée est dans le futur !');
+        W('vaccin-date').focus = true;
+        return;
+    }
+    g_patient.vaccins[g_currentVaccinID] = { date: dat, lot: W('vaccin-lot').value };
+    Patients.save( g_patient );
     closeVaccin();
 };
 
 exports.onVaccinDel = function() {
-    Data.delVaccin( g_patient, g_currentVaccinID );
+    delete g_patient.vaccins[g_currentVaccinID];
+    Patients.save( g_patient );
     closeVaccin();
 };
 
@@ -118,37 +133,38 @@ exports.onExam = function() {
 };
 
 exports.onNewVisit = function() {
-    var visit = Data.getLastVisit( g_patient );
-    if (!visit || visit.exit) {
+    var visit = Patients.lastVisit( g_patient );
+    if ( !visit || visit.exit || DateUtil.age( visit.enter ) > 3600 ) {
         // Il n'y a pas de visite en cours.
-        visit = Data.createVisit( g_patient );
-        location.hash = "#Visit/" + g_patient.$id;
+        if( visit && !visit.exit ) visit.exit = DateUtil.now();
+        Patients.createVisit( g_patient ).then(function( visit ) {
+            location.hash = "#Visit/" + g_patientId;            
+        });
     } else {
-        var content = $.div([
-            "Une visite débutée ",
-            $.tag('b', [Format.date(visit.enter)]),
-            " n'a pas été cloturée.",
-            $.tag('br'),
-            "Voulez-vous la poursuivre ?",
-            $.tag('hr'),
-            $.tag('em', ["Si vous choisissez NON, nous créerons une nouvelle visite."])
-        ]);
-        Modal.confirm(
-            content,
-            function() {
-                location.hash = "#Visit/" + g_patient.$id;
-            },
-            function() {
-                visit.exit = visit.enter;
-                Data.createVisit( g_patient );
-                location.hash = "#Visit/" + g_patient.$id;
-            }
-        );
+        location.hash = "#Visit/" + g_patientId;
     }
 };
 
+exports.onPatientExit = function() {
+    Modal.confirm(
+        "<html>Confirmez vous que le patient<br/><b>"
+            + Format.getPatientCaption( g_patient.data ) + "</b><br/>est sorti du service ?",
+        function() {
+            var visit = Patients.lastVisit( g_patient );
+            if( !visit.exit ) visit.exit = DateUtil.now();
+            var len = g_patient.admissions.length;
+            var admission = g_patient.admissions[len - 1];
+            admission.exit = DateUtil.now();
+            Patients.save( g_patient ).then(function() {
+                exports.onPage();
+            });
+        }
+    );
+};
 
-function formatDate( d ) {
-    if( typeof d === 'string' ) return d;
-    return d.toString();
-}
+exports.onPatientEdit = function() {
+    ModalPatient( "Editer l'identité du patient", g_patient, function( patientData ) {
+        g_patient.data = patientData;
+        Patients.save( g_patient ).then( exports.onPage.bind( exports ) );
+    });
+};

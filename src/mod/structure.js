@@ -15,13 +15,15 @@ var FILENAME = "data/structure.json";
 // URL of the service delivering structure.
 var URL = "https://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
 
+var g_structure = null;
 
 /**
- * Load structure from internet or from local disk if network is unreachable.
- * Resolves to `undefined`.
+ * Resolves in the complete structure.
  */
-exports.load = function() {
-    return new Promise(function (resolve, reject) {
+module.exports = new Promise(function (resolve, reject) {
+    if( g_structure ) resolve( g_structure );
+    else {
+        // Load structure from internet or from local disk if network is unreachable.
         Files.mkdir( "data" )
             .then(function() {
                 return fetch( URL );
@@ -37,7 +39,7 @@ exports.load = function() {
                     throw( "Unparsable JSON!" );
                 }
                 FS.writeFile( FILENAME, JSON.stringify( data, null, '    ' ) );
-                resolve();
+                resolve( g_structure );
             })
             .catch(function( err ) {
                 // Unable to  retrieve structure from the  network (or
@@ -51,24 +53,30 @@ exports.load = function() {
                             reject( "Unable to read backup file for structure!\n" + err );
                         } else {
                             loadStructure( JSON.parse( data.toString() ) );
-                            resolve();
+                            resolve( g_structure );
                         }
                     });
                 }
             });
-    });
-};
+    }
+});
+
+Object.defineProperty( module.exports, 'value', {
+    get: function() { return g_structure; },
+    set: function(v) {}
+});
+
 
 function loadStructure( data ) {
-    exports.data = data;
+    g_structure = {};
 
     var key, val;
     for( key in data ) {
         val = data[key];
         if( typeof val !== 'string' ) val = '';
         try {
-            exports[key] = Parser.parse( val );
-            console.info("[structure] exports[", key, "]=", exports[key]);
+            g_structure[key] = Parser.parse( val );
+            console.info("[structure] exports[", key, "]=", g_structure[key]);
         }
         catch (ex) {
             Modal.alert($.div([
@@ -80,13 +88,3 @@ function loadStructure( data ) {
     }
     return true;
 }
-
-exports.getForm = function() {
-    var path = [];
-    var i, arg;
-    for (i = 0 ; i < arguments.length ; i++) {
-        arg = arguments[i];
-        path.push( arg );
-    }
-    return Parser.get( exports.forms, path );
-};

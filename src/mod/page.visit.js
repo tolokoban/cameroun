@@ -1,12 +1,13 @@
 "use strict";
 
 var $ = require("dom");
-var Data = require("data");
 var Form = require("form");
 var Modal = require("wdg.modal");
 var Input = require("input");
 var Format = require("format");
+var Patients = require("patients");
 var ShowHide = require("wdg.showhide");
+var DateUtil = require("date");
 var Structure = require("structure");
 
 
@@ -17,20 +18,26 @@ var g_patient;
 exports.onPage = function() {
     var hash = location.hash.split('/');
     var patientId = hash[1];
-    g_patient = Data.getPatient( patientId );
-    document.getElementById('visit.title').textContent = Format.getPatientCaption( g_patient );
-
-    var container = document.getElementById("visit.data");
-    $.clear( container );
-    addForm( container, Structure.forms );
+    Patients.get( patientId ).then(function( patient ) {
+        g_patient = patient;
+        document.getElementById('visit.title').textContent =
+            Format.getPatientCaption( patient.data );
+        var container = document.getElementById("visit.data");
+        $.clear( container );
+        addForm( container, Structure.value.forms );
+    });
 };
 
 
 exports.onClose = function() {
-    var visit = Data.getLastVisit( g_patient );
-    visit.exit = Date.now();
-    Data.save();
-    location.hash = "#Home";
+    var visit = Patients.lastVisit( g_patient );
+    visit.exit = DateUtil.now();
+    Patients.save( g_patient );
+    location.hash = "#Patient/" + g_patient.id;
+};
+
+exports.onBack = function() {
+    location.hash = "#Patient/" + g_patient.id;
 };
 
 /**
@@ -39,7 +46,7 @@ exports.onClose = function() {
  */
 function addForm( parent, def ) {
     if( typeof def === 'undefined' ) return;
-    
+
     var key, val;
     var wdg, div;
     for( key in def ) {
@@ -66,30 +73,10 @@ function addForm( parent, def ) {
 }
 
 exports.onNewVisit = function() {
-    var currentAdmission = g_patient.$admissions[g_patient.$admissions.length - 1];
-    if (!currentAdmission) {
-        currentAdmission = {
-            enter: Date.now(),
-            visits: [
-                { date: Date.now() }
-            ]
-        };
-        g_patient.$admissions.push( currentAdmission );
-        location.hash = "#Visit/" + g_patient.id + "/0/0";
-    } else {
-        if (currentAdmission.exit) {
-            currentAdmission = {
-                enter: Date.now(),
-                visits: [
-                    { date: Date.now() }
-                ]
-            };
-            g_patient.$admissions.push( currentAdmission );
-            location.hash = "#Visit/" + g_patient.id + "/" + (g_patient.$admissions.length - 1) + "/0";
-        } else {
-            currentAdmission = g_patient.$admissions[g_patient.$admissions.length - 1];
-            location.hash = "#Visit/" + g_patient.id + "/" + (g_patient.$admissions.length - 1) + "/"
-                + (currentAdmission.visits.length - 1);
-        }
-    }
+    Patients.createVisit().then(function(visit) {
+        var len = g_patient.admissions.length;
+        var lastAdmission = g_patient.admissions[len - 1];
+        location.hash = "#Visit/" + g_patient.id + "/" + (len - 1) + "/"
+            + (lastAdmission.visits.length - 1);
+    });
 };
