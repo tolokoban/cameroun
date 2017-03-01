@@ -56,8 +56,31 @@ exports.readJson = function( filename ) {
                     resolve( JSON.parse( data.toString() ) );
                 } catch( ex ) {
                     Fatal( reject, "Unable to parse JSON file `" + filename + "`!",
-                         { ex: ex, data: data } );
+                           { ex: ex, data: data } );
                 }
+            }
+        });
+    });
+};
+
+exports.copy = function( src, dst ) {
+    return new Promise(function (resolve, reject) {
+        FS.readFile( src, function( err, data ) {
+            if( err ) Fatal( reject, "Unable to read file `" + src + "`!", {
+                err: err, src: src, dst: dst
+            });
+            else {
+                var path = dirname( dst );
+                exports.mkdir( path ).then(function() {
+                    FS.writeFile( dst, data, function( err ) {
+                        if( err ) Fatal( reject, "Unable to write file `" + dst + "`!", {
+                            err: err, src: src, dst: dst
+                        });
+                        else {
+                            resolve();
+                        }
+                    });
+                }, reject);
             }
         });
     });

@@ -37,7 +37,7 @@
         },
         "output": "../../www/Cameroun"
     },
-    "version": "0.2.49",
+    "version": "0.2.94",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2",

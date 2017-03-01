@@ -64,7 +64,7 @@
  *     },
  *     ...
  *   ],
- *   "picture": "4HG1.jpg"  // Identity picture 256x256.
+ *   "picture": "data:..."  // Identity picture 192x192 (DataURI).
  *   "attachments": {
  *     "32JK.pdf": {
  *       "caption": "Radiographie"
@@ -76,9 +76,11 @@
 "use strict";
 
 var FS = require("node://fs");
+var Path = require("node://path");
 var Guid = require("guid");
 var Fatal = require("fatal");
 var Files = require("files");
+var Spawn = require('node://child_process').spawn;
 var DateUtil = require("date");
 
 var g_patients = null;
@@ -103,6 +105,9 @@ module.exports = {
      * @resolve {object} visit.
      */
     createVisit: createVisit,
+    /**
+     * @resolve {string} Full path to the resulting `*.tgz` file.
+     */
     export: exportPatients,
 
     ////////////////////////////////////////////////
@@ -273,8 +278,17 @@ function closeAdmission( patient ) {
 
 function exportPatients() {
     return new Promise(function (resolve, reject) {
-        // @TODO
-        alert( 'TODO!' );
+        var path = Path.resolve('.');        
+        var inputPath = "data/";
+        var outputPath = "data.tgz";
+        var process = Spawn( "tar", ["-czf", outputPath, inputPath] );
+        process.stdout.on('data', function(data) {
+            console.info( data );
+        });
+        process.stderr.on('data', function(data) {
+            console.error( data );
+        });
+        process.on( 'close', resolve.bind( null, Path.join( path, outputPath ) ) );
     });
 }
 

@@ -21,6 +21,7 @@ exports.onPage = function() {
     var patientId = hash[1];
     g_patientId = patientId;
     Patients.get( patientId ).then(function(patient) {
+        W('picture').value = patient;
         g_patient = patient;
         document.getElementById('patient.title').textContent = 
             Format.getPatientCaption( g_patient.data );

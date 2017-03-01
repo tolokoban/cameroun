@@ -6,17 +6,20 @@
 </header>
 
 <div>
-    <p id="patient.hint" class="theme-color-bg-B0"></p>
     <wdg:flex>
         <content list>
-            <wdg:button $text="Sortie du patient" id="patient.exit"
-                        $icon="close" slot:action="page.patient:onPatientExit"/>
-            <wdg:button $text="Identité du patient" 
-                        $icon="user" slot:action="page.patient:onPatientEdit"/>
-            <wdg:button $text="Créer une nouvelle visite" $icon="plus"
-                        slot:action="page.patient:onNewVisit"/>
-            <wdg:button $text="Prescrire des examens" $icon="print"
-                        slot:action="page.patient:onExam"/>
+            <div>
+                <p id="patient.hint" class="theme-color-bg-B0"></p>
+                <wdg:button $text="Sortie du patient" id="patient.exit"
+                            $icon="close" slot:action="page.patient:onPatientExit"/>
+                <wdg:button $text="Identité du patient"
+                            $icon="user" slot:action="page.patient:onPatientEdit"/>
+                <wdg:button $text="Créer une nouvelle visite" $icon="plus"
+                            slot:action="page.patient:onNewVisit"/>
+                <wdg:button $text="Prescrire des examens" $icon="print"
+                            slot:action="page.patient:onExam"/>
+            </div>
+            <x-widget name="picture" id="picture" />
         </content>
     </wdg:flex>
     <hr/>

@@ -21,7 +21,8 @@ var pages = {
 };
 
 exports.start = function() {
-    nw.Window.get().showDevTools( null, start );
+    //nw.Window.get().showDevTools( null, start );
+    start();
 };
 
 function start() {
