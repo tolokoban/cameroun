@@ -16,6 +16,7 @@ var FILENAME = "data/structure.json";
 var URL = "https://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
 
 var g_structure = null;
+var g_source = null;
 
 /**
  * Resolves in the complete structure.
@@ -66,15 +67,22 @@ Object.defineProperty( module.exports, 'value', {
     set: function(v) {}
 });
 
+Object.defineProperty( module.exports, 'source', {
+    get: function() { return g_source; },
+    set: function(v) {}
+});
+
 
 function loadStructure( data ) {
     g_structure = {};
+    g_source = {};
 
     var key, val;
     for( key in data ) {
         val = data[key];
         if( typeof val !== 'string' ) val = '';
         try {
+            g_source[key] = val;
             g_structure[key] = Parser.parse( val );
             console.info("[structure] exports[", key, "]=", g_structure[key]);
         }

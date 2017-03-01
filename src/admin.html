@@ -5,22 +5,4 @@
             <x-page key="Admin"/>
         </content>
     </wdg:layout-stack>
-
-    <wdg:modal id="modal.login" $padding="true">
-        <content>
-            <wdg:text id="login" 
-                      $label="Administrateur" 
-                      $wide="true"/>
-            <wdg:text id="password" 
-                      $label="Mot de passe" 
-                      $wide="true" 
-                      $type="password"
-                      bind:focus="login:action"
-                      slot:action="onLogin"/>
-            <hr/>
-            <center>
-                <wdg:button id="modal.login.btnOK" $text="Connexion" slot:action="onLogin"/>
-            </center>
-        </content>
-    </wdg:modal>
 </x-html>

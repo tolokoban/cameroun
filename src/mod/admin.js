@@ -38,24 +38,24 @@ var SECTIONS = {
 // Map of Area widgets. The keys are the same keys as in `SECTIONS`.
 var g_sections = {};
 
+exports.onPage = function(pageId) {
+    console.info("[admin] pageId=", pageId);
+    if( pageId != 'Admin' ) {
+        window.setTimeout(function() {
+            W('username').focus = true;
+        }, 100);
+        return;
+    }
 
-exports.start = function() {
-    Structure.value.load().then(function() {
-        checkLogin();
-    });
-};
-
-
-exports.onPage = function( pageId ) {
-    if( pageId == 'Admin' ) {
+    Structure.then(function() {
         var key, val, area;
         for( key in SECTIONS ) {
             val = SECTIONS[key];
-            area = new Area({ label: val, value: Structure.value.data[key] });
+            area = new Area({ label: val, value: Structure.source[key] });
             g_sections[key] = area;
             $.add( 'body.' + key, area );
         }
-    }
+    });
 };
 
 exports.onSave = function() {
@@ -69,10 +69,10 @@ exports.onSave = function() {
         var key, val;
         for( key in SECTIONS ) {
             val = g_sections[key];
-console.info("[admin] key=", key);
-console.info("[admin] val=", val);
+            console.info("[admin] key=", key);
+            console.info("[admin] val=", val);
             tasks.push({ id: key, text: val.value, area: val });
-console.info("[admin] tasks=", tasks);
+            console.info("[admin] tasks=", tasks);
         }
         var next = function() {
             if( tasks.length == 0 ) {
@@ -92,11 +92,12 @@ console.info("[admin] tasks=", tasks);
                     function() {
                         task.area.focus = true;
                     }
-                );                
+                );
                 return;
             }
             WS.get('PutOrg', task).then(function(ret) {
                 console.info("[admin] ret=...", ret);
+                Structure.value[task.id] = task.text;
                 next();
             }, function(err) {
                 console.info("[admin] err=...", err);
@@ -108,11 +109,9 @@ console.info("[admin] tasks=", tasks);
 };
 
 exports.onLogin = function() {
-    var modal = W('modal.login');
-    modal.visible = false;
-    var user = W('login').value;
+    var username = W('username').value;
     var password = W('password').value;
-    WS.login(user, password).then(function(ret) {
+    WS.login(username, password).then(function(ret) {
         Msg("Bienvenue !");
         Structure.then(function() {
             location.hash = "#Admin";
@@ -129,13 +128,3 @@ exports.onLogin = function() {
         }, 3000);
     });
 };
-
-
-function checkLogin() {
-    if( !WS.isLogged() ) {
-        W('modal.login').attach();
-        W('login').focus = true;
-        return false;
-    }
-    return true;
-}

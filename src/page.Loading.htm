@@ -1,12 +1,18 @@
 <header>
-    <wdg:flex>
-        <content>
-            <wdg:icon $content="wait" $size="32px" $rotate="true"/>
-            <div>Chargement en cours...</div>
-        </content>
-    </wdg:flex>
+    Veuillez vous identifier pour accéder à la partie administration
 </header>
 <div style="font-family: mystery-quest">
+    <wdg:flex><content>
+        <wdg:text id="username" 
+                  $width="240px" $label="Nom d'utilisateur" />
+        <wdg:text id="password"
+                  $width="240px" $label="Mot de passe" $type="password" 
+                  slot:action="onLogin"/>
+        <wdg:button id="button-login" $text="Connexion" slot:action="onLogin"/>
+    </content></wdg:flex>
+
+    <hr/>
+
     <p style="font-family: mystery-quest">
 
     « Je jure par Apollon, médecin, par Asclépios, par Hygie et Panacée, par tous les dieux et toutes les déesses, les prenant à témoin que je remplirai, suivant mes forces et ma capacité, le serment et l'engagement suivants :

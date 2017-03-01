@@ -1,7 +1,9 @@
 <x-html title="Cameroun" app="app">
     <wdg:layout-stack $hash="^#([a-zA-Z0-9]+)" slot:value="onPage">
         <content list>
-            <x-page key="Loading" />
+            <div $$key="Wait">
+                <wdg:wait $size="64px" />
+            </div>
             <x-page key="Home" />
             <x-page key="List" />
             <x-page key="Patient" />
