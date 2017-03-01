@@ -29,6 +29,11 @@ var Search = function(opts) {
     var btnUser = new Button({
         text: "Aucune correspondance...", icon: "user", type: "simple", enabled: false, wide: true
     });
+    // Pressing Enter will select the current patient.
+    DB.bind( input, 'action', function() {
+        btnUser.fire();
+    });
+
     var elem = $.elem( this, 'div', [input, btnUser] );
     $.css( elem, { width: '480px' } );
 

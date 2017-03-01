@@ -127,6 +127,15 @@ exports.mkdir = function(folder) {
     });
 };
 
+exports.delete = function( filename ) {
+    return new Promise(function (resolve, reject) {
+        FS.unlink( filename, function( err ) {
+            if( err ) Fatal( reject, "Unable to delete file `" + filename + "`!", err );
+            else resolve( filename );
+        });
+    });
+};
+
 exports.read = function( filename ) {
     return new Promise(function (resolve, reject) {
         FS.readFile( filename, function( err, data ) {

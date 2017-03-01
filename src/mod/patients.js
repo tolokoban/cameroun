@@ -65,9 +65,11 @@
  *     ...
  *   ],
  *   "picture": "data:..."  // Identity picture 192x192 (DataURI).
- *   "attachments": {
- *     "32JK.pdf": {
- *       "caption": "Radiographie"
+ *   "attachments": [
+ *     {
+ *       "id": "32JK.pdf",
+ *       "desc": "Radiographie",
+ *       "date": <seconds since UNIX epoc (UTC)>
  *     }
  *   }
  * }
@@ -109,6 +111,19 @@ module.exports = {
      * @resolve {string} Full path to the resulting `*.tgz` file.
      */
     export: exportPatients,
+    /**
+     * @param {object} patient.
+     * @param {string} filename.
+     * @param {string} description.
+     * @resolve {string} filename.
+     */
+    attach: addAttachment,
+    /**
+     * @param {object} patient.
+     * @param {string} attachment's ID.
+     * @resolve {undefined}
+     */
+    detach: delAttachment,
 
     ////////////////////////////////////////////////
     // Following functions don't return Promises. //
@@ -278,7 +293,7 @@ function closeAdmission( patient ) {
 
 function exportPatients() {
     return new Promise(function (resolve, reject) {
-        var path = Path.resolve('.');        
+        var path = Path.resolve('.');
         var inputPath = "data/";
         var outputPath = "data.tgz";
         var process = Spawn( "tar", ["-czf", outputPath, inputPath] );
@@ -289,6 +304,34 @@ function exportPatients() {
             console.error( data );
         });
         process.on( 'close', resolve.bind( null, Path.join( path, outputPath ) ) );
+    });
+}
+
+function addAttachment( patient, filename, description ) {
+    return new Promise(function (resolve, reject) {
+        var id = Guid() + Path.extname( filename );
+        var dst = "./data/" + patient.id + "/" + id;
+        Files.copy( filename, dst ).then(function() {
+            if( !Array.isArray( patient.attachments ) ) patient.attachments = [];
+            var item = {
+                id: id, desc: description, date: DateUtil.now()
+            };
+            patient.attachments.unshift( item );
+            save( patient ).then( function() {
+                resolve( Path.resolve( dst ) );
+            }, reject );
+        }, reject);
+    });
+}
+
+function delAttachment( patient, id ) {
+    return new Promise(function (resolve, reject) {
+        Files.delete( "data/" + patient.id + "/" + id ).then(function() {
+            patient.attachments = patient.attachments.filter(function(itm) {
+                return itm.id != id;
+            });
+            save( patient ).then( resolve, reject );
+        }, reject);
     });
 }
 
@@ -335,7 +378,7 @@ function getPatientValue( patient, id ) {
     var result = {
         new: visit ? visit.data[id] : undefined
     };
-    if (!Array.isArray(patient.$admissions)) patient.$admissions = [];
+    if (!Array.isArray(patient.admissions)) patient.admissions = [];
     patient.admissions.forEach(function (admission) {
         admission.visits.forEach(function (visit) {
             var value = visit.data;

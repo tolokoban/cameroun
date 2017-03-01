@@ -38,6 +38,9 @@ exports.expand = function( text, type, level ) {
     if( typeof type === 'undefined' ) return text;
     if( typeof level === 'undefined' ) level = 0;
 
+    // Deal with dates, numbers, ...
+    if( typeof text !== 'string' ) return text;
+
     var typeDic = type;
     if (typeof typeDic === 'string') typeDic = Structure.value.types[type];
     text = text.trim().toUpperCase();

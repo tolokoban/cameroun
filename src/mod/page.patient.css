@@ -44,4 +44,24 @@
     background: #777;
 }
 
+#attachments {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+#attachments > div {
+    display: table-row;
+    border-top: 1px solid rgba(0,0,0,.3);
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+#attachments > div > div {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 4px;
+}
+
+#attachments > div > div:last-child {
+    text-align: right;
+}

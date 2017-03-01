@@ -23,6 +23,13 @@
         </content>
     </wdg:flex>
     <hr/>
+    <wdg:showhide $label="Pièces jointes" $value="false">
+        <content>
+            <wdg:button $text="Ajouter une pièce jointe au dossier" $icon="add"
+                        slot:action="page.patient:onAddAttachment" />
+            <div id="attachments"></div>
+        </content>
+    </wdg:showhide>
     <wdg:showhide $label="Liste des vaccins" $value="false">
         <content>
             <div id="vaccins"></div>

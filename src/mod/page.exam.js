@@ -2,6 +2,7 @@
 
 require("polyfill.promise");
 var $ = require("dom");
+var W = require("x-widget").getById;
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
 var Files = require("files");
@@ -98,10 +99,15 @@ exports.onPrint = function() {
                 debugger;
                 Files.saveBlob( "presciption-examens.odt", blob ).then(function(filename) {
                     var path = Path.resolve( filename );
-                    console.info("[page.exam] path=...", path);
-                    nw.Shell.openItem( path );
-                    Msg( "<html>Le fichier suivant va bientôt s'ouvrir dans LibreOffice:<br/>" 
-                         + path );
+                    Msg( "LibreOffice est en cours d'affichage..." );
+                    Patients.get( g_patientId ).then(function(patient) {
+                        Patients.attach( patient, path, "Examen prescrit" ).then(function( dst ) {
+                            console.info("[page.exam] dst=", dst);
+                            nw.Shell.openItem( dst );
+                        }, function( err ) {
+                            Msg( err );
+                        });
+                    });
                 });
             }, function(err) {
                 Err( err );

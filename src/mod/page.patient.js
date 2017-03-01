@@ -2,13 +2,20 @@
 
 var $ = require("dom");
 var W = require("x-widget").getById;
+var Msg = require("tfw.message").info;
 var Err = require("tfw.message").error;
+var Text = require("wdg.text");
+var Flex = require("wdg.flex");
+var Icon = require("wdg.icon");
 var Modal = require("wdg.modal");
+var Button = require("wdg.button");
 var Format = require("format");
 var DateUtil = require("date");
 var Patients = require("patients");
 var Structure = require("structure");
 var ModalPatient = require("modal.patient");
+
+var Path = require("node://path");
 
 
 var g_patient;
@@ -21,8 +28,10 @@ exports.onPage = function() {
     var patientId = hash[1];
     g_patientId = patientId;
     Patients.get( patientId ).then(function(patient) {
-        W('picture').value = patient;
         g_patient = patient;
+
+        refreshAttachments();
+        W('picture').value = patient;
         document.getElementById('patient.title').textContent = 
             Format.getPatientCaption( g_patient.data );
 
@@ -167,5 +176,81 @@ exports.onPatientEdit = function() {
     ModalPatient( "Editer l'identité du patient", g_patient, function( patientData ) {
         g_patient.data = patientData;
         Patients.save( g_patient ).then( exports.onPage.bind( exports ) );
+    });
+};
+
+
+function refreshAttachments() {
+    var div = $('attachments');
+    $.clear( div );
+    g_patient.attachments.forEach(function (item) {
+        var btn = new Button({
+            text: item.desc,
+            icon: 'show',
+            type: 'simple'
+        });
+        btn.on(function() {
+            Msg("Affichage en cours...");
+            nw.Shell.openItem( Path.resolve( "data/" + g_patient.id + "/" + item.id ) );
+        });
+        var btnDelete = new Icon({
+            content: 'delete',
+            button: true,
+            size: "1.5rem",
+            type: 'accent'
+        });
+        btnDelete.on(function() {
+            Modal.confirm(
+                "<html>Êtes-vous sûr de vouloir supprimer définitivement le document<br>"
+                + "<code>" + item.desc + "</code> ?",
+                function() {
+                    Patients.detach( g_patient, item.id ).then( refreshAttachments, Err );
+                }
+            );
+        });
+        $.add( div, $.div([
+            $.div([btn]), 
+            $.div([Format.date(item.date)]),
+            $.div([btnDelete])
+        ]));
+    });
+
+}
+
+
+exports.onAddAttachment = function() {
+    var btnCancel = Button.Cancel();
+    var btnOK = Button.Save();
+    btnOK.enabled = false;
+
+    var file = null;
+    var input = $.tag( 'input', { type: 'file' } );
+    input.addEventListener( 'change', function() {
+        file = this.value;
+        btnOK.enabled = true;
+    });
+    var desc = new Text({ label: "Description de la pièce jointe", wide: true });
+    var modal = new Modal({ content: [
+        input, desc, $.tag('hr'),
+        new Flex({ content: [btnCancel, btnOK] })
+    ]});
+    modal.attach();
+    window.setTimeout(function() {
+        input.click();
+    }, 300);
+
+    btnOK.on(function() {
+        var description = desc.value.trim();
+        if( description.length == 0 ) {
+            description = Path.basename( file );
+        }
+        desc.value = description;
+        modal.detach();
+        Patients.attach( g_patient, file, description ).then(function( patient ) {
+            refreshAttachments();
+        });
+    });
+    btnCancel.on(function() {
+        modal.detach();
     });
 };
