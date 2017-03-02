@@ -183,6 +183,7 @@ exports.onPatientEdit = function() {
 function refreshAttachments() {
     var div = $('attachments');
     $.clear( div );
+    if( !Array.isArray( g_patient.attachments ) ) g_patient.attachments = [];
     g_patient.attachments.forEach(function (item) {
         var btn = new Button({
             text: item.desc,
