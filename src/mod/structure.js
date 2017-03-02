@@ -13,7 +13,7 @@ var FS = require("node://fs");
 // Name of the local backup for structure.
 var FILENAME = "data/structure.json";
 // URL of the service delivering structure.
-var URL = "https://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
+var URL = "http://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
 
 var g_structure = null;
 var g_source = null;
