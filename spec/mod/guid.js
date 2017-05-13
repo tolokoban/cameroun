@@ -1,2 +1,0 @@
-require("guid",function(r,n,t){function e(r){for(var n,t="";r>0;)n=63&r,t=o.charAt(n)+t,r-=n,r>>=6;return t}var u=function(){function n(){return e(t,arguments)}var t={en:{},fr:{}},e=r("$").intl;return n.all=t,n}(),o="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_",a=new Date(2017,0,1).getTime(),i=null,f=0;n.exports=function(){var r=Math.floor(.001*(Date.now()-a)),n=e(r);return i==n?(f++,n+="."+e(f)):f=0,i=n,n},n.exports._=u});
-//# sourceMappingURL=guid.js.map
