@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.3.42\"","major":"0","minor":"3","revision":"42","date":"2017-05-13T13:25:28.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
-=======
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.3.43\"","major":"0","minor":"3","revision":"43","date":"2017-04-11T11:34:44.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
->>>>>>> 20bb9833a33747f771778880bb54aa03848c0bfc
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.3.44\"","major":"0","minor":"3","revision":"44","date":"2017-05-13T17:21:18.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
 var currentLang = null;
 exports.lang = function(lang) {
     if (lang === undefined) {
