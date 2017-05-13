@@ -9,6 +9,10 @@
     "512": "/icon-512.png"
   },
   "name": "cameroun",
+<<<<<<< HEAD
   "version": "0.3.42",
+=======
+  "version": "0.3.43",
+>>>>>>> 20bb9833a33747f771778880bb54aa03848c0bfc
   "description": "Cameroun"
 }

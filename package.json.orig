@@ -38,10 +38,10 @@
         "output": "www"
     },
 <<<<<<< HEAD
-    "version": "0.3.38",
+    "version": "0.3.42",
 =======
-    "version": "0.3.44",
->>>>>>> f5b778df10baf5d14e36783c9dae9dc6c547e40e
+    "version": "0.3.43",
+>>>>>>> 20bb9833a33747f771778880bb54aa03848c0bfc
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2",
@@ -53,6 +53,8 @@
     },
     "main": "index.html",
     "window": {
-        "fullscreen": false
+        "fullscreen": false,
+        "width": 800,
+        "height": 640
     }
 }

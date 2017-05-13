@@ -35,9 +35,9 @@
                 "tfw": "http://tolokoban.org/Cameroun/tfw"
             }
         },
-        "output": "../../www/Cameroun"
+        "output": "www"
     },
-    "version": "0.3.42",
+    "version": "0.3.43",
     "reservedModules": [],
     "dependencies": {
         "jasmine-core": "^2",
