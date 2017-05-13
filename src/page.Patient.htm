@@ -1,6 +1,6 @@
 <header>
     <wdg:flex><content>
-        <wdg:button $text="Retour" $icon="back" $href="#Home" $type="simple" />
+        <wdg:button $text="Retour à l'écran principal" $icon="back" $href="#Home" $type="simple" />
         <div id="patient.title"></div>
     </content></wdg:flex>
 </header>
@@ -14,7 +14,7 @@
                             $icon="close" slot:action="page.patient:onPatientExit"/>
                 <wdg:button $text="Identité du patient"
                             $icon="user" slot:action="page.patient:onPatientEdit"/>
-                <wdg:button $text="Créer une nouvelle visite" $icon="plus"
+                <wdg:button $text="Nouvelle consultation" $icon="plus"
                             slot:action="page.patient:onNewVisit"/>
                 <wdg:button $text="Prescrire des examens" $icon="print"
                             slot:action="page.patient:onExam"/>
