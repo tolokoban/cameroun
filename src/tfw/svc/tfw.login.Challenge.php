@@ -19,7 +19,6 @@ $ROLE = "";
  * entiers aléatoires compris entre 0 et 15 inclus.
  */
 function execService($login, $SYS) {
-    global $DB;
     global $USER;
 
     // Préparation du challenge.
@@ -30,7 +29,7 @@ function execService($login, $SYS) {
 
     // On se protége contre les logins mal formés.
     $login = strtr($login, Array(".." => "_", "/" => "_", "\\" => "_"));
-    $user = $DB->FindUser($login);
+    $user = $SYS->PRI->loadJson("user/$login.json");
     if (!$user) {
         // S'il n'existe pas on crée un utilisateur bidon sans aucun droit.
         echo "L'utilisateur \"$login\" n'a pas été trouvé !\n";

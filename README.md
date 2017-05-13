@@ -50,6 +50,23 @@ Et vous pouvez l'exécuter comme ceci :
 nw www/
 ```
 
+# Administration
+
+La partie administration est protégée par un mot de passe.
+Pour configurer cet accès, il faut créer le fichier suivant : `tfw/pri/user/admin.json`
+```
+{
+  "id": 1,
+  "login": "admin",
+  "password": "le-mot-de-passe",
+  "name": "un-nom-a-afficher",
+  "enabled": true,
+  "creation": "2017-01-01",
+  "roles": ["ADMIN", "USER"],
+  "data": {}
+}
+```
+
 # Publication
 
 Pour publier votre application, il faut déposer les fichiers suivants (__et uniquement ceux-là__) dans votre dépôt :
