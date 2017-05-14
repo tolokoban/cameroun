@@ -90,14 +90,12 @@ Ajoutez-y aussi les répertoires suivants, mais pas d'autres pour en pas écrase
 Un dépôt est un répertoire sur un serveur voir avec PHP 5.0 minimum.
 Il doit posséder au moins le fichier suivant : [`index.php`](src/index.php).
 
-# Documentation technique
-
-## La base de données
+# Base de données
 
 Les données sont stoquées dans des fichiers dans le répertoire `data/`.
-Il y a un seul fichier et autant de répertoires que de patients enregistrés.
+A la racine, il y a un seul fichier et autant de répertoires que de patients enregistrés.
 Ces répertoires ont comme nom l'identifiant unique du patient dont ils
-renferment les données.
+contiennent les données.
 
 L'unique fichier est `data/patients.json`. Il est au format JSON avec les attributs `count` (nombre de patients) et `records` (dictionnaire des patients).
 

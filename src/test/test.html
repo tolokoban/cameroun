@@ -1,0 +1,17 @@
+<x-html app="test">
+    <wdg:showhide id="B1" $label="Premier bloc" $value="false">
+        <content>
+            <p>Salut les Mickeys ! Ça roule ?</p>
+        </content>
+    </wdg:showhide>
+    <wdg:showhide id="B2" $label="Deuxième bloc" $focus="true">
+        <content>
+            <p>Est-ce que le focusable fonctionne ?</p>
+        </content>
+    </wdg:showhide>
+
+    <hr/>
+
+    <wdg:button $text="Focus 1" $value="1" slot:action="onFocus" />
+    <wdg:button $text="Focus 2" $value="2" slot:action="onFocus" />
+</x-html>
