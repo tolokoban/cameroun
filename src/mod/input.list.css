@@ -1,0 +1,15 @@
+div.input-list {
+  padding: 0;
+}
+
+div.input-list > div.body {
+  margin: 0;
+  padding: .5rem;
+}
+
+div.input-list > div.body div.item {
+  display: inline-block;
+  padding: .2rem;
+  margin: .2rem;
+  background: rgba(0,0,0,.3);
+}

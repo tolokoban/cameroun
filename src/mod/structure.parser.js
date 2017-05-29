@@ -77,12 +77,12 @@ exports.parse = function(code) {
         try {
             line = line.trim();
             // Ignorer les lignes vides.
-            if (line.length == 0) return;
+            if (line.length === 0) return;
             // Ignorer les commentaires.
-            if (line.substr(0, 2) == '//') return;
-            if (line.charAt(0) != '*') {
-                throw "Une ligne non vide et non commentée doit toujours commencer "
-                    + "par au moins une astérisque pour indiquer le niveau hiérarchique.";
+            if (line.substr(0, 2) === '//') return;
+            if (line.charAt(0) !== '*') {
+                throw "Une ligne non vide et non commentée doit toujours commencer " +
+                    "par au moins une astérisque pour indiquer le niveau hiérarchique.";
             }
 
             // Calculer le niveau hiérarchique `level`.
@@ -95,9 +95,9 @@ exports.parse = function(code) {
 
             var item;
             if (level > levels.length) {
-                throw "Vous avez sauté au moins un niveau hiérarchique: `" + line + "` !\n"
-                    + "Vous étiez au niveau " + (levels.levels - 1)
-                    + " et vous définissez maintenant le niveau " + level + ".";
+                throw "Vous avez sauté au moins un niveau hiérarchique: `" + line + "` !\n" +
+                    "Vous étiez au niveau " + (levels.levels - 1) +
+                    " et vous définissez maintenant le niveau " + level + ".";
             }
             while (levels.length > level) {
                 levels.pop();
@@ -134,7 +134,7 @@ function parseLine( line ) {
         item.type = m[3].substr(1, m[3].length - 2).trim();
     }
     if (m[4]) {
-        item.tags = m[4].trim().substr(1).split('\n').map(function(v) { return v.trim(); });
+        item.tags = m[4].trim().substr(1).split(',').map(function(v) { return v.trim(); });
     }
 
     return item;
@@ -142,11 +142,11 @@ function parseLine( line ) {
 
 
 exports.get = function( def, path ) {
-    if (!Array.isArray( path ) || path.length == 0) return def;
+    if (!Array.isArray( path ) || path.length === 0) return def;
     if( typeof def === 'undefined' ) return def;
 
     var criteria = path.shift();
-    if (criteria.charAt(0) == '@') {
+    if (criteria.charAt(0) === '@') {
         var key, val;
         for( key in def ) {
             val = def[key];

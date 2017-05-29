@@ -92,3 +92,28 @@ div.right {
 div.wdg-layout-stack.custom > div {
     background: transparent;
 }
+
+
+body.style .wdg-button {
+  background: #dc9;
+  border-radius: 8px;
+}
+
+body.style .theme-color-bg-1 {
+    background-color: #724E10;
+    color: #dc9;
+}
+
+body.style .theme-color-bg-B2 {
+    background-color: #FEB;
+}
+
+body.style .wdg-button.simple {
+  color: #724E10;
+  background: transparent;
+}
+
+body.style .wdg-button.warning {
+  background: #724E10;
+}
+
