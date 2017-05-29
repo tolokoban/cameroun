@@ -31,6 +31,7 @@ exports.onPage = function () {
     g_patient = patient;
 
     refreshAttachments();
+    refreshConsultations();
     W( 'picture' ).value = patient;
     document.getElementById( 'patient.title' ).textContent =
       Format.getPatientCaption( g_patient.data );
@@ -92,13 +93,13 @@ function initVaccins() {
       var delta = Math.floor( DateUtil.age( vaccin.date ) / 31557600 );
       row = $.div( 'theme-elevation-2',
         'level-' + ( delta < 6 ? '0' : ( delta < 11 ? '1' : '2' ) ), [
-                             $.div( [ caption ] ),
-                             $.div( [ delta < 2 ? "Moins d'un an" : delta + " ans" ] )
-                         ] );
+          $.div( [ caption ] ),
+          $.div( [ delta < 2 ? "Moins d'un an" : delta + " ans" ] )
+        ] );
     } else {
       row = $.div( 'theme-elevation-2', 'level-3', [
-                $.div( [ caption ] ), $.div( 'unknown', [ 'Inconnu...' ] )
-            ] );
+        $.div( [ caption ] ), $.div( 'unknown', [ 'Inconnu...' ] )
+      ] );
     }
 
     $.add( 'vaccins', row );
@@ -213,14 +214,55 @@ function refreshAttachments() {
       );
     } );
     $.add( div, $.div( [
-            $.div( [ btn ] ),
-            $.div( [ Format.date( item.date ) ] ),
-            $.div( [ btnDelete ] )
-        ] ) );
+      $.div( [ btn ] ),
+      $.div( [ Format.date( item.date ) ] ),
+      $.div( [ btnDelete ] )
+    ] ) );
   } );
 
 }
 
+/**
+ * List all consultations in a root by admissions.
+ */
+function refreshConsultations() {
+  var div = $( 'consultations' );
+  $.clear( div );
+  var admissions = g_patient.admissions;
+  var ul = $.tag( 'ul' );
+  $.add( div, ul );
+  admissions.forEach( function ( admission ) {
+    var li = $.tag( 'li', [
+      "Admission du " + Format.date( admission.enter )
+    ] );
+    if ( typeof admission.exit === 'number' ) {
+      li.textContent += " au " + Format.date( admission.exit );
+    }
+    $.add( ul, li );
+    var ul2 = $.tag( 'ul' );
+    $.add( li, ul2 );
+    admission.visits.forEach( function ( visit ) {
+      if (isEmpty(visit.data)) return;
+      var btn = new Button( {
+        text: "Consultation du " + Format.date( visit.enter ),
+        type: 'simple',
+        href: "#VisitSummary/" + g_patient.id + "/" + visit.enter
+      } );
+      var li2 = $.tag( 'li', [ btn ] );
+      $.add( ul2, li2 );
+    } );
+  } );
+}
+
+/**
+ * Return `true` if no browsable attribute exist in `obj`.
+ */
+function isEmpty(obj) {
+  for( var key in obj ) {
+    return false;
+  }
+  return true;
+}
 
 exports.onAddAttachment = function () {
   var btnCancel = Button.Cancel();
@@ -241,8 +283,8 @@ exports.onAddAttachment = function () {
   } );
   var modal = new Modal( {
     content: [
-        input, desc, $.tag( 'hr' ),
-        new Flex( {
+      input, desc, $.tag( 'hr' ),
+      new Flex( {
         content: [ btnCancel, btnOK ]
       } )
     ]

@@ -17,6 +17,7 @@ var pages = {
     list: require("page.list"),
     patient: require("page.patient"),
     visit: require("page.visit"),
+    visitsummary: require("page.visit-summary"),
     exam: require("page.exam")
 };
 
@@ -42,6 +43,8 @@ function start() {
 
 
 exports.onPage = function( pageId ) {
+  console.info("pageId=", pageId);
     var page = pages[pageId.toLowerCase()];
+console.info("page=", page)    ;
     if( typeof page !== 'undefined' ) page.onPage();
 };
