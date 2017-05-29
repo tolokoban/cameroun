@@ -21,8 +21,12 @@ var pages = {
 };
 
 exports.start = function() {
-    //nw.Window.get().showDevTools( null, start );
+  var manifest = nw.App.manifest;
+  if (manifest && manifest.debug) {
+    nw.Window.get().showDevTools( null, start );
+  } else {
     start();
+  }
 };
 
 function start() {

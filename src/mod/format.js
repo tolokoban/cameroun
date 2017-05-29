@@ -41,6 +41,8 @@ exports.expand = function ( text, type, level ) {
   // Deal with dates, numbers, ...
   if ( typeof text !== 'string' ) return text;
 
+  type = purifyTypeName( type );
+  
   var typeDic = type;
   if ( typeof typeDic === 'string' ) typeDic = Structure.value.types[ type ];
   var key = text.trim().toUpperCase();
@@ -94,4 +96,41 @@ exports.pad = function ( txt, size, prepend ) {
   txt = "" + txt;
   while ( txt.length < size ) txt = prepend + txt;
   return txt;
+};
+
+// Remove potential tailing plus. this is just a marker for lists.
+function purifyTypeName( typeName ) {  
+  if ( typeof typeName === 'string' && typeName.charAt( typeName.length - 1) === '+' ) {
+    typeName = typeName.substr( 0, typeName.length - 1 );
+  }
+  return typeName;  
+}
+
+var NO_COMPLETION = {
+  list: [],
+  map: {}
+};
+
+exports.getCompletion = function( typeName ) {
+  if ( typeof typeName === 'undefined' ) 
+    return NO_COMPLETION;
+  typeName = purifyTypeName( typeName );
+  var type = Structure.value.types[typeName];
+  if ( typeof type === 'undefined' ) 
+    return NO_COMPLETION;
+  type = type.children;
+  if ( typeof type === 'undefined' ) 
+    return NO_COMPLETION;
+  
+  var list = [ ];
+  var map = {};
+  var key,
+    val;
+  for ( key in type ) {
+    val = type[key];
+    list.push( val.caption );
+    map[val.caption.toLowerCase( )] = key;
+  }
+  list.sort( );
+  return { list: list, map: map };  
 };

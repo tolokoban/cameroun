@@ -1,8 +1,6 @@
 "use strict";
 
 
-"use strict";
-
 var $ = require("dom");
 var DB = require("tfw.data-binding");
 var Text = require("wdg.text");
