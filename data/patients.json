@@ -1,0 +1,39 @@
+{
+    "count": 4,
+    "records": {
+        "jlug": {
+            "#PATIENT-LASTNAME": "Boure",
+            "#PATIENT-FIRSTNAME": "amandine",
+            "#PATIENT-GENDER": "#F",
+            "#PATIENT-BIRTH": "1900-01-01",
+            "#PATIENT-SIZE": "189",
+            "#PATIENT-COUNTRY": "#NAT-ZM"
+        },
+        "jlyR": {
+            "#PATIENT-LASTNAME": "ELECTRA",
+            "#PATIENT-FIRSTNAME": "marie-hélène",
+            "#PATIENT-SECONDNAME": "Soustacha",
+            "#PATIENT-GENDER": "#F",
+            "#PATIENT-BIRTH": 310518000,
+            "#PATIENT-SIZE": "180",
+            "#PATIENT-COUNTRY": "#NAT-KE"
+        },
+        "jnow": {
+            "#PATIENT-LASTNAME": "GIRONDE",
+            "#PATIENT-FIRSTNAME": "demida",
+            "#PATIENT-GENDER": "#F",
+            "#PATIENT-BIRTH": 154738800,
+            "#PATIENT-SIZE": "186",
+            "#PATIENT-COUNTRY": "#NAT-NI"
+        },
+        "jnCE": {
+            "#PATIENT-LASTNAME": "granny",
+            "#PATIENT-FIRSTNAME": "old",
+            "#PATIENT-SECONDNAME": "woman",
+            "#PATIENT-GENDER": "#F",
+            "#PATIENT-BIRTH": -1809568800,
+            "#PATIENT-SIZE": "152",
+            "#PATIENT-COUNTRY": "#NAT-KM"
+        }
+    }
+}
