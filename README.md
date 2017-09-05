@@ -50,6 +50,21 @@ Et vous pouvez l'exécuter comme ceci :
 nw www/
 ```
 
+Ou comme cela :
+
+```
+npm start
+```
+
+## Mode developer tools
+
+Pour affichier les Developer Tools au démarrage, il faut modifier le fichier `package.json` en lui ajoutant cet attribut :
+
+``` js
+  "debug": true
+```
+
+
 # Administration
 
 La partie administration est protégée par un mot de passe.

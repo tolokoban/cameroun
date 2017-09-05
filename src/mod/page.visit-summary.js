@@ -33,22 +33,23 @@ exports.onPage = function () {
             caption: id,
             type: id
           };
-          if ( field.type.charAt( field.type.length - 1 ) === '+' ) {
-            type = Structure.value.types[ field.type.substr( 0, field.type.length - 1 ) ];
-          } else {
-            type = Structure.value.types[ field.type ];
+          type = undefined;
+          if( field.type ) {
+            if ( field.type.charAt( field.type.length - 1 ) === '+' ) {
+              type = Structure.value.types[ field.type.substr( 0, field.type.length - 1 ) ];
+            } else {
+              type = Structure.value.types[ field.type ];
+            }
           }
           value = visit.data[ id ];
           if ( !Array.isArray( value ) ) value = [ value ];
           value = value.map( function ( x ) {
-            return Format.expand( x, type.id );
+            return Format.expand( x, type ? type.id : undefined );
           } );
           var b = $.tag( 'b', [ value.join( ", " ) ] );
           var li = $.tag( 'li', [ field.caption + ": ", b ] );
           $.add( ul, li );
-          b.textContent = value;
         }
-        //$.add( container, $.tag( 'pre', [ JSON.stringify( visit.data, null, '  ' ) ] ) );
       } );
     } );
   } );
