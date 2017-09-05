@@ -1,0 +1,3 @@
+<filesMatch ".(woff2)$">
+Header set Cache-Control "max-age=365000000, immutable"
+</filesMatch>
