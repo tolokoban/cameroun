@@ -146,8 +146,11 @@ Ce fichier représente un objet avec les attributs suivants :
 * __data__: Données relatives à l'identification du patient (nom, prénom, sexe, âge, ...).
 * __admissions__: Liste des admissions.
     * __admissions[].enter__: Date d'admission en nombre de secondes depuis le 01/01/1970.
-    * __admissions[].visits__: Liste des visites.
-        * __admissions[].visits__: Liste des visites.
-* __vaccins__: Dictionnaire des vaccins réalisés.
+    * __admissions[].visits__: Liste des consultations.
+        * __admissions[].visits[].enter__: Date de la consultation en nombre de secondes depuis le 01/01/1970.
+        * __admissions[].visits[].data__: Données mises à jour lors de cette consultation.
+* __vaccins__: Dictionnaire des vaccins réalisés. Les valeurs sont des objets avec eux attributs : `date` et `lot`.
+* __exams__: Liste des examens.
+* ...
 
 
