@@ -9,42 +9,50 @@
  **********************************************************************/
 
 window.require = function() {
-    var modules = {};
-    var definitions = {};
-    var nodejs_require = typeof window.require === 'function' ? window.require : null;
+  var mocks = {};
+  var modules = {};
+  var definitions = {};
+  var nodejs_require = typeof window.require === 'function' ? window.require : null;
 
-    var f = function(id, body) {
-        if( id.substr( 0, 7 ) == 'node://' ) {
-            // Calling for a NodeJS module.
-            if( !nodejs_require ) {
-                throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
-            }
-            return nodejs_require( id.substr( 7 ) );
-        }
+  var f = function(id, body) {
+    var mock = mocks[id];
+    if( mock ) return mock;
+    
+    if( id.substr( 0, 7 ) == 'node://' ) {
+      // Calling for a NodeJS module.
+      if( !nodejs_require ) {
+        throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
+      }
+      return nodejs_require( id.substr( 7 ) );
+    }
 
-        if( typeof body === 'function' ) {
-            definitions[id] = body;
-            return;
-        }
-        var mod;
-        body = definitions[id];
-        if (typeof body === 'undefined') {
-            var err = new Error("Required module is missing: " + id);   
-            console.error(err.stack);
-            throw err;
-        }
-        mod = modules[id];
-        if (typeof mod === 'undefined') {
-            mod = {exports: {}};
-            var exports = mod.exports;
-            body(f, mod, exports);
-            modules[id] = mod.exports;
-            mod = mod.exports;
-            //console.log("Module initialized: " + id);
-        }
-        return mod;
-    };
-    return f;
+    if( typeof body === 'function' ) {
+      definitions[id] = body;
+      return;
+    }
+    var mod;
+    body = definitions[id];
+    if (typeof body === 'undefined') {
+      var err = new Error("Required module is missing: " + id);
+      console.error(err.stack);
+      throw err;
+    }
+    mod = modules[id];
+    if (typeof mod === 'undefined') {
+      mod = {exports: {}};
+      var exports = mod.exports;
+      body(f, mod, exports);
+      modules[id] = mod.exports;
+      mod = mod.exports;
+    }
+    return mod;
+  };
+
+  f.mock = function( moduleName, module ) {
+    mocks[moduleName] = module;
+  };
+  
+  return f;
 }();
 function addListener(e,l) {
     if (window.addEventListener) {
@@ -84,15 +92,15 @@ var W = require('x-widget');
                   attr: {"style": "font-family: mystery-quest"},
                   children: [
                     "\n    ",
-                                        W('wdg.flex1', 'wdg.flex', {"content": [
-                                              W('username', 'wdg.text', {
+                    W('wdg.flex1','wdg.flex',{"content": [
+                      W('username','wdg.text',{
                           width: "240px",
-                          label: "Nom d'utilisateur"}),
-                                              W('password', 'wdg.text', {
+                          label: "Nom d'utilisateur"},{"id":"username"}),
+                      W('password','wdg.text',{
                           width: "240px",
                           label: "Mot de passe",
-                          type: "password"}),
-                                              W('button-login', 'wdg.button', {"text": "Connexion"})]}),
+                          type: "password"},{"id":"password"}),
+                      W('button-login','wdg.button',{"text": "Connexion"},{"id":"button-login"})]},{"id":"wdg.flex1"}),
                     "\n\n    ",
                     W({
                       elem: "hr"}),
@@ -137,21 +145,21 @@ var W = require('x-widget');
                 W({
                   elem: "header",
                   attr: {"class": "theme-color-bg-B2"},
-                  children: [                    W('wdg.flex2', 'wdg.flex', {"content": [
-                                              W('wdg.button3', 'wdg.button', {
+                  children: [W('wdg.flex2','wdg.flex',{"content": [
+                      W('wdg.button3','wdg.button',{
                           text: "Retour",
                           icon: "back",
                           type: "simple",
-                          href: "index.html"}),
+                          href: "index.html"},{"id":"wdg.button3"}),
                       W({
                           elem: "span",
                           attr: {
                             id: "_I0",
                             style: "display:none"}}),
-                                              W('wdg.button4', 'wdg.button', {
+                      W('wdg.button4','wdg.button',{
                           text: "Mettre en ligne",
                           icon: "import",
-                          type: "simple"})]})]}),
+                          type: "simple"},{"id":"wdg.button4"})]},{"id":"wdg.flex2"})]}),
                 "\n\n",
                 W({
                   elem: "div",
@@ -195,7 +203,7 @@ var W = require('x-widget');
                       elem: "div",
                       attr: {"id": "body.exams"}}),
                     "\n"]}),
-                "\n"]})]})
+                "\n"]})]},{"id":"wdg.layout-stack0"})
         W.bind('wdg.layout-stack0',{"value":{"S":["onPage"]}});
 I(0,"title-home")
         W.bind('password',{"action":{"S":["onLogin"]}});
@@ -203,7 +211,7 @@ I(0,"title-home")
         W.bind('wdg.button4',{"action":{"S":["onSave"]}});
     }
 );
-require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.46"',major:"0",minor:"3",revision:"46",date:"2017-05-29T19:51:27.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
+require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.57"',major:"0",minor:"3",revision:"57",date:"2018-06-14T20:46:58.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
 //# sourceMappingURL=$.js.map
 require("wdg.layout-stack",function(e,t,a){var n=function(){function t(){return n(a,arguments)}var a={en:{}},n=e("$").intl;return t.all=a,t}(),i=e("dom"),r=e("tfw.data-binding"),o=e("tfw.hash-watcher"),s=function(e){var t=this,a=i.elem(this,"div","wdg-layout-stack"),n={},s=function(e,a){var n=t.hash;if(n){var i=n.exec(a);i&&(i.length<2||(t.value=i[1],t.args=e))}};r.propArray(this,"args"),r.propString(this,"value")(function(e){var t,a;for(t in n)a=n[t],"function"==typeof a.element?a=a.element():void 0!==a.element&&(a=a.element),(a=a.parentNode)&&(t==e?(i.addClass(a,"fade-in"),i.removeClass(a,"fade-out")):(i.addClass(a,"fade-out"),i.removeClass(a,"fade-in")))}),r.propRegexp(this,"hash")(function(){o(s)}),r.prop(this,"content")(function(e){if(Array.isArray(e)){var o,s={};e.forEach(function(e,t){void 0===e.$key&&(e.$key=t),s[e.$key]=e,void 0===o&&(o=e.$key)}),e=s,r.set(t,"value",o)}i.clear(a);var l,d,f;for(l in e)d=e[l],"function"==typeof d.element?d=d.element():void 0!==d.element&&(d=d.element),f=i.div([d]),void 0!==d.$scroll&&i.addClass(f,"scroll"),i.add(a,f);n=e,r.fire(t,"value")}),r.propAddClass(this,"wide"),r.propRemoveClass(this,"visible","hide"),e=r.extend({args:[],value:"",content:{},hash:null,wide:!1,visible:!0},e,this)};t.exports=s,t.exports._=n});
 //# sourceMappingURL=wdg.layout-stack.js.map
@@ -261,7 +269,7 @@ require("files",function(n,e,t){function r(n){var e=n.lastIndexOf(i(n));return-1
 //# sourceMappingURL=files.js.map
 require("fatal",function(n,r,t){var e=function(){function r(){return e(t,arguments)}var t={en:{},fr:{}},e=n("$").intl;return r.all=t,r}();r.exports=function(n,r,t){return"string"==typeof n&&(t=r,r=n,n=null),console.error(r,t),"function"==typeof n&&n(r),!1},r.exports._=e});
 //# sourceMappingURL=fatal.js.map
-require("tfw.web-service",function(e,n,t){function r(e,n,r){return console.info("[tfw.web-service]",e,n),new Promise(function(o,i){void 0===r&&(r=c.url);var u=new XMLHttpRequest({mozSystem:!0});"withCredentials"in u?(u.open("POST",r+"/svc.php",!0),u.withCredentials=!0):(u=new XDomainRequest,u.open("POST",r+"/svc.php")),u.onload=function(){if(200!=u.status)return i({id:t.HTTP_ERROR,msg:"("+u.status+") "+u.statusText,status:u.status});var n=u.responseText;if("string"==typeof n){"!"==n.substr(0,1)&&i({id:t.BAD_ROLE,err:Error('Service "'+e+'" needs role "'+n.substr(1)+'"!')});var r;try{r=JSON.parse(n)}catch(r){console.error("[tfw.web-service:svc] Value = ",n),i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a valid JSON!\n'+r)})}o(r)}else i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a string!')})},u.onerror=function(){i({id:t.HTTP_ERROR,err:"HTTP_ERROR ("+u.status+") "+u.statusText,status:u.status})};var s="s="+encodeURIComponent(e);void 0!==n&&(s+="&i="+encodeURIComponent(JSON.stringify(n))),u.setRequestHeader("Content-type","application/x-www-form-urlencoded"),u.withCredentials=!0,u.send(s)})}var o=function(){function n(){return r(t,arguments)}var t={en:{}},r=e("$").intl;return n.all=t,n}();e("polyfill.promise");var i=e("$").config,u=e("tfw.storage"),s=e("tfw.listeners"),l=null,a=new s,c={url:"string"==typeof i.consts.tfw?i.consts.tfw:"tfw"},f=u.local.get("nigolotua");Array.isArray(f)&&(c.usr=f[0],c.pwd=f[1]),t.BAD_ROLE=-1,t.BAD_TYPE=-2,t.CONNECTION_FAILURE=-3,t.MISSING_AUTOLOGIN=-4,t.UNKNOWN_USER=-5,t.HTTP_ERROR=-6,t.loadJSON=function(e){return new Promise(function(n,t){var r=new XMLHttpRequest({mozSystem:!0});r.onload=function(){var o=r.responseText;try{n(JSON.parse(o))}catch(n){t(Error('Bad JSON format for "'+e+'"!\n'+n+"\n"+o))}},r.onerror=function(){t(Error('Unable to load file "'+e+'"!\n'+r.statusText))},r.open("GET",e,!0),r.withCredentials=!0,r.send()})},t.changeEvent=a,t.eventChange=a,t.isLogged=function(){return!!l},t.logout=function(){return l=null,delete c.usr,delete c.pwd,a.fire(),u.local.set("nigolotua",null),r("tfw.login.Logout")},t.login=function(e,n){return void 0===e&&(e=c.usr),void 0===n&&(n=c.pwd),new Promise(function(o,i){if(void 0===e){var s=u.local.get("nigolotua");if(!Array.isArray(s))return i({id:t.MISSING_AUTOLOGIN});e=s[0],n=s[1]}u.local.set("nigolotua",null),r("tfw.login.Challenge",e).then(function(e){var t,o,i,u,s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],l=0,a=[];for(t=0;t<n.length;t++)a.push(n.charCodeAt(t));for(256%a.length==0&&a.push(0),t=0;t<256;t++)s[t%16]^=t+a[t%a.length],o=e[l++%e.length]%16,i=e[l++%e.length]%16,u=e[l++%e.length]%16,s[u]^=(s[u]+16*i+u)%256,s[i]^=(s[o]+s[u])%256;return r("tfw.login.Response",s)},i).then(function(r){console.info("[tfw.web-service] user=...",r),"object"==typeof r?(l={data:r,hasRole:function(e){for(var n=0;n<r.roles.length;n++){if(r.roles[n]==e)return!0}return!1}},u.local.set("nigolotua",[e,n]),a.fire(),o(r)):(l=null,i({id:t.UNKNOWN_USER}))},i)})},t.get=function(e,n,o){return new Promise(function(i,u){r(e,n,o).then(i,function(s){"object"==typeof s&&s.id==t.BAD_ROLE?t.login().then(function(){r(e,n,o).then(i,u)},u):u(s)})})},t.isAdmin=function(e){return t.hasRole("ADMIN")},t.hasRole=function(e){return!!l&&l.hasRole(e)},t.user=function(){return l},Object.defineProperty(t,"userData",{get:function(){return l?l.data||{}:{}},set:function(){},configurable:!0,enumerable:!0}),t.config=function(e,n){return void 0===n?c[e]:(c[e]=n,n)},window.$$&&(window.$$.service=function(e,n,r,o,i){t.get(e,n).then(function(e){return o?r[o].call(r,e):e},function(e){return i?r[i].call(r,e):e})}),Object.defineProperty(t,"userID",{get:function(){return l?l.data.id:0},set:function(e){},configurable:!0,enumerable:!0}),n.exports._=o});
+require("tfw.web-service",function(e,n,t){function r(e,n,r){return console.info("[tfw.web-service]",e,n),new Promise(function(o,i){void 0===r&&(r=c.url);var u=new XMLHttpRequest({mozSystem:!0});"withCredentials"in u?(u.open("POST",r+"/svc.php",!0),u.withCredentials=!0):(u=new XDomainRequest,u.open("POST",r+"/svc.php")),u.onload=function(){if(200!=u.status)return i({id:t.HTTP_ERROR,msg:"("+u.status+") "+u.statusText,status:u.status});var n=u.responseText;if("string"==typeof n){"!"==n.substr(0,1)&&i({id:t.BAD_ROLE,err:Error('Service "'+e+'" needs role "'+n.substr(1)+'"!')});var r;try{r=JSON.parse(n)}catch(r){console.error("[tfw.web-service:svc] Value = ",n),i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a valid JSON!\n'+r)})}o(r)}else i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a string!')})},u.onerror=function(){i({id:t.HTTP_ERROR,err:"HTTP_ERROR ("+u.status+") "+u.statusText,status:u.status})};var s="s="+encodeURIComponent(e);void 0!==n&&(s+="&i="+encodeURIComponent(JSON.stringify(n))),u.setRequestHeader("Content-type","application/x-www-form-urlencoded"),u.withCredentials=!0,u.send(s)})}var o=function(){function n(){return r(t,arguments)}var t={en:{}},r=e("$").intl;return n.all=t,n}();e("polyfill.promise");var i=e("$").config,u=e("tfw.storage"),s=e("tfw.listeners"),a=null,l=new s,c={url:"string"==typeof i.consts.tfw?i.consts.tfw:"tfw"},f=u.local.get("nigolotua");Array.isArray(f)&&(c.usr=f[0],c.pwd=f[1]),t.BAD_ROLE=-1,t.BAD_TYPE=-2,t.CONNECTION_FAILURE=-3,t.MISSING_AUTOLOGIN=-4,t.UNKNOWN_USER=-5,t.HTTP_ERROR=-6,t.loadJSON=function(e){return new Promise(function(n,t){var r=new XMLHttpRequest({mozSystem:!0});r.onload=function(){var o=r.responseText;try{n(JSON.parse(o))}catch(n){t(Error('Bad JSON format for "'+e+'"!\n'+n+"\n"+o))}},r.onerror=function(){t(Error('Unable to load file "'+e+'"!\n'+r.statusText))},r.open("GET",e,!0),r.withCredentials=!0,r.send()})},t.changeEvent=l,t.eventChange=l,t.isLogged=function(){return!!a},t.logout=function(){return a=null,delete c.usr,delete c.pwd,l.fire(),u.local.set("nigolotua",null),r("tfw.login.Logout")},t.login=function(e,n){return void 0===e&&(e=c.usr),void 0===n&&(n=c.pwd),new Promise(function(o,i){if(void 0===e){var s=u.local.get("nigolotua");if(!Array.isArray(s))return i({id:t.MISSING_AUTOLOGIN});e=s[0],n=s[1]}u.local.set("nigolotua",null),r("tfw.login.Challenge",e).then(function(e){var t,o,i,u,s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],a=0,l=[];for(t=0;t<n.length;t++)l.push(n.charCodeAt(t));for(256%l.length==0&&l.push(0),t=0;t<256;t++)s[t%16]^=t+l[t%l.length],o=e[a++%e.length]%16,i=e[a++%e.length]%16,u=e[a++%e.length]%16,s[u]^=(s[u]+16*i+u)%256,s[i]^=(s[o]+s[u])%256;return r("tfw.login.Response",s)},i).then(function(r){console.info("[tfw.web-service] user=...",r),"object"==typeof r?(a={data:r,hasRole:function(e){for(var n=0;n<r.roles.length;n++){if(r.roles[n]==e)return!0}return!1}},u.local.set("nigolotua",[e,n]),l.fire(),o(r)):(a=null,i({id:t.UNKNOWN_USER}))},i)})},t.get=function(e,n,o){return new Promise(function(i,u){r(e,n,o).then(i,function(s){"object"==typeof s&&s.id==t.BAD_ROLE?t.login().then(function(){r(e,n,o).then(i,u)},u):u(s)})})},t.isAdmin=function(e){return t.hasRole("ADMIN")},t.hasRole=function(e){return!!a&&a.hasRole(e)},t.user=function(){return a},Object.defineProperty(t,"userData",{get:function(){return a?a.data||{}:{}},set:function(){},configurable:!0,enumerable:!0}),t.config=function(e,n){return void 0===n?c[e]:(c[e]=n,n)},window.$$&&(window.$$.service=function(e,n,r,o,i){t.get(e,n).then(function(e){return o?r[o].call(r,e):e},function(e){return i?r[i].call(r,e):e})});var d={userID:function(){return a?a.data.id:0},userLogin:function(){return a?a.data.login:null},userName:function(){return a?a.data.name:null}};for(var g in d)Object.defineProperty(t,g,{get:d[g],set:function(e){throw Error("Property "+g+" is read-only!")},configurable:!0,enumerable:!0});n.exports._=o});
 //# sourceMappingURL=tfw.web-service.js.map
 require("wdg.area",function(e,t,n){var i=function(){function t(){return i(n,arguments)}var n={en:{}},i=e("$").intl;return t.all=n,t}(),o=e("dom"),a=e("dom.fx"),r=e("tfw.data-binding"),l=e("wdg.icon"),u=function(e){var t=this,n=o.elem(this,"div","wdg-area","theme-elevation-2"),i=new l({content:l.Icons.fullscreen,size:"1.5rem",button:!0}),u=o.div("theme-label"),d=o.div("header","theme-color-bg-1",[i,u]),s=o.div("slider"),h=o.tag("textarea"),c=o.div("body",[h]);o.add(n,d,c,s),r.propBoolean(this,"focus")(function(e){e?h.focus():h.blur()}),r.propString(this,"label")(function(e){"number"==typeof e&&(e=""+e),"string"!=typeof e&&(e=""),u.textContent=e}),r.propInteger(this,"height")(function(e){o.css(n,{height:e+"px"})}),r.propString(this,"value")(function(e){h.value=e}),r.propAddClass(this,"wide"),r.propRemoveClass(this,"visible","hide"),r.extend({label:"",value:"",height:90,wide:!0,visible:!0},e,this);var v=this.height;o.on(s,{down:function(){v=t.height},drag:function(e){t.height=Math.max(90,v+e.dy)}});var f=new a.Fullscreen({target:n});r.bind(i,"action",function(){f.value=!f.value}),h.addEventListener("keyup",function(){t.value=h.value},!1)};t.exports=u,t.exports._=i});
 //# sourceMappingURL=wdg.area.js.map

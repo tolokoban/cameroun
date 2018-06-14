@@ -1,0 +1,50 @@
+May 29 21:52:00 10.71.49.29 u68074545 Connection from 10.71.49.29 port 30438 on 212.227.18.45 port 22
+May 29 21:52:00 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 30438 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 29 21:52:00 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 30438 ssh2
+May 29 21:52:22 10.71.49.29 u68074545 Connection from 10.71.49.29 port 20516 on 212.227.18.45 port 22
+May 29 21:52:23 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 20516 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 29 21:52:23 10.71.49.29 u68074545 Connection from 10.71.49.29 port 20514 on 212.227.18.45 port 22
+May 29 21:52:23 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 20514 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 29 21:52:23 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 20516 ssh2
+May 29 21:52:23 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 20514 ssh2
+May 29 21:53:18 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 29 21:53:18 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 29 21:53:18 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:21:21 10.71.49.29 u68074545 Connection from 10.71.49.29 port 29950 on 212.227.18.45 port 22
+May 31 21:21:21 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 29950 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:21:21 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 29950 ssh2
+May 31 21:21:58 10.71.49.29 u68074545 Connection from 10.71.49.29 port 35676 on 212.227.18.45 port 22
+May 31 21:21:58 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 35676 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:21:58 10.71.49.29 u68074545 Connection from 10.71.49.29 port 35680 on 212.227.18.45 port 22
+May 31 21:21:58 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 35680 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:21:58 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 35676 ssh2
+May 31 21:21:58 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 35680 ssh2
+May 31 21:23:42 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:23:45 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:28:34 10.71.49.29 u68074545 Connection from 10.71.49.29 port 29112 on 212.227.18.45 port 22
+May 31 21:28:35 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 29112 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:28:35 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 29112 ssh2
+May 31 21:28:44 10.71.49.29 u68074545 Connection from 10.71.49.29 port 44822 on 212.227.18.45 port 22
+May 31 21:28:44 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 44822 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:28:44 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 44822 ssh2
+May 31 21:30:01 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:30:01 10.71.49.29 u68074545 Connection from 10.71.49.29 port 10926 on 212.227.18.45 port 22
+May 31 21:30:02 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 10926 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:30:02 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 10926 ssh2
+May 31 21:31:21 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:31:22 10.71.49.29 u68074545 Connection from 10.71.49.29 port 39858 on 212.227.18.45 port 22
+May 31 21:31:22 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 39858 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:31:22 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 39858 ssh2
+May 31 21:31:58 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:32:14 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:36:01 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:36:01 10.71.49.29 u68074545 Connection from 10.71.49.29 port 62098 on 212.227.18.45 port 22
+May 31 21:36:02 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 62098 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:36:02 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 62098 ssh2
+May 31 21:38:30 10.71.49.29 u68074545 Connection closed by 10.71.49.29
+May 31 21:55:41 10.71.49.29 u68074545 Connection from 10.71.49.29 port 44702 on 212.227.18.45 port 22
+May 31 21:55:42 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 44702 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:55:42 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 44702 ssh2
+May 31 21:55:57 10.71.49.29 u68074545 Connection from 10.71.49.29 port 18102 on 212.227.18.45 port 22
+May 31 21:55:57 10.71.49.29 u68074545 Failed publickey for u68074545 from 10.71.49.29 port 18102 ssh2: DSA d2:4b:b6:27:cb:a7:f1:71:90:96:b4:85:ec:75:55:0d
+May 31 21:55:57 10.71.49.29 u68074545 Accepted password for u68074545 from 10.71.49.29 port 18102 ssh2

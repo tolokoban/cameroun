@@ -1,4 +1,4 @@
-/** @module $ */require( '$', function(require, module, exports) {    exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.3.44\"","major":"0","minor":"3","revision":"44","date":"2017-05-14T12:15:37.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
+/** @module $ */require( '$', function(require, module, exports) {    exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.3.53\"","major":"0","minor":"3","revision":"53","date":"2018-06-14T19:59:51.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
 var currentLang = null;
 exports.lang = function(lang) {
     if (lang === undefined) {

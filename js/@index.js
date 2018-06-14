@@ -9,42 +9,50 @@
  **********************************************************************/
 
 window.require = function() {
-    var modules = {};
-    var definitions = {};
-    var nodejs_require = typeof window.require === 'function' ? window.require : null;
+  var mocks = {};
+  var modules = {};
+  var definitions = {};
+  var nodejs_require = typeof window.require === 'function' ? window.require : null;
 
-    var f = function(id, body) {
-        if( id.substr( 0, 7 ) == 'node://' ) {
-            // Calling for a NodeJS module.
-            if( !nodejs_require ) {
-                throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
-            }
-            return nodejs_require( id.substr( 7 ) );
-        }
+  var f = function(id, body) {
+    var mock = mocks[id];
+    if( mock ) return mock;
+    
+    if( id.substr( 0, 7 ) == 'node://' ) {
+      // Calling for a NodeJS module.
+      if( !nodejs_require ) {
+        throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
+      }
+      return nodejs_require( id.substr( 7 ) );
+    }
 
-        if( typeof body === 'function' ) {
-            definitions[id] = body;
-            return;
-        }
-        var mod;
-        body = definitions[id];
-        if (typeof body === 'undefined') {
-            var err = new Error("Required module is missing: " + id);   
-            console.error(err.stack);
-            throw err;
-        }
-        mod = modules[id];
-        if (typeof mod === 'undefined') {
-            mod = {exports: {}};
-            var exports = mod.exports;
-            body(f, mod, exports);
-            modules[id] = mod.exports;
-            mod = mod.exports;
-            //console.log("Module initialized: " + id);
-        }
-        return mod;
-    };
-    return f;
+    if( typeof body === 'function' ) {
+      definitions[id] = body;
+      return;
+    }
+    var mod;
+    body = definitions[id];
+    if (typeof body === 'undefined') {
+      var err = new Error("Required module is missing: " + id);
+      console.error(err.stack);
+      throw err;
+    }
+    mod = modules[id];
+    if (typeof mod === 'undefined') {
+      mod = {exports: {}};
+      var exports = mod.exports;
+      body(f, mod, exports);
+      modules[id] = mod.exports;
+      mod = mod.exports;
+    }
+    return mod;
+  };
+
+  f.mock = function( moduleName, module ) {
+    mocks[moduleName] = module;
+  };
+  
+  return f;
 }();
 function addListener(e,l) {
     if (window.addEventListener) {
@@ -71,7 +79,7 @@ var W = require('x-widget');
               prop: {"$key": "Wait"},
               children: [
                 "\n                ",
-                                W('wdg.wait6', 'wdg.wait', {"size": "64px"}),
+                W('wdg.wait6','wdg.wait',{"size": "64px"},{"id":"wdg.wait6"}),
                 "\n            "]}),
           W({
               elem: "div",
@@ -93,28 +101,28 @@ var W = require('x-widget');
                   elem: "div",
                   children: [
                     "\n    ",
-                                        W('wdg.flex7', 'wdg.flex', {"content": [
+                    W('wdg.flex7','wdg.flex',{"content": [
                       W({
                           elem: "div",
                           attr: {"id": "search"}}),
-                                              W('wdg.button8', 'wdg.button', {
+                      W('wdg.button8','wdg.button',{
                           text: "Nouveau patient",
-                          icon: "add"})]}),
+                          icon: "add"},{"id":"wdg.button8"})]},{"id":"wdg.flex7"}),
                     "\n    ",
                     W({
                       elem: "hr"}),
                     "\n    ",
-                                        W('wdg.flex9', 'wdg.flex', {"content": [
-                                              W('wdg.button10', 'wdg.button', {
+                    W('wdg.flex9','wdg.flex',{"content": [
+                      W('wdg.button10','wdg.button',{
                           text: "Exporter la base",
-                          icon: "export"}),
-                                              W('patients-count', 'wdg.button', {
+                          icon: "export"},{"id":"wdg.button10"}),
+                      W('patients-count','wdg.button',{
                           type: "simple",
-                          href: "#List"}),
-                                              W('admin', 'wdg.button', {
+                          href: "#List"},{"id":"patients-count"}),
+                      W('admin','wdg.button',{
                           text: "Administrateurs",
                           icon: "gear",
-                          type: "warning"})]}),
+                          type: "warning"},{"id":"admin"})]},{"id":"wdg.flex9"}),
                     "\n    ",
                     W({
                       elem: "hr"}),
@@ -138,11 +146,11 @@ var W = require('x-widget');
                     class: "theme-color-bg-B2"},
                   children: [
                     "\n    ",
-                                        W('wdg.button11', 'wdg.button', {
+                    W('wdg.button11','wdg.button',{
                       text: "Retour",
                       icon: "back",
                       type: "simple",
-                      href: "#Home"}),
+                      href: "#Home"},{"id":"wdg.button11"}),
                     "\n"]}),
                 "\n\n",
                 W({
@@ -166,22 +174,22 @@ var W = require('x-widget');
                   attr: {"class": "theme-color-bg-B2"},
                   children: [
                     "\n    ",
-                                        W('wdg.flex12', 'wdg.flex', {"content": [
-                                              W('wdg.button13', 'wdg.button', {
+                    W('wdg.flex12','wdg.flex',{"content": [
+                      W('wdg.button13','wdg.button',{
                           text: "Retour à l'écran principal",
                           icon: "back",
                           href: "#Home",
-                          type: "simple"}),
+                          type: "simple"},{"id":"wdg.button13"}),
                       W({
                           elem: "div",
-                          attr: {"id": "patient.title"}})]}),
+                          attr: {"id": "patient.title"}})]},{"id":"wdg.flex12"}),
                     "\n"]}),
                 "\n\n",
                 W({
                   elem: "div",
                   children: [
                     "\n    ",
-                                        W('wdg.flex14', 'wdg.flex', {"content": [
+                    W('wdg.flex14','wdg.flex',{"content": [
                       W({
                           elem: "div",
                           children: [
@@ -192,66 +200,66 @@ var W = require('x-widget');
                                 id: "patient.hint",
                                 class: "theme-color-bg-B0"}}),
                             "\n                ",
-                                                        W('patient.exit', 'wdg.button', {
+                            W('patient.exit','wdg.button',{
                               text: "Sortie du patient",
-                              icon: "close"}),
+                              icon: "close"},{"id":"patient.exit"}),
                             "\n                ",
-                                                        W('wdg.button15', 'wdg.button', {
+                            W('wdg.button15','wdg.button',{
                               text: "Identité du patient",
-                              icon: "user"}),
+                              icon: "user"},{"id":"wdg.button15"}),
                             "\n                ",
-                                                        W('wdg.button16', 'wdg.button', {
+                            W('wdg.button16','wdg.button',{
                               text: "Nouvelle consultation",
-                              icon: "plus"}),
+                              icon: "plus"},{"id":"wdg.button16"}),
                             "\n                ",
-                                                        W('wdg.button17', 'wdg.button', {
+                            W('wdg.button17','wdg.button',{
                               text: "Prescrire des examens",
-                              icon: "print"}),
+                              icon: "print"},{"id":"wdg.button17"}),
                             "\n            "]}),
-                                              W('picture', 'picture', {})]}),
+                      W('picture','picture',{},{"id":"picture","name":"picture"})]},{"id":"wdg.flex14"}),
                     "\n    ",
                     W({
                       elem: "hr"}),
                     "\n    ",
-                                        W('wdg.showhide18', 'wdg.showhide', {
+                    W('wdg.showhide18','wdg.showhide',{
                       label: "Historique des consultations",
                       value: "false",
                       content: [
                       W({
                           elem: "div",
                           attr: {"id": "consultations"},
-                          children: ["Il n'y a actuellement aucune consultation enregistrée pour ce patient."]})]}),
+                          children: ["Il n'y a actuellement aucune consultation enregistrée pour ce patient."]})]},{"id":"wdg.showhide18"}),
                     "\n    ",
-                                        W('wdg.showhide19', 'wdg.showhide', {
+                    W('wdg.showhide19','wdg.showhide',{
                       label: "Pièces jointes",
                       value: "false",
                       content: [
-                                              W('wdg.button20', 'wdg.button', {
+                      W('wdg.button20','wdg.button',{
                           text: "Ajouter une pièce jointe au dossier",
-                          icon: "add"}),
+                          icon: "add"},{"id":"wdg.button20"}),
                       W({
                           elem: "div",
-                          attr: {"id": "attachments"}})]}),
+                          attr: {"id": "attachments"}})]},{"id":"wdg.showhide19"}),
                     "\n    ",
-                                        W('wdg.showhide21', 'wdg.showhide', {
+                    W('wdg.showhide21','wdg.showhide',{
                       label: "Liste des vaccins",
                       value: "false",
                       content: [
                       W({
                           elem: "div",
-                          attr: {"id": "vaccins"}})]}),
+                          attr: {"id": "vaccins"}})]},{"id":"wdg.showhide21"}),
                     "\n    ",
                     W({
                       elem: "hr"}),
                     "\n    ",
-                                        W('wdg.flex22', 'wdg.flex', {"content": [
-                                              W('wdg.button23', 'wdg.button', {
+                    W('wdg.flex22','wdg.flex',{"content": [
+                      W('wdg.button23','wdg.button',{
                           text: "Retour à l'écran principal",
                           icon: "back",
                           href: "#Home",
-                          type: "simple"})]}),
+                          type: "simple"},{"id":"wdg.button23"})]},{"id":"wdg.flex22"}),
                     "\n    ",
-                                        W('vaccin-edit', 'wdg.modal', {
+                    W('vaccin-edit','wdg.modal',{
                       visible: "false",
                       padding: "true",
                       content: [
@@ -262,11 +270,11 @@ var W = require('x-widget');
                           elem: "center",
                           children: [
                             "\n                ",
-                                                        W('vaccin-date', 'wdg.date2', {"label": "Date de la dernière vaccination"}),
+                            W('vaccin-date','wdg.date2',{"label": "Date de la dernière vaccination"},{"id":"vaccin-date"}),
                             "\n                ",
-                                                        W('vaccin-lot', 'wdg.text', {
+                            W('vaccin-lot','wdg.text',{
                               label: "Numéro de lot",
-                              wide: "true"}),
+                              wide: "true"},{"id":"vaccin-lot"}),
                             "\n                ",
                             W({
                               elem: "div",
@@ -274,24 +282,24 @@ var W = require('x-widget');
                                 class: "x-spc H",
                                 style: "height:2rem"}}),
                             "\n                ",
-                                                        W('wdg.flex24', 'wdg.flex', {"content": [
-                                                              W('btnVaccinCancel', 'wdg.button', {
+                            W('wdg.flex24','wdg.flex',{"content": [
+                              W('btnVaccinCancel','wdg.button',{
                                   icon: "cancel",
                                   text: "Annuler",
                                   type: "simple",
-                                  value: "false"}),
-                                                              W('wdg.button25', 'wdg.button', {
+                                  value: "false"},{"id":"btnVaccinCancel"}),
+                              W('wdg.button25','wdg.button',{
                                   text: "Valider",
-                                  icon: "ok"})]}),
+                                  icon: "ok"},{"id":"wdg.button25"})]},{"id":"wdg.flex24"}),
                             "\n                ",
                             W({
                               elem: "hr"}),
                             "\n                ",
-                                                        W('wdg.button26', 'wdg.button', {
+                            W('wdg.button26','wdg.button',{
                               text: "Supprimer la date",
                               type: "warning",
-                              icon: "delete"}),
-                            "\n            "]})]}),
+                              icon: "delete"},{"id":"wdg.button26"}),
+                            "\n            "]})]},{"id":"vaccin-edit"}),
                     "\n"]}),
                 "\n"]}),
           W({
@@ -306,14 +314,14 @@ var W = require('x-widget');
                   attr: {"class": "theme-color-bg-B2"},
                   children: [
                     "\n    ",
-                                        W('wdg.flex27', 'wdg.flex', {"content": [
-                                              W('wdg.button28', 'wdg.button', {
+                    W('wdg.flex27','wdg.flex',{"content": [
+                      W('wdg.button28','wdg.button',{
                           text: "Abandonner cette consultation",
                           type: "simple",
-                          icon: "back"}),
+                          icon: "back"},{"id":"wdg.button28"}),
                       W({
                           elem: "div",
-                          attr: {"id": "visit.title"}})]}),
+                          attr: {"id": "visit.title"}})]},{"id":"wdg.flex27"}),
                     "\n"]}),
                 "\n\n",
                 W({
@@ -331,9 +339,9 @@ var W = require('x-widget');
                       elem: "center",
                       children: [
                         "\n        ",
-                                                W('wdg.button29', 'wdg.button', {
+                        W('wdg.button29','wdg.button',{
                           text: "Terminer/Valider la consultation",
-                          icon: "ok"}),
+                          icon: "ok"},{"id":"wdg.button29"}),
                         "\n    "]}),
                     "\n"]}),
                 "\n"]}),
@@ -349,14 +357,14 @@ var W = require('x-widget');
                   attr: {"class": "theme-color-bg-B2"},
                   children: [
                     "\n    ",
-                                        W('wdg.flex30', 'wdg.flex', {"content": [
-                                              W('wdg.button31', 'wdg.button', {
+                    W('wdg.flex30','wdg.flex',{"content": [
+                      W('wdg.button31','wdg.button',{
                           text: "Retour",
                           type: "simple",
-                          icon: "back"}),
+                          icon: "back"},{"id":"wdg.button31"}),
                       W({
                           elem: "div",
-                          attr: {"id": "visit-summary.title"}})]}),
+                          attr: {"id": "visit-summary.title"}})]},{"id":"wdg.flex30"}),
                     "\n"]}),
                 "\n\n",
                 W({
@@ -382,10 +390,10 @@ var W = require('x-widget');
                     class: "theme-color-bg-B2"},
                   children: [
                     "\n    ",
-                                        W('exam.back', 'wdg.button', {
+                    W('exam.back','wdg.button',{
                       text: "Retour",
                       icon: "back",
-                      type: "simple"}),
+                      type: "simple"},{"id":"exam.back"}),
                     "\n"]}),
                 "\n\n",
                 W({
@@ -403,12 +411,12 @@ var W = require('x-widget');
                       elem: "center",
                       children: [
                         "\n        ",
-                                                W('wdg.button32', 'wdg.button', {
+                        W('wdg.button32','wdg.button',{
                           text: "Préparer le document pour impression",
-                          icon: "print"}),
+                          icon: "print"},{"id":"wdg.button32"}),
                         "        \n    "]}),
                     "\n"]}),
-                "\n"]})]})
+                "\n"]})]},{"id":"wdg.layout-stack5"})
         W.bind('wdg.layout-stack5',{"value":{"S":["onPage"]}});
 I(1,"title-home")
         W.bind('wdg.button8',{"action":{"S":[["page.home","onNewPatient"]]}});
@@ -429,7 +437,7 @@ I(1,"title-home")
         W.bind('wdg.button32',{"action":{"S":[["page.exam","onPrint"]]}});
     }
 );
-require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.46"',major:"0",minor:"3",revision:"46",date:"2017-05-29T19:51:27.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
+require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.57"',major:"0",minor:"3",revision:"57",date:"2018-06-14T20:46:58.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
 //# sourceMappingURL=$.js.map
 require("wdg.layout-stack",function(e,t,a){var n=function(){function t(){return n(a,arguments)}var a={en:{}},n=e("$").intl;return t.all=a,t}(),i=e("dom"),r=e("tfw.data-binding"),o=e("tfw.hash-watcher"),s=function(e){var t=this,a=i.elem(this,"div","wdg-layout-stack"),n={},s=function(e,a){var n=t.hash;if(n){var i=n.exec(a);i&&(i.length<2||(t.value=i[1],t.args=e))}};r.propArray(this,"args"),r.propString(this,"value")(function(e){var t,a;for(t in n)a=n[t],"function"==typeof a.element?a=a.element():void 0!==a.element&&(a=a.element),(a=a.parentNode)&&(t==e?(i.addClass(a,"fade-in"),i.removeClass(a,"fade-out")):(i.addClass(a,"fade-out"),i.removeClass(a,"fade-in")))}),r.propRegexp(this,"hash")(function(){o(s)}),r.prop(this,"content")(function(e){if(Array.isArray(e)){var o,s={};e.forEach(function(e,t){void 0===e.$key&&(e.$key=t),s[e.$key]=e,void 0===o&&(o=e.$key)}),e=s,r.set(t,"value",o)}i.clear(a);var l,d,f;for(l in e)d=e[l],"function"==typeof d.element?d=d.element():void 0!==d.element&&(d=d.element),f=i.div([d]),void 0!==d.$scroll&&i.addClass(f,"scroll"),i.add(a,f);n=e,r.fire(t,"value")}),r.propAddClass(this,"wide"),r.propRemoveClass(this,"visible","hide"),e=r.extend({args:[],value:"",content:{},hash:null,wide:!1,visible:!0},e,this)};t.exports=s,t.exports._=n});
 //# sourceMappingURL=wdg.layout-stack.js.map
@@ -480,7 +488,7 @@ require("files",function(n,e,t){function r(n){var e=n.lastIndexOf(i(n));return-1
 //# sourceMappingURL=files.js.map
 require("fatal",function(n,r,t){var e=function(){function r(){return e(t,arguments)}var t={en:{},fr:{}},e=n("$").intl;return r.all=t,r}();r.exports=function(n,r,t){return"string"==typeof n&&(t=r,r=n,n=null),console.error(r,t),"function"==typeof n&&n(r),!1},r.exports._=e});
 //# sourceMappingURL=fatal.js.map
-require("tfw.web-service",function(e,n,t){function r(e,n,r){return console.info("[tfw.web-service]",e,n),new Promise(function(o,i){void 0===r&&(r=c.url);var u=new XMLHttpRequest({mozSystem:!0});"withCredentials"in u?(u.open("POST",r+"/svc.php",!0),u.withCredentials=!0):(u=new XDomainRequest,u.open("POST",r+"/svc.php")),u.onload=function(){if(200!=u.status)return i({id:t.HTTP_ERROR,msg:"("+u.status+") "+u.statusText,status:u.status});var n=u.responseText;if("string"==typeof n){"!"==n.substr(0,1)&&i({id:t.BAD_ROLE,err:Error('Service "'+e+'" needs role "'+n.substr(1)+'"!')});var r;try{r=JSON.parse(n)}catch(r){console.error("[tfw.web-service:svc] Value = ",n),i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a valid JSON!\n'+r)})}o(r)}else i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a string!')})},u.onerror=function(){i({id:t.HTTP_ERROR,err:"HTTP_ERROR ("+u.status+") "+u.statusText,status:u.status})};var s="s="+encodeURIComponent(e);void 0!==n&&(s+="&i="+encodeURIComponent(JSON.stringify(n))),u.setRequestHeader("Content-type","application/x-www-form-urlencoded"),u.withCredentials=!0,u.send(s)})}var o=function(){function n(){return r(t,arguments)}var t={en:{}},r=e("$").intl;return n.all=t,n}();e("polyfill.promise");var i=e("$").config,u=e("tfw.storage"),s=e("tfw.listeners"),l=null,a=new s,c={url:"string"==typeof i.consts.tfw?i.consts.tfw:"tfw"},f=u.local.get("nigolotua");Array.isArray(f)&&(c.usr=f[0],c.pwd=f[1]),t.BAD_ROLE=-1,t.BAD_TYPE=-2,t.CONNECTION_FAILURE=-3,t.MISSING_AUTOLOGIN=-4,t.UNKNOWN_USER=-5,t.HTTP_ERROR=-6,t.loadJSON=function(e){return new Promise(function(n,t){var r=new XMLHttpRequest({mozSystem:!0});r.onload=function(){var o=r.responseText;try{n(JSON.parse(o))}catch(n){t(Error('Bad JSON format for "'+e+'"!\n'+n+"\n"+o))}},r.onerror=function(){t(Error('Unable to load file "'+e+'"!\n'+r.statusText))},r.open("GET",e,!0),r.withCredentials=!0,r.send()})},t.changeEvent=a,t.eventChange=a,t.isLogged=function(){return!!l},t.logout=function(){return l=null,delete c.usr,delete c.pwd,a.fire(),u.local.set("nigolotua",null),r("tfw.login.Logout")},t.login=function(e,n){return void 0===e&&(e=c.usr),void 0===n&&(n=c.pwd),new Promise(function(o,i){if(void 0===e){var s=u.local.get("nigolotua");if(!Array.isArray(s))return i({id:t.MISSING_AUTOLOGIN});e=s[0],n=s[1]}u.local.set("nigolotua",null),r("tfw.login.Challenge",e).then(function(e){var t,o,i,u,s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],l=0,a=[];for(t=0;t<n.length;t++)a.push(n.charCodeAt(t));for(256%a.length==0&&a.push(0),t=0;t<256;t++)s[t%16]^=t+a[t%a.length],o=e[l++%e.length]%16,i=e[l++%e.length]%16,u=e[l++%e.length]%16,s[u]^=(s[u]+16*i+u)%256,s[i]^=(s[o]+s[u])%256;return r("tfw.login.Response",s)},i).then(function(r){console.info("[tfw.web-service] user=...",r),"object"==typeof r?(l={data:r,hasRole:function(e){for(var n=0;n<r.roles.length;n++){if(r.roles[n]==e)return!0}return!1}},u.local.set("nigolotua",[e,n]),a.fire(),o(r)):(l=null,i({id:t.UNKNOWN_USER}))},i)})},t.get=function(e,n,o){return new Promise(function(i,u){r(e,n,o).then(i,function(s){"object"==typeof s&&s.id==t.BAD_ROLE?t.login().then(function(){r(e,n,o).then(i,u)},u):u(s)})})},t.isAdmin=function(e){return t.hasRole("ADMIN")},t.hasRole=function(e){return!!l&&l.hasRole(e)},t.user=function(){return l},Object.defineProperty(t,"userData",{get:function(){return l?l.data||{}:{}},set:function(){},configurable:!0,enumerable:!0}),t.config=function(e,n){return void 0===n?c[e]:(c[e]=n,n)},window.$$&&(window.$$.service=function(e,n,r,o,i){t.get(e,n).then(function(e){return o?r[o].call(r,e):e},function(e){return i?r[i].call(r,e):e})}),Object.defineProperty(t,"userID",{get:function(){return l?l.data.id:0},set:function(e){},configurable:!0,enumerable:!0}),n.exports._=o});
+require("tfw.web-service",function(e,n,t){function r(e,n,r){return console.info("[tfw.web-service]",e,n),new Promise(function(o,i){void 0===r&&(r=c.url);var u=new XMLHttpRequest({mozSystem:!0});"withCredentials"in u?(u.open("POST",r+"/svc.php",!0),u.withCredentials=!0):(u=new XDomainRequest,u.open("POST",r+"/svc.php")),u.onload=function(){if(200!=u.status)return i({id:t.HTTP_ERROR,msg:"("+u.status+") "+u.statusText,status:u.status});var n=u.responseText;if("string"==typeof n){"!"==n.substr(0,1)&&i({id:t.BAD_ROLE,err:Error('Service "'+e+'" needs role "'+n.substr(1)+'"!')});var r;try{r=JSON.parse(n)}catch(r){console.error("[tfw.web-service:svc] Value = ",n),i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a valid JSON!\n'+r)})}o(r)}else i({id:t.BAD_TYPE,err:Error('Service "'+e+'" should return a string!')})},u.onerror=function(){i({id:t.HTTP_ERROR,err:"HTTP_ERROR ("+u.status+") "+u.statusText,status:u.status})};var s="s="+encodeURIComponent(e);void 0!==n&&(s+="&i="+encodeURIComponent(JSON.stringify(n))),u.setRequestHeader("Content-type","application/x-www-form-urlencoded"),u.withCredentials=!0,u.send(s)})}var o=function(){function n(){return r(t,arguments)}var t={en:{}},r=e("$").intl;return n.all=t,n}();e("polyfill.promise");var i=e("$").config,u=e("tfw.storage"),s=e("tfw.listeners"),a=null,l=new s,c={url:"string"==typeof i.consts.tfw?i.consts.tfw:"tfw"},f=u.local.get("nigolotua");Array.isArray(f)&&(c.usr=f[0],c.pwd=f[1]),t.BAD_ROLE=-1,t.BAD_TYPE=-2,t.CONNECTION_FAILURE=-3,t.MISSING_AUTOLOGIN=-4,t.UNKNOWN_USER=-5,t.HTTP_ERROR=-6,t.loadJSON=function(e){return new Promise(function(n,t){var r=new XMLHttpRequest({mozSystem:!0});r.onload=function(){var o=r.responseText;try{n(JSON.parse(o))}catch(n){t(Error('Bad JSON format for "'+e+'"!\n'+n+"\n"+o))}},r.onerror=function(){t(Error('Unable to load file "'+e+'"!\n'+r.statusText))},r.open("GET",e,!0),r.withCredentials=!0,r.send()})},t.changeEvent=l,t.eventChange=l,t.isLogged=function(){return!!a},t.logout=function(){return a=null,delete c.usr,delete c.pwd,l.fire(),u.local.set("nigolotua",null),r("tfw.login.Logout")},t.login=function(e,n){return void 0===e&&(e=c.usr),void 0===n&&(n=c.pwd),new Promise(function(o,i){if(void 0===e){var s=u.local.get("nigolotua");if(!Array.isArray(s))return i({id:t.MISSING_AUTOLOGIN});e=s[0],n=s[1]}u.local.set("nigolotua",null),r("tfw.login.Challenge",e).then(function(e){var t,o,i,u,s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],a=0,l=[];for(t=0;t<n.length;t++)l.push(n.charCodeAt(t));for(256%l.length==0&&l.push(0),t=0;t<256;t++)s[t%16]^=t+l[t%l.length],o=e[a++%e.length]%16,i=e[a++%e.length]%16,u=e[a++%e.length]%16,s[u]^=(s[u]+16*i+u)%256,s[i]^=(s[o]+s[u])%256;return r("tfw.login.Response",s)},i).then(function(r){console.info("[tfw.web-service] user=...",r),"object"==typeof r?(a={data:r,hasRole:function(e){for(var n=0;n<r.roles.length;n++){if(r.roles[n]==e)return!0}return!1}},u.local.set("nigolotua",[e,n]),l.fire(),o(r)):(a=null,i({id:t.UNKNOWN_USER}))},i)})},t.get=function(e,n,o){return new Promise(function(i,u){r(e,n,o).then(i,function(s){"object"==typeof s&&s.id==t.BAD_ROLE?t.login().then(function(){r(e,n,o).then(i,u)},u):u(s)})})},t.isAdmin=function(e){return t.hasRole("ADMIN")},t.hasRole=function(e){return!!a&&a.hasRole(e)},t.user=function(){return a},Object.defineProperty(t,"userData",{get:function(){return a?a.data||{}:{}},set:function(){},configurable:!0,enumerable:!0}),t.config=function(e,n){return void 0===n?c[e]:(c[e]=n,n)},window.$$&&(window.$$.service=function(e,n,r,o,i){t.get(e,n).then(function(e){return o?r[o].call(r,e):e},function(e){return i?r[i].call(r,e):e})});var d={userID:function(){return a?a.data.id:0},userLogin:function(){return a?a.data.login:null},userName:function(){return a?a.data.name:null}};for(var g in d)Object.defineProperty(t,g,{get:d[g],set:function(e){throw Error("Property "+g+" is read-only!")},configurable:!0,enumerable:!0});n.exports._=o});
 //# sourceMappingURL=tfw.web-service.js.map
 require("wdg.checkbox",function(t,e,n){var o=function(){function e(){return o(n,arguments)}var n={en:{}},o=t("$").intl;return e.all=n,e}(),i=t("dom"),r=t("tfw.data-binding"),s=t("wdg.icon"),c=t("tfw.touchable"),d=function(t){var e=this,n=i.div("wdg-checkbox-spin",[i.div([new s({content:"ok",button:"true",size:".7em",color0:"transparent",color4:"#000"}),new s({content:"cancel",button:"true",size:".7em",color0:"transparent",color3:"#fff"})])]),o=i.div("label"),d=i.elem(this,"button","wdg-checkbox",[n,o]);r.propAddClass(this,"value","checked"),r.propString(this,"text")(function(t){i.textOrHtml(o,t)}),r.propInteger(this,"action",0),r.propAddClass(this,"wide"),r.propRemoveClass(this,"visible","hide"),r.extend({value:!1,text:"checked",wide:!1,visible:!0},t,this),new c(d).tap.add(this.fire.bind(this)),i.on(d,{keydown:function(t){13!=t.keyCode&&32!=t.keyCode||(t.preventDefault(),t.stopPropagation(),e.fire())}}),this.focus=d.focus.bind(d)};d.prototype.fire=function(){this.value=!this.value},e.exports=d,e.exports._=o});
 //# sourceMappingURL=wdg.checkbox.js.map
@@ -500,9 +508,9 @@ require("tfw.zip",function(e,t,r){var n=function(){function t(){return n(r,argum
 //# sourceMappingURL=tfw.zip.js.map
 require("tfw.message",function(n,t,e){function o(n,t,e){function o(){i.removeClass(s,"show"),window.setTimeout(i.detach.bind(i,s),300),u.lastMsg=null}l(),"number"!=typeof e&&(e=5e3);var s=i.div("tfw-message",n);i.textOrHtml(s,t),u.lastMsg=s,document.body.appendChild(s);var a=window.setTimeout(o,e);window.setTimeout(function(){i.addClass(s,"show"),i.on(s,function(){o(),window.clearTimeout(a),u.lastMsg=null})})}function l(){u.lastMsg&&(i.detach(u.lastMsg),u.lastMsg=null)}var s=function(){function t(){return o(e,arguments)}var e={en:{}},o=n("$").intl;return t.all=e,t}(),i=n("dom"),u={lastMsg:null};e.info=o.bind(null,"info"),e.error=o.bind(null,"error"),e.clear=l,t.exports._=s});
 //# sourceMappingURL=tfw.message.js.map
-require("page.visit-summary",function(t,n,a){function e(t,n){void 0===n&&(n=s.value.forms);var a,i,r;for(a in n){if(i=n[a],a==t)return i;if(i.children&&(r=e(t,i.children)))return r}return null}var i,r=function(){function n(){return e(a,arguments)}var a={en:{},fr:{}},e=t("$").intl;return n.all=a,n}(),o=t("dom"),u=t("format"),c=t("patients"),s=t("structure");a.onPage=function(){var t=location.hash.split("/"),n=t[1],a=parseInt(t[2]);c.get(n).then(function(t){i=t,document.getElementById("visit-summary.title").textContent=u.getPatientCaption(t.data);var n=document.getElementById("visit-summary.data");o.clear(n,o.tag("h1",["Consultation du "+u.date(a)])),i.admissions.forEach(function(t){t.visits.forEach(function(t){if(t.enter==a){var i=o.tag("ul");o.add(n,i);var r,c,d,l;for(r in t.data){l=e(r)||{caption:r,type:r},d="+"===l.type.charAt(l.type.length-1)?s.value.types[l.type.substr(0,l.type.length-1)]:s.value.types[l.type],c=t.data[r],Array.isArray(c)||(c=[c]),c=c.map(function(t){return u.expand(t,d.id)});var f=o.tag("b",[c.join(", ")]),p=o.tag("li",[l.caption+": ",f]);o.add(i,p),f.textContent=c}}})})})},a.onBack=function(){location="#Patient/"+i.id},n.exports._=r});
+require("page.visit-summary",function(t,n,a){function e(t,n){void 0===n&&(n=d.value.forms);var a,i,r;for(a in n){if(i=n[a],a==t)return i;if(i.children&&(r=e(t,i.children)))return r}return null}var i,r=function(){function n(){return e(a,arguments)}var a={en:{},fr:{}},e=t("$").intl;return n.all=a,n}(),o=t("dom"),u=t("format"),c=t("patients"),d=t("structure");a.onPage=function(){var t=location.hash.split("/"),n=t[1],a=parseInt(t[2]);c.get(n).then(function(t){i=t,document.getElementById("visit-summary.title").textContent=u.getPatientCaption(t.data);var n=document.getElementById("visit-summary.data");o.clear(n,o.tag("h1",["Consultation du "+u.date(a)])),i.admissions.forEach(function(t){t.visits.forEach(function(t){if(t.enter==a){var i=o.tag("ul");o.add(n,i);var r,c,s,l;for(r in t.data){l=e(r)||{caption:r,type:r},s=void 0,l.type&&(s="+"===l.type.charAt(l.type.length-1)?d.value.types[l.type.substr(0,l.type.length-1)]:d.value.types[l.type]),c=t.data[r],Array.isArray(c)||(c=[c]),c=c.map(function(t){return u.expand(t,s?s.id:void 0)});var f=o.tag("b",[c.join(", ")]),p=o.tag("li",[l.caption+": ",f]);o.add(i,p)}}})})})},a.onBack=function(){location="#Patient/"+i.id},n.exports._=r});
 //# sourceMappingURL=page.visit-summary.js.map
-require("format",function(e,t,r){function n(e,t){if(t){var r=t.children[e];if(void 0!==r)return r.caption;var i,a;for(i in t.children)if(a=t.children[i],r=n(e,a))return r}}function i(e){return"string"==typeof e&&"+"===e.charAt(e.length-1)&&(e=e.substr(0,e.length-1)),e}var a=function(){function t(){return n(r,arguments)}var r={en:{},fr:{}},n=e("$").intl;return t.all=r,t}(),o=e("utils"),u=e("date"),f=e("structure");r.getPatientCaption=function(e){var t=(e["#PATIENT-LASTNAME"]||"").trim(),n=(e["#PATIENT-FIRSTNAME"]||"").trim(),i=(e["#PATIENT-SECONDNAME"]||"").trim(),a=e["#PATIENT-BIRTH"];if("number"==typeof a){var f=u.toDate(a);a=f.getFullYear()+"-"+(1+f.getMonth())+"-"+f.getDate()}var p=t.toUpperCase()+" "+o.capitalize(n);return i.length>0&&(p+=" "+o.capitalize(i)),p+=" ("+a+") @"+r.expand(e["#PATIENT-COUNTRY"],"#NATIONALITY")},r.expand=function(e,t,r){if(void 0===e)return"";if(void 0===t)return e;if(void 0===r&&(r=0),"string"!=typeof e)return e;t=i(t);var a=t;return"string"==typeof a&&(a=f.value.types[t]),n(e.trim().toUpperCase(),a,r)||e};var p=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],c=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];r.date=function(e){var t=new Date(1e3*e);return p[t.getDay()]+" "+t.getDate()+" "+c[t.getMonth()]+" "+t.getFullYear()+" à "+r.pad(t.getHours())+":"+r.pad(t.getMinutes())},r.pad=function(e,t,r){for("number"!=typeof t&&(t=2),"string"!=typeof r&&(r="0"),e=""+e;e.length<t;)e=r+e;return e};var l={list:[],map:{}};r.getCompletion=function(e){if(void 0===e)return l;e=i(e);var t=f.value.types[e];if(void 0===t)return l;if(void 0===(t=t.children))return l;var r,n,a=[],o={};for(r in t)n=t[r],a.push(n.caption),o[n.caption.toLowerCase()]=r;return a.sort(),{list:a,map:o}},t.exports._=a});
+require("format",function(t,e,r){function n(t,e){if(e){var r=e.children[t];if(void 0!==r)return r.caption;var i,a;for(i in e.children)if(a=e.children[i],r=n(t,a))return r}}function i(t){return"string"==typeof t&&"+"===t.charAt(t.length-1)&&(t=t.substr(0,t.length-1)),t}var a=function(){function e(){return n(r,arguments)}var r={en:{},fr:{}},n=t("$").intl;return e.all=r,e}(),o=t("utils"),u=t("date"),f=t("structure");r.getPatientCaption=function(t){var e=(t["#PATIENT-LASTNAME"]||"").trim(),n=(t["#PATIENT-FIRSTNAME"]||"").trim(),i=(t["#PATIENT-SECONDNAME"]||"").trim(),a=t["#PATIENT-BIRTH"];if("number"==typeof a){var f=u.toDate(a);a=f.getFullYear()+"-"+(1+f.getMonth())+"-"+f.getDate()}var p=e.toUpperCase()+" "+o.capitalize(n);return i.length>0&&(p+=" "+o.capitalize(i)),p+=" ("+a+") @"+r.expand(t["#PATIENT-COUNTRY"],"#NATIONALITY")},r.expand=function(t,e,r){if(void 0===t)return"";if(void 0===e)return t;if(void 0===r&&(r=0),"string"!=typeof t)return t;e=i(e);var a=e;return"string"==typeof a&&(a=f.value.types[e]),n(t.trim().toUpperCase(),a,r)||t};var p=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],c=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];r.date=function(t){var e=new Date(1e3*t);return p[e.getDay()]+" "+e.getDate()+" "+c[e.getMonth()]+" "+e.getFullYear()+" à "+r.pad(e.getHours())+":"+r.pad(e.getMinutes())},r.pad=function(t,e,r){for("number"!=typeof e&&(e=2),"string"!=typeof r&&(r="0"),t=""+t;t.length<e;)t=r+t;return t};var l={list:[],map:{}};r.getCompletion=function(t){if(void 0===t)return l;t=i(t);var e=f.value.types[t];if(void 0===e)return l;if(void 0===(e=e.children))return l;var r,n,a=[],o={};for(r in e)n=e[r],n.caption=n.caption||"",a.push(n.caption),o[n.caption.toLowerCase()]=r;return a.sort(),{list:a,map:o}},e.exports._=a});
 //# sourceMappingURL=format.js.map
 require("utils",function(r,n,t){var e=function(){function n(){return e(t,arguments)}var t={en:{},fr:{}},e=r("$").intl;return n.all=t,n}();t.capitalize=function(r){r=r.toLowerCase();for(var n,t,e=0,a="",i=0;i<r.length;i++)n=r.charAt(i),t=n>="a"&&n<="z"||"çñßáàâäãéèêëẽíìîïĩóòôöõúùûüũ".indexOf(n)>-1,0==e?t&&(e=1,n=n.toUpperCase()):t||(e=0),a+=n;return a},n.exports._=e});
 //# sourceMappingURL=utils.js.map

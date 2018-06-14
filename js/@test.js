@@ -9,42 +9,50 @@
  **********************************************************************/
 
 window.require = function() {
-    var modules = {};
-    var definitions = {};
-    var nodejs_require = typeof window.require === 'function' ? window.require : null;
+  var mocks = {};
+  var modules = {};
+  var definitions = {};
+  var nodejs_require = typeof window.require === 'function' ? window.require : null;
 
-    var f = function(id, body) {
-        if( id.substr( 0, 7 ) == 'node://' ) {
-            // Calling for a NodeJS module.
-            if( !nodejs_require ) {
-                throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
-            }
-            return nodejs_require( id.substr( 7 ) );
-        }
+  var f = function(id, body) {
+    var mock = mocks[id];
+    if( mock ) return mock;
+    
+    if( id.substr( 0, 7 ) == 'node://' ) {
+      // Calling for a NodeJS module.
+      if( !nodejs_require ) {
+        throw Error( "[require] NodeJS is not available to load module `" + id + "`!" );
+      }
+      return nodejs_require( id.substr( 7 ) );
+    }
 
-        if( typeof body === 'function' ) {
-            definitions[id] = body;
-            return;
-        }
-        var mod;
-        body = definitions[id];
-        if (typeof body === 'undefined') {
-            var err = new Error("Required module is missing: " + id);   
-            console.error(err.stack);
-            throw err;
-        }
-        mod = modules[id];
-        if (typeof mod === 'undefined') {
-            mod = {exports: {}};
-            var exports = mod.exports;
-            body(f, mod, exports);
-            modules[id] = mod.exports;
-            mod = mod.exports;
-            //console.log("Module initialized: " + id);
-        }
-        return mod;
-    };
-    return f;
+    if( typeof body === 'function' ) {
+      definitions[id] = body;
+      return;
+    }
+    var mod;
+    body = definitions[id];
+    if (typeof body === 'undefined') {
+      var err = new Error("Required module is missing: " + id);
+      console.error(err.stack);
+      throw err;
+    }
+    mod = modules[id];
+    if (typeof mod === 'undefined') {
+      mod = {exports: {}};
+      var exports = mod.exports;
+      body(f, mod, exports);
+      modules[id] = mod.exports;
+      mod = mod.exports;
+    }
+    return mod;
+  };
+
+  f.mock = function( moduleName, module ) {
+    mocks[moduleName] = module;
+  };
+  
+  return f;
 }();
 function addListener(e,l) {
     if (window.addEventListener) {
@@ -68,25 +76,25 @@ var W = require('x-widget');
             content: [
           W({
               elem: "p",
-              children: ["Salut les Mickeys ! Ça roule ?"]})]})
+              children: ["Salut les Mickeys ! Ça roule ?"]})]},{"id":"B1"})
         W('B2', 'wdg.showhide', {
             label: "Deuxième bloc",
             focus: "true",
             content: [
           W({
               elem: "p",
-              children: ["Est-ce que le focusable fonctionne ?"]})]})
+              children: ["Est-ce que le focusable fonctionne ?"]})]},{"id":"B2"})
         W('wdg.button33', 'wdg.button', {
             text: "Focus 1",
-            value: "1"})
+            value: "1"},{"id":"wdg.button33"})
         W('wdg.button34', 'wdg.button', {
             text: "Focus 2",
-            value: "2"})
+            value: "2"},{"id":"wdg.button34"})
         W.bind('wdg.button33',{"action":{"S":["onFocus"]}});
         W.bind('wdg.button34',{"action":{"S":["onFocus"]}});
     }
 );
-require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.46"',major:"0",minor:"3",revision:"46",date:"2017-05-29T19:51:27.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
+require("$",function(n,r,o){o.config={name:'"cameroun"',description:'"Cameroun"',author:'"tolokoban"',version:'"0.3.57"',major:"0",minor:"3",revision:"57",date:"2018-06-14T20:46:58.000Z",consts:{tfw:"http://tolokoban.org/Cameroun/tfw"}};var t=null;o.lang=function(n){return void 0===n&&(window.localStorage&&(n=window.localStorage.getItem("Language")),n||(n=window.navigator.language)||(n=window.navigator.browserLanguage)||(n="fr"),n=n.substr(0,2).toLowerCase()),t=n,window.localStorage&&window.localStorage.setItem("Language",n),n},o.intl=function(n,r){var t,a,e,i,g,u,l,s=n[o.lang()],w=r[0];for(l in n)break;if(!l)return w;if(!s&&!(s=n[l]))return w;if(t=s[w],t||(s=n[l],t=s[w]),!t)return w;if(r.length>1){for(a="",g=0,e=0;e<t.length;e++)i=t.charAt(e),"$"===i?(a+=t.substring(g,e),e++,u=t.charCodeAt(e)-48,u<0||u>=r.length?a+="$"+t.charAt(e):a+=r[u],g=e+1):"\\"===i&&(a+=t.substring(g,e),e++,a+=t.charAt(e),g=e+1);a+=t.substr(g),t=a}return t}});
 //# sourceMappingURL=$.js.map
 require("wdg.button",function(e,t,n){function i(e,t){void 0===t&&(t="standard");var n=e,i=e;return"yes"==i&&(n="ok"),"no"==i&&(n="cancel"),new d({text:o(i),icon:n,value:e,type:t})}var o=function(){function t(){return i(n,arguments)}var n={en:{cancel:"Cancel",close:"Close",delete:"Delete",edit:"Edit",no:"No",ok:"OK",save:"Save",yes:"Yes"},fr:{cancel:"Annuler",close:"Fermer",delete:"Supprimer",edit:"Editer",no:"Non",ok:"Valider",save:"Sauver",yes:"Oui"}},i=e("$").intl;return t.all=n,t}(),a=e("dom"),r=e("tfw.data-binding"),l=e("wdg.icon"),s=e("tfw.touchable"),c=["standard","simple","warning","shadow","special"],d=function(e){var t=this,n=a.elem(this,"button","wdg-button","theme-elevation-2");"string"==typeof e.href&&e.href.length>0&&a.att(n,"href",e.href),"string"==typeof e.target&&e.target.length>0&&a.att(n,"target",e.target);var i=null,o=function(){a.clear(n),i?(a.add(n,i.element,t.text),t._icon=i):(n.textContent=t.text,delete t._icon)};r.prop(this,"value"),r.propEnum(c)(this,"type")(function(e){c.forEach(function(e){a.removeClass(n,e)}),a.addClass(n,e)}),r.prop(this,"icon")(function(e){i=!e||"string"==typeof e&&0==e.trim().length?null:e.element?e.element:new l({content:e,size:"1.2em"}),o()}),r.propBoolean(this,"anim")(function(e){i&&(i.rotate=e)});var d={};r.propBoolean(this,"wait")(function(e){e?(d.enabled=t.enabled,d.icon=t.icon,d.anim=t.anim,t.enabled=!1,t.icon="wait",t.anim=!0):(t.enabled=d.enabled,t.icon=d.icon,t.anim=d.anim)}),r.propString(this,"text")(function(e){o()});var u=new s(n,{classToAdd:"theme-elevation-8"});r.propBoolean(this,"enabled")(function(e){u.enabled=u,e?a.removeAtt(n,"disabled"):a.att(n,"disabled","yes")}),r.propBoolean(this,"small")(function(e){e?a.addClass(n,"small"):a.removeClass(n,"small")}),r.prop(this,"action",0),r.propAddClass(this,"wide"),r.propRemoveClass(this,"visible","hide"),e=r.extend({text:"OK",href:null,target:null,value:"action",action:0,wait:!1,anim:!1,icon:"",small:!1,enabled:!0,wide:!1,visible:!0,type:"standard"},e,this),a.on(this.element,{keydown:function(e){13!=e.keyCode&&32!=e.keyCode||(e.preventDefault(),e.stopPropagation(),t.fire())}}),u.tap.add(t.fire.bind(t))};d.prototype.on=function(e){return r.bind(this,"action",e),this},d.prototype.fire=function(){if(this.enabled){var e=this.href;"string"!=typeof e||0==e.trim().length?r.fire(this,"action",this.value):window.location=e}},d.prototype.waitOn=function(e){void 0===this._backup&&(this._backup={text:this.text,icon:this.icon,enabled:this.enabled}),"string"==typeof e&&(this.text=e),this.enabled=!1,this.icon="wait",this._icon&&(this._icon.rotate=!0)},d.prototype.waitOff=function(){this.text=this._backup.text,this.icon=this._backup.icon,this.enabled=this._backup.enabled,this._icon&&(this._icon.rotate=!1),delete this._backup},d.Cancel=function(e){return i("cancel",e||"simple")},d.Close=function(e){return i("close",e||"simple")},d.Delete=function(e){return i("delete",e||"warning")},d.No=function(e){return i("no")},d.Ok=function(e){return i("ok",e||"default")},d.Edit=function(e){return i("edit")},d.Save=function(e){return i("save",e||"special")},d.Yes=function(e){return i("yes",e||"default")},d.default={caption:"OK",type:"default"},t.exports=d,t.exports._=o});
 //# sourceMappingURL=wdg.button.js.map
