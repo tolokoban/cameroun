@@ -23,7 +23,11 @@ var g_patientId;
 var g_currentVaccinID;
 
 
-exports.onPage = function () {
+exports.onPage = onPage;
+exports.onAddAttachment = onAddAttachment;
+
+
+function onPage() {
   var hash = location.hash.split( '/' );
   var patientId = hash[ 1 ];
   g_patientId = patientId;
@@ -92,10 +96,10 @@ function initVaccins() {
       // `delta`is computed in years.
       var delta = Math.floor( DateUtil.age( vaccin.date ) / 31557600 );
       row = $.div( 'theme-elevation-2',
-        'level-' + ( delta < 6 ? '0' : ( delta < 11 ? '1' : '2' ) ), [
-          $.div( [ caption ] ),
-          $.div( [ delta < 2 ? "Moins d'un an" : delta + " ans" ] )
-        ] );
+                   'level-' + ( delta < 6 ? '0' : ( delta < 11 ? '1' : '2' ) ), [
+                     $.div( [ caption ] ),
+                     $.div( [ delta < 2 ? "Moins d'un an" : delta + " ans" ] )
+                   ] );
     } else {
       row = $.div( 'theme-elevation-2', 'level-3', [
         $.div( [ caption ] ), $.div( 'unknown', [ 'Inconnu...' ] )
@@ -162,7 +166,7 @@ exports.onNewVisit = function () {
 exports.onPatientExit = function () {
   Modal.confirm(
     "<html>Confirmez vous que le patient<br/><b>" +
-    Format.getPatientCaption( g_patient.data ) + "</b><br/>est sorti du service ?",
+      Format.getPatientCaption( g_patient.data ) + "</b><br/>est sorti du service ?",
     function () {
       var visit = Patients.lastVisit( g_patient );
       if ( !visit.exit ) visit.exit = DateUtil.now();
@@ -207,7 +211,7 @@ function refreshAttachments() {
     btnDelete.on( function () {
       Modal.confirm(
         "<html>Êtes-vous sûr de vouloir supprimer définitivement le document<br>" +
-        "<code>" + item.desc + "</code> ?",
+          "<code>" + item.desc + "</code> ?",
         function () {
           Patients.detach( g_patient, item.id ).then( refreshAttachments, Err );
         }
@@ -264,7 +268,7 @@ function isEmpty(obj) {
   return true;
 }
 
-exports.onAddAttachment = function () {
+function onAddAttachment() {
   var btnCancel = Button.Cancel();
   var btnOK = Button.Save();
   btnOK.enabled = false;

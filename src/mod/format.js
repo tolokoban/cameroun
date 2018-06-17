@@ -128,6 +128,7 @@ exports.getCompletion = function( typeName ) {
     val;
   for ( key in type ) {
     val = type[key];
+    val.caption = val.caption || "";
     list.push( val.caption );
     map[val.caption.toLowerCase( )] = key;
   }
