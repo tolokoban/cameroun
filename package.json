@@ -12,7 +12,7 @@
         "start": "nw www",
         "test": "node node_modules/karma/bin/karma start karma.conf.js",
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
-        "watch": "node node_modules/toloframework/bin/tfw.js build dev test php watch",
+        "watch": "node node_modules/toloframework/bin/tfw.js build debug test php watch",
         "debug": "node node_modules/toloframework/bin/tfw.js build debug test php",
         "clean": "node node_modules/toloframework/bin/tfw.js clean",
         "release": "node node_modules/toloframework/bin/tfw.js build version php clean"
@@ -23,7 +23,7 @@
     "tfw": {
         "modules": [],
         "compile": {
-            "type": "firefoxos",
+            "type": "nodewebkit",
             "files": [
                 "\\.html$",
                 "test/\\.html$"
@@ -39,14 +39,36 @@
         },
         "output": "www"
     },
-    "version": "0.3.49",
-    "reservedModules": [],
+    "version": "0.3.64",
+    "reservedModules": [
+        "fs",
+        "path",
+        "process",
+        "child_process",
+        "cluster",
+        "http",
+        "os",
+        "crypto",
+        "dns",
+        "domain",
+        "events",
+        "https",
+        "net",
+        "readline",
+        "stream",
+        "string_decoder",
+        "tls",
+        "dgram",
+        "util",
+        "vm",
+        "zlib"
+    ],
     "dependencies": {
-        "jasmine-core": "^2",
-        "karma": "^0",
-        "karma-chrome-launcher": "^0",
-        "karma-firefox-launcher": "^0",
-        "karma-jasmine": "^0",
+        "jasmine-core": "^2.4",
+        "karma": "^0.13",
+        "karma-chrome-launcher": "^0.2",
+        "karma-firefox-launcher": "^0.1",
+        "karma-jasmine": "^0.3.6",
         "toloframework": "^0"
     },
     "main": "index.html",

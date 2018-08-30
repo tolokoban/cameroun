@@ -68,8 +68,18 @@
 
 var RX_LINE = /^(#[A-Z0-9-]+)?([^\(@]*)(\([^\)]*\)\+?)?(@[A-Z0-9,-]+)?/;
 
+/**
+ * @param {string} code
+ */
+exports.parse = parse;
+/**
+ * @param def
+ * @param path
+ */
+exports.get = get;
 
-exports.parse = function(code) {
+
+function parse(code) {
     var types = {};
     var levels = [types];
     if( typeof code !== 'string' ) code = '' + code;
@@ -141,7 +151,7 @@ function parseLine( line ) {
 }
 
 
-exports.get = function( def, path ) {
+function get( def, path ) {
     if (!Array.isArray( path ) || path.length === 0) return def;
     if( typeof def === 'undefined' ) return def;
 
@@ -151,11 +161,11 @@ exports.get = function( def, path ) {
         for( key in def ) {
             val = def[key];
             if (Array.isArray(val.tags) && val.tags.indexOf(criteria.substr(1)) > -1) {
-                return exports.get( val.children, path );
+                return get( val.children, path );
             }
         }
         return null;
     } else {
-        return exports.get( def[criteria].children, path );
+        return get( def[criteria].children, path );
     }
 };

@@ -15,7 +15,13 @@ var Structure = require( "structure" );
 var g_patient;
 
 
-exports.onPage = function () {
+exports.onPage = onPage;
+exports.onClose = onClose;
+exports.onBack = onBack;
+exports.onNewVisit = onNewVisit;
+
+
+function onPage() {
   var hash = location.hash.split( '/' );
   var patientId = hash[ 1 ];
   Patients.get( patientId ).then( function ( patient ) {
@@ -28,17 +34,26 @@ exports.onPage = function () {
   } );
 };
 
-
-exports.onClose = function () {
+function onClose() {
   var visit = Patients.lastVisit( g_patient );
   visit.exit = DateUtil.now();
   Patients.save( g_patient );
   location.hash = "#Patient/" + g_patient.id;
 };
 
-exports.onBack = function () {
+function onBack() {
   location.hash = "#Patient/" + g_patient.id;
 };
+
+function onNewVisit() {
+  Patients.createVisit().then( function ( visit ) {
+    var len = g_patient.admissions.length;
+    var lastAdmission = g_patient.admissions[ len - 1 ];
+    location.hash = "#Visit/" + g_patient.id + "/" + ( len - 1 ) + "/" +
+      ( lastAdmission.visits.length - 1 );
+  } );
+};
+
 
 /**
  * @param {DOM} parent
@@ -75,11 +90,3 @@ function addForm( parent, def ) {
   }
 }
 
-exports.onNewVisit = function () {
-  Patients.createVisit().then( function ( visit ) {
-    var len = g_patient.admissions.length;
-    var lastAdmission = g_patient.admissions[ len - 1 ];
-    location.hash = "#Visit/" + g_patient.id + "/" + ( len - 1 ) + "/" +
-      ( lastAdmission.visits.length - 1 );
-  } );
-};

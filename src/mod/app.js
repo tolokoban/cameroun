@@ -21,16 +21,24 @@ var pages = {
   exam: require("page.exam")
 };
 
-exports.start = function() {
+
+exports.start = start;
+exports.onPage = onPage;
+
+
+function onPage( pageId ) {
+  console.info("pageId=", pageId);
+  var page = pages[pageId.toLowerCase()];
+  console.info("page=", page)    ;
+  if( typeof page !== 'undefined' ) page.onPage();
+};
+
+
+function start() {
   var manifest = nw.App.manifest;
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
-    start();
-  }
-};
-
-function start() {
   location.hash = "#Loading";
   Structure.then(function() {
     location.hash = "#Home";
@@ -39,12 +47,5 @@ function start() {
     console.error( err );
     Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
   });
-};
-
-
-exports.onPage = function( pageId ) {
-  console.info("pageId=", pageId);
-  var page = pages[pageId.toLowerCase()];
-  console.info("page=", page)    ;
-  if( typeof page !== 'undefined' ) page.onPage();
+  }
 };
