@@ -35,6 +35,8 @@ function set( name, value ) {
 }
 
 function load() {
+  if( !Fs.existsSync( FILENAME ) ) return {};
+  
   var content = Fs.readFileSync( FILENAME ).toString();
   try {
     return JSON.parse( content );

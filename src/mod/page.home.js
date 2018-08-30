@@ -59,16 +59,21 @@ exports.onExport = function() {
                             value: Preferences.get( 'email', '' ) });
   var btnEMail = new Button({ icon: "mail", text: "Envoyer par mail" });
 
-  var txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer });
+  var txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer, wide: true });
   var txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
   var btnCheck = new Button({ text: _('check') });
   btnCheck.on(function() {
-    Synchro.check( txtRemoteServer.value, txtSecretCode.value );
+    Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
+      function( status ) {
+        Synchro.remoteServer = txtRemoteServer.value;
+        Synchro.secretCode = txtSecretCode.value;
+      }
+    );
   });
   
   var modal = Modal.alert($.div([
     $.tag( 'h1', [_('synchro')]),
-    $.div('table', [$.div([ txtRemoteServer, txtSecretCode, btnCheck])]),
+    txtRemoteServer, txtSecretCode, btnCheck,
     $.tag( 'hr' ),
     btnBrowse,
     $.tag( 'h1', [_('backup')]),
