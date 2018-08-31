@@ -63,10 +63,29 @@ exports.onExport = function() {
   var txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
   var btnCheck = new Button({ text: _('check') });
   btnCheck.on(function() {
+    btnCheck.wait = true;
     Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
       function( status ) {
+        btnCheck.wait = false;
         Synchro.remoteServer = txtRemoteServer.value;
         Synchro.secretCode = txtSecretCode.value;
+        Msg(_('synchro-checked'));
+        Synchro.update();
+      },
+      function( errorCode ) {
+        btnCheck.wait = false;
+        switch( errorCode ) {
+        case Synchro.NETWORK_FAILURE:
+          Err(_('network-failure'));
+          break;
+        case Synchro.BAD_SECRET_CODE:
+          Err(_('bad-secret-code'));
+          txtSecretCode.focus = true;
+          break;
+        default:
+          Err(_('server-error'));
+          break;
+        }
       }
     );
   });

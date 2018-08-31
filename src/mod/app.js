@@ -6,10 +6,11 @@ require("font.josefin");
 var $ = require("dom");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
-var Modal = require("wdg.modal");
-
 var Form = require("form");
+var Modal = require("wdg.modal");
+var Synchro = require("synchro");
 var Structure = require("structure");
+
 
 var pages = {
   loading: require("page.loading"),
@@ -39,13 +40,15 @@ function start() {
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
-  location.hash = "#Loading";
-  Structure.then(function() {
-    location.hash = "#Home";
-  }, function(err) {
-    err.context = "Loading...";
-    console.error( err );
-    Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
-  });
+    location.hash = "#Loading";
+    Synchro.start().then(function() {
+      return Structure;
+    }).then(function() {
+      location.hash = "#Home";
+    }).catch(function(err) {
+      err.context = "Loading...";
+      console.error( err );
+      Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
+    });
   }
 };
