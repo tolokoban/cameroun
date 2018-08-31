@@ -62,6 +62,19 @@ exports.onExport = function() {
   var txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer, wide: true });
   var txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
   var btnCheck = new Button({ text: _('check') });
+
+  var modal = Modal.alert($.div([
+    $.tag( 'h1', [_('synchro')]),
+    txtRemoteServer, txtSecretCode, btnCheck,
+    $.tag( 'hr' ),
+    btnBrowse,
+    $.tag( 'h1', [_('backup')]),
+    $.div('table', [
+      $.div([ $.div([inpSave]), $.div([btnSelect]), $.div([btnSave]) ]),
+      $.div([ $.div([inpEMail]), $.div(), $.div([btnEMail]) ])
+    ])
+  ]));
+
   btnCheck.on(function() {
     btnCheck.wait = true;
     Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
@@ -70,7 +83,7 @@ exports.onExport = function() {
         Synchro.remoteServer = txtRemoteServer.value;
         Synchro.secretCode = txtSecretCode.value;
         Msg(_('synchro-checked'));
-        Synchro.update();
+        modal.detach();
       },
       function( errorCode ) {
         btnCheck.wait = false;
@@ -90,17 +103,6 @@ exports.onExport = function() {
     );
   });
   
-  var modal = Modal.alert($.div([
-    $.tag( 'h1', [_('synchro')]),
-    txtRemoteServer, txtSecretCode, btnCheck,
-    $.tag( 'hr' ),
-    btnBrowse,
-    $.tag( 'h1', [_('backup')]),
-    $.div('table', [
-      $.div([ $.div([inpSave]), $.div([btnSelect]), $.div([btnSave]) ]),
-      $.div([ $.div([inpEMail]), $.div(), $.div([btnEMail]) ])
-    ])
-  ]));
   btnSave.on(function() {
     btnSave.wait = true;
     exp.then(function( src ) {
@@ -115,6 +117,7 @@ exports.onExport = function() {
       });
     });
   });
+  
   btnEMail.on(function() {
     modal.detach();
     exp.then(function( src ) {

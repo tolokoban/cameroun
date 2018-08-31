@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = createPromise();
+module.exports = createPromise;
 
 Object.defineProperty( module.exports, 'value', { get: function() { return g_structure; } });
 Object.defineProperty( module.exports, 'source', { get: function() { return g_source; } });
@@ -12,9 +12,12 @@ Object.defineProperty( module.exports, 'source', { get: function() { return g_so
 require("polyfill.promise");
 var $ = require("dom");
 var WS = require("tfw.web-service");
+var Err = require("tfw.message").error;
+var Msg = require("tfw.message").info;
 var Files = require("files");
 var Modal = require("wdg.modal");
 var Parser = require("structure.parser");
+var Synchro = require("synchro");
 var Storage = require("tfw.storage").session;
 
 var FS = require("node://fs");
@@ -32,6 +35,11 @@ var g_source = null;
  */
 function createPromise() {
   return new Promise(function (resolve, reject) {
+    Synchro.start().then(function() {
+      Msg(_('synchro-success'));
+    }, function() {
+      Err(_('synchro-failure'));
+    });
     if( g_structure ) resolve( g_structure );
     else {
       // Load structure from internet or from local disk if network is unreachable.

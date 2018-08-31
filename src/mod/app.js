@@ -4,12 +4,13 @@
 require("font.josefin");
 
 var $ = require("dom");
+var Cfg = require("$");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
 var Form = require("form");
 var Modal = require("wdg.modal");
-var Synchro = require("synchro");
 var Structure = require("structure");
+var Preferences = require("preferences");
 
 
 var pages = {
@@ -36,14 +37,15 @@ function onPage( pageId ) {
 
 
 function start() {
+  var lang = Preferences.get( "lang", "fr" );
+  Cfg.lang( lang );
+  
   var manifest = nw.App.manifest;
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
     location.hash = "#Loading";
-    Synchro.start().then(function() {
-      return Structure;
-    }).then(function() {
+    Structure().then(function() {
       location.hash = "#Home";
     }).catch(function(err) {
       err.context = "Loading...";

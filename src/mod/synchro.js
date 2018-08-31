@@ -23,7 +23,7 @@ exports.start = start;
  * You can call this function as soon as anything changed because it is debounced and so it will not
  * slow the app.
  */
-exports.update = Timer.debounce( update, 10000 );
+exports.update = Timer.debounce( update, 5000 );
 
 
 exports.NETWORK_FAILURE = -1;
@@ -63,9 +63,13 @@ var g_state = 0;
  * @param {array} g_currentStatus.patients[id].admissions
  * @param {number} g_currentStatus.patients[id].admissions[].enter
  * @param {number} g_currentStatus.patients[id].admissions[].exit
- * @param {number} g_currentStatus.patients[id].admissions[].consultations[].date
+ * @param {number} g_currentStatus.patients[id].admissions[].visits
+ * @param {number} g_currentStatus.patients[id].admissions[].visits[].date
+ * @param {number} g_currentStatus.patients[id].created
+ * @param {object} g_currentStatus.patients[id].data
+ * @param {number} g_currentStatus.patients[id].edited
  */
-var g_currentStatus = null;
+var g_currentStatus = {};
 /**
  * @param {string} g_updatesToSend[].id
  * @param {object} g_updatesToSend[].data
@@ -73,16 +77,121 @@ var g_currentStatus = null;
 var g_updatesToSend = [];
 var g_senderTimeoutId = 0;
 
+
+function updatePatient( patient ) {
+  return new Promise(function (resolve, reject) {
+    var delta = getPatientDelta( patient );
+    if( !delta ) return resolve();
+    query({ cmd: 'update', patient: delta }).then(
+      function() {
+        console.log("Patient synchronized: ", delta);
+        resolve();
+        if( !g_currentStatus.patients ) g_currentStatus.patients = {};
+        g_currentStatus.patients[patient.id] = patient;
+      },
+      function( err ) {
+        console.error("Failed to synchronized: ", delta);
+        console.error(err);
+        // Failure is not a big issue. We just go on and the patient will be updated later.
+        resolve();
+      }
+    );
+  });
+}
+
+/**
+ * Look in the `g_currentStatus` and find what `patient` has more.
+ */
+function getPatientDelta( patient ) {
+  var previousPatient = g_currentStatus.patients[patient.id];
+  if( typeof previousPatient === 'undefined' ) previousPatient = {
+    admissions: [{ enter: 0, visits: [{ date: 0 }] }],
+    data: {},
+    edited: 0
+  };
+
+  if( patient.edited <= previousPatient.edited ) return null;
+  var delta = { id: patient.id, edited: patient.edited };
+  var data = getDataDelta( patient.data, previousPatient.data );
+  if( data ) delta.data = data;
+  var admissions = getAdmissionsDelta( patient.admissions, previousPatient.admissions );
+  if( admissions ) delta.admissions = admissions;
+
+  return delta;
+}
+
+function getDataDelta( current, previous ) {
+  if( !previous ) return current;
+  var hasDifferences = false;
+  var data = {};
+  Object.keys(current).forEach(function (key) {
+    if( current[key] !== previous[key] ) {
+      data[key] = current[key];
+      hasDifferences = true;
+    }
+  });
+  return hasDifferences ? data : null;
+}
+
+function getAdmissionsDelta( current, previous ) {
+  if( !previous ) return current;
+  if( !Array.isArray( previous ) ) return current;
+  if( previous.length == 0 ) return current;
+
+  var lastAdmission = previous[previous.length - 1];
+  var lastEnter = parseInt( lastAdmission.enter );
+  if( isNaN( lastEnter ) ) lastEnter = 0;
+  
+  var admissions = current.filter(function( admission ) {
+    return admission.enter >= lastEnter;
+  });
+  return admissions.length > 0 ? admissions : null;
+}
+
+/**
+ * Take next patient id  and process it. As soon as the process  ends, call updateNextPatient again,
+ * until `patientIds` is empty.
+ * @param {array} patientIds - Array of patient ids.
+ */
+function updateNextPatient( patientIds ) {
+  if( patientIds.length === 0 ) {
+    // Updating is done.
+    g_state = 2;
+    return;
+  }
+  var patientId = patientIds.shift();
+  Patients.get( patientId ).then(
+    function( patient ) {
+      updatePatient( patient ).then(function() {
+        updateNextPatient( patientIds );
+      });
+    },
+    function( errorMessage ) {
+      console.error("Unable to load patient " + patientId + ": ", errorMessage);
+      updateNextPatient( patientIds );      
+    }
+  );
+}
+
 function updatePatients( patients ) {
-  console.info("[synchro] patients=", patients);
+  var patientIds = Object.keys( patients ).slice();
+  updateNextPatient( patientIds );
 }
 
 function updateStatus() {
-  Patients.all().then(updatePatients);
+  if( g_state != 2 ) {
+    // Updating in progress... Try later.
+    exports.update();
+    return;
+  }
+  g_state = 3;
+  Patients.all().then(function( allPatients ) {
+    updatePatients( allPatients.records );
+  });
 }
 
 function update() {
-  start.then(updateStatus, function( errorCode ) {
+  start().then(updateStatus, function( errorCode ) {
     if( errorCode == exports.NETWORK_FAILURE ) {
       // We can ask again later because it may just be a network unavailibility.
       exports.update();
@@ -97,6 +206,10 @@ function start() {
       g_state = 1;
       getStatus( exports.remoteServer, exports.secretCode ).then(
         function( status ) {
+          if( !status ) status = {};
+          if( !status.patients || typeof status.patients !== 'object' ) status.patients = {};
+          
+          console.info("[synchro] status.patients=", JSON.stringify( status.patients, null, '  ' ));
           g_currentStatus = status;
           g_state = 2;
           exports.update();
@@ -143,4 +256,15 @@ function getStatus( remoteServer, secretCode ) {
       }
     );
   });
+}
+
+
+function query( args ) {
+  var remoteServer = ("" + exports.remoteServer).trim();
+  if( remoteServer.charAt( remoteServer.length - 1 ) !== '/' )
+    remoteServer += '/';
+  remoteServer += "tfw";
+
+  args.code = exports.secretCode;
+  return WebService.get( "synchro", args, remoteServer );
 }
