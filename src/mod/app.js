@@ -4,12 +4,14 @@
 require("font.josefin");
 
 var $ = require("dom");
+var Cfg = require("$");
 var Err = require("tfw.message").error;
 var Msg = require("tfw.message").info;
-var Modal = require("wdg.modal");
-
 var Form = require("form");
+var Modal = require("wdg.modal");
 var Structure = require("structure");
+var Preferences = require("preferences");
+
 
 var pages = {
   loading: require("page.loading"),
@@ -35,17 +37,20 @@ function onPage( pageId ) {
 
 
 function start() {
+  var lang = Preferences.get( "lang", "fr" );
+  Cfg.lang( lang );
+  
   var manifest = nw.App.manifest;
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
-  location.hash = "#Loading";
-  Structure.then(function() {
-    location.hash = "#Home";
-  }, function(err) {
-    err.context = "Loading...";
-    console.error( err );
-    Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
-  });
+    location.hash = "#Loading";
+    Structure().then(function() {
+      location.hash = "#Home";
+    }).catch(function(err) {
+      err.context = "Loading...";
+      console.error( err );
+      Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
+    });
   }
 };

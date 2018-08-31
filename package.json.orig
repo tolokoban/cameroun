@@ -9,9 +9,10 @@
     "homepage": "https://github.com/tolokoban/cameroun",
     "license": "GPL-3.0",
     "scripts": {
+        "start": "nw www",
         "test": "node node_modules/karma/bin/karma start karma.conf.js",
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
-        "watch": "node node_modules/toloframework/bin/tfw.js build dev test php watch",
+        "watch": "node node_modules/toloframework/bin/tfw.js build debug test php watch",
         "debug": "node node_modules/toloframework/bin/tfw.js build debug test php",
         "clean": "node node_modules/toloframework/bin/tfw.js clean",
         "release": "node node_modules/toloframework/bin/tfw.js build version php clean"
@@ -22,9 +23,10 @@
     "tfw": {
         "modules": [],
         "compile": {
-            "type": "firefoxos",
+            "type": "nodewebkit",
             "files": [
-                "\\.html$"
+                "\\.html$",
+                "test/\\.html$"
             ]
         },
         "consts": {
@@ -38,23 +40,46 @@
         "output": "www"
     },
 <<<<<<< HEAD
-    "version": "0.3.42",
+    "version": "0.3.65",
 =======
-    "version": "0.3.43",
->>>>>>> 20bb9833a33747f771778880bb54aa03848c0bfc
-    "reservedModules": [],
+    "version": "0.4.0",
+>>>>>>> 1e818be079dc8eaf52c67c629b0273a3e8680463
+    "reservedModules": [
+        "fs",
+        "path",
+        "process",
+        "child_process",
+        "cluster",
+        "http",
+        "os",
+        "crypto",
+        "dns",
+        "domain",
+        "events",
+        "https",
+        "net",
+        "readline",
+        "stream",
+        "string_decoder",
+        "tls",
+        "dgram",
+        "util",
+        "vm",
+        "zlib"
+    ],
     "dependencies": {
-        "jasmine-core": "^2",
-        "karma": "^0",
-        "karma-chrome-launcher": "^0",
-        "karma-firefox-launcher": "^0",
-        "karma-jasmine": "^0",
+        "jasmine-core": "^2.4",
+        "karma": "^0.13",
+        "karma-chrome-launcher": "^0.2",
+        "karma-firefox-launcher": "^0.1",
+        "karma-jasmine": "^0.3.6",
         "toloframework": "^0"
     },
     "main": "index.html",
     "window": {
         "fullscreen": false,
         "width": 800,
-        "height": 640
-    }
+        "height": 600
+    },
+    "debug": false
 }

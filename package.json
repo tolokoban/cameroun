@@ -1,3 +1,4 @@
+
 {
     "name": "cameroun",
     "author": "tolokoban",
@@ -39,7 +40,7 @@
         },
         "output": "www"
     },
-    "version": "0.3.65",
+    "version": "0.4.0",
     "reservedModules": [
         "fs",
         "path",

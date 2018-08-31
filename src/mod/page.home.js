@@ -62,15 +62,7 @@ exports.onExport = function() {
   var txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer, wide: true });
   var txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
   var btnCheck = new Button({ text: _('check') });
-  btnCheck.on(function() {
-    Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
-      function( status ) {
-        Synchro.remoteServer = txtRemoteServer.value;
-        Synchro.secretCode = txtSecretCode.value;
-      }
-    );
-  });
-  
+
   var modal = Modal.alert($.div([
     $.tag( 'h1', [_('synchro')]),
     txtRemoteServer, txtSecretCode, btnCheck,
@@ -82,6 +74,35 @@ exports.onExport = function() {
       $.div([ $.div([inpEMail]), $.div(), $.div([btnEMail]) ])
     ])
   ]));
+
+  btnCheck.on(function() {
+    btnCheck.wait = true;
+    Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
+      function( status ) {
+        btnCheck.wait = false;
+        Synchro.remoteServer = txtRemoteServer.value;
+        Synchro.secretCode = txtSecretCode.value;
+        Msg(_('synchro-checked'));
+        modal.detach();
+      },
+      function( errorCode ) {
+        btnCheck.wait = false;
+        switch( errorCode ) {
+        case Synchro.NETWORK_FAILURE:
+          Err(_('network-failure'));
+          break;
+        case Synchro.BAD_SECRET_CODE:
+          Err(_('bad-secret-code'));
+          txtSecretCode.focus = true;
+          break;
+        default:
+          Err(_('server-error'));
+          break;
+        }
+      }
+    );
+  });
+  
   btnSave.on(function() {
     btnSave.wait = true;
     exp.then(function( src ) {
@@ -96,6 +117,7 @@ exports.onExport = function() {
       });
     });
   });
+  
   btnEMail.on(function() {
     modal.detach();
     exp.then(function( src ) {

@@ -183,6 +183,8 @@ exports.onPatientExit = function () {
 exports.onPatientEdit = function () {
   ModalPatient( "Editer l'identité du patient", g_patient, function ( patientData ) {
     g_patient.data = patientData;
+    if( typeof g_patient.version !== 'number' ) g_patient.version = 1;
+    else g_patient.version++;
     Patients.save( g_patient ).then( exports.onPage.bind( exports ) );
   } );
 };
