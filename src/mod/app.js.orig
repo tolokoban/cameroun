@@ -39,6 +39,12 @@ function start() {
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
+<<<<<<< HEAD
+    start();
+  }
+};
+
+function start() {
   location.hash = "#Loading";
   Structure.then(function() {
     location.hash = "#Home";
@@ -47,5 +53,23 @@ function start() {
     console.error( err );
     Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
   });
+};
+
+
+exports.onPage = function( pageId ) {
+  console.info("pageId=", pageId);
+  var page = pages[pageId.toLowerCase()];
+  console.info("page=", page)    ;
+  if( typeof page !== 'undefined' ) page.onPage();
+=======
+    location.hash = "#Loading";
+    Structure.then(function() {
+      location.hash = "#Home";
+    }, function(err) {
+      err.context = "Loading...";
+      console.error( err );
+      Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
+    });
   }
+>>>>>>> a51510d47f776174f2bcd52ca340a6cc826c04d6
 };

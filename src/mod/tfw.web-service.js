@@ -3,6 +3,16 @@
  */
 "use strict";
 
+exports.BAD_ROLE = -1;
+exports.BAD_TYPE = -2;
+exports.CONNECTION_FAILURE = -3;
+exports.MISSING_AUTOLOGIN = -4;
+exports.UNKNOWN_USER = -5;
+exports.HTTP_ERROR = -6;
+
+
+
+
 require( "polyfill.promise" );
 var Cfg = require( "$" ).config;
 
@@ -21,13 +31,6 @@ if ( Array.isArray( saved ) ) {
   config.usr = saved[ 0 ];
   config.pwd = saved[ 1 ];
 }
-
-exports.BAD_ROLE = -1;
-exports.BAD_TYPE = -2;
-exports.CONNECTION_FAILURE = -3;
-exports.MISSING_AUTOLOGIN = -4;
-exports.UNKNOWN_USER = -5;
-exports.HTTP_ERROR = -6;
 
 function svc( name, args, url ) {
   console.info( "[tfw.web-service]", name, args );
