@@ -49,7 +49,7 @@ function load() {
 }
 
 function saveNow() {
-  Fs.writeFile( FILENAME, JSON.stringify( preferences, null, '  ' ) );
+  Fs.writeFile( FILENAME, JSON.stringify( preferences, null, '  ' ), function() {} );
 }
 
 function definePersistentProperty( target, name, defaultValue ) {

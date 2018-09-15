@@ -1,15 +1,39 @@
 "use strict";
 
+/**
+ * @param {object} patientData.
+ */
+exports.getPatientCaption = getPatientCaption;
+/**
+ * Quand c'est possible, les données  sont stoquées sous forme de leur
+ * identifiant qui  commence par un  dièse `#`. Cette  fonction permet
+ * donc de retrouver le texte  associé à l'identifiant, ou à retourner
+ * le texte tel quel s'il ne s'agit pas d'un identifiant.
+ */
+exports.expand = expand;
+exports.date = date;
+/**
+ * @param {string} txt
+ * @param {number} size
+ * @param {string='0'} prepend
+ */
+exports.pad = pad;
+/**
+ * @param {string} typeName
+ * @return `{ list: ["Oui", "Non"], map: { oui: "#YES", non: "#NO" } }`
+ * The `list` array is always sorted (ascending).
+ */
+exports.getCompletion = getCompletion;
+
+
 
 var Utils = require( "utils" );
 var DateUtil = require( "date" );
 var Structure = require( "structure" );
 
 
-/**
- * @param {object} patientData.
- */
-exports.getPatientCaption = function ( patientData ) {
+function getPatientCaption( patientData ) {
+  console.info("[format] patientData=", patientData);
   var lastname = ( patientData[ '#PATIENT-LASTNAME' ] || '' ).trim();
   var firstname = ( patientData[ '#PATIENT-FIRSTNAME' ] || '' ).trim();
   var secondname = ( patientData[ '#PATIENT-SECONDNAME' ] || '' ).trim();
@@ -22,18 +46,13 @@ exports.getPatientCaption = function ( patientData ) {
     ' ' + Utils.capitalize( firstname );
   if ( secondname.length > 0 ) name += ' ' + Utils.capitalize( secondname );
   name += ' (' + birth + ') @' +
-    exports.expand( patientData[ '#PATIENT-COUNTRY' ], '#NATIONALITY' );
+    expand( patientData[ '#PATIENT-COUNTRY' ], '#NATIONALITY' );
+  if( patientData.id ) name += "  [" + patientData.id + "]";
   return name;
 };
 
 
-/**
- * Quand c'est possible, les données  sont stoquées sous forme de leur
- * identifiant qui  commence par un  dièse `#`. Cette  fonction permet
- * donc de retrouver le texte  associé à l'identifiant, ou à retourner
- * le texte tel quel s'il ne s'agit pas d'un identifiant.
- */
-exports.expand = function ( text, type, level ) {
+function expand( text, type, level ) {
   if ( typeof text === 'undefined' ) return '';
   if ( typeof type === 'undefined' ) return text;
   if ( typeof level === 'undefined' ) level = 0;
@@ -78,18 +97,18 @@ var MONTH = [
     'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 
-exports.date = function ( seconds ) {
+function date( seconds ) {
   var date = new Date( seconds * 1000 );
   return WEEK_DAY[ date.getDay() ] +
     " " + date.getDate() +
     " " + MONTH[ date.getMonth() ] +
     " " + date.getFullYear() +
-    " à " + exports.pad( date.getHours() ) +
-    ":" + exports.pad( date.getMinutes() );
+    " à " + pad( date.getHours() ) +
+    ":" + pad( date.getMinutes() );
 };
 
 
-exports.pad = function ( txt, size, prepend ) {
+function pad( txt, size, prepend ) {
   if ( typeof size !== 'number' ) size = 2;
   if ( typeof prepend !== 'string' ) prepend = '0';
 
@@ -111,7 +130,7 @@ var NO_COMPLETION = {
   map: {}
 };
 
-exports.getCompletion = function( typeName ) {
+function getCompletion( typeName ) {
   if ( typeof typeName === 'undefined' ) 
     return NO_COMPLETION;
   typeName = purifyTypeName( typeName );
@@ -122,7 +141,7 @@ exports.getCompletion = function( typeName ) {
   if ( typeof type === 'undefined' ) 
     return NO_COMPLETION;
   
-  var list = [ ];
+  var list = [];
   var map = {};
   var key,
     val;

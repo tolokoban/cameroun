@@ -1,3 +1,60 @@
+"use strict";
+
+
+module.exports = {
+  /**
+   * @resolve patients
+   */
+  all: getAllPatients,
+  count: countPatients,
+  get: getPatient,
+  /**
+   * @param {object} data - (optional) Initial data.
+   * @resolve {object} patient.
+   */
+  create: createPatient,
+  save: save,
+  exit: closeAdmission,
+  /**
+   * @param {object} patient.
+   * @resolve {object} visit.
+   */
+  createVisit: createVisit,
+  /**
+   * @resolve {string} Full path to the resulting `*.tgz` file.
+   */
+  export: exportPatients,
+  /**
+   * @param {object} patient.
+   * @param {string} filename.
+   * @param {string} description.
+   * @resolve {string} filename.
+   */
+  attach: addAttachment,
+  /**
+   * @param {object} patient.
+   * @param {string} attachment's ID.
+   * @resolve {undefined}
+   */
+  detach: delAttachment,
+
+  ////////////////////////////////////////////////
+  // Following functions don't return Promises. //
+  ////////////////////////////////////////////////
+
+  /**
+   * @param {object} patient - Patient.
+   * @param {string} id - Value's ID.
+   * @return {object} Value of a specific attributes.
+   * @return {string} .old - Value of previous visits.
+   * @return {string} .new - Value of last visit.
+   */
+  value: getPatientValue,
+  lastVisit: getLastVisit
+};
+
+
+
 /**
  * Patients are stored locally on hard disk.
  * The list of patients is in `data/patients.json`:
@@ -87,58 +144,6 @@ var DateUtil = require("date");
 
 var g_patients = null;
 
-
-module.exports = {
-  /**
-   * @resolve patients
-   */
-  all: getAllPatients,
-  count: countPatients,
-  get: getPatient,
-  /**
-   * @param {object} data - (optional) Initial data.
-   * @resolve {object} patient.
-   */
-  create: createPatient,
-  save: save,
-  exit: closeAdmission,
-  /**
-   * @param {object} patient.
-   * @resolve {object} visit.
-   */
-  createVisit: createVisit,
-  /**
-   * @resolve {string} Full path to the resulting `*.tgz` file.
-   */
-  export: exportPatients,
-  /**
-   * @param {object} patient.
-   * @param {string} filename.
-   * @param {string} description.
-   * @resolve {string} filename.
-   */
-  attach: addAttachment,
-  /**
-   * @param {object} patient.
-   * @param {string} attachment's ID.
-   * @resolve {undefined}
-   */
-  detach: delAttachment,
-
-  ////////////////////////////////////////////////
-  // Following functions don't return Promises. //
-  ////////////////////////////////////////////////
-
-  /**
-   * @param {object} patient - Patient.
-   * @param {string} id - Value's ID.
-   * @return {object} Value of a specific attributes.
-   * @return {string} .old - Value of previous visits.
-   * @return {string} .new - Value of last visit.
-   */
-  value: getPatientValue,
-  lastVisit: getLastVisit
-};
 
 /**
  * Resolves in `patients`.

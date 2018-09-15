@@ -33,7 +33,8 @@ function onPage() {
   g_patientId = patientId;
   Patients.get( patientId ).then( function ( patient ) {
     g_patient = patient;
-
+    patient.data.id = patientId;
+    
     refreshAttachments();
     refreshConsultations();
     W( 'picture' ).value = patient;

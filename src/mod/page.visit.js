@@ -26,6 +26,7 @@ function onPage() {
   var patientId = hash[ 1 ];
   Patients.get( patientId ).then( function ( patient ) {
     g_patient = patient;
+    patient.data.id = patientId;
     document.getElementById( 'visit.title' ).textContent =
       Format.getPatientCaption( patient.data );
     var container = document.getElementById( "visit.data" );

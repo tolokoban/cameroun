@@ -1,4 +1,3 @@
-
 {
     "name": "cameroun",
     "author": "tolokoban",
@@ -10,7 +9,7 @@
     "homepage": "https://github.com/tolokoban/cameroun",
     "license": "GPL-3.0",
     "scripts": {
-        "start": "nw www",
+        "start": "node node_modules/toloframework/bin/tfw.js build debug && nw www",
         "test": "node node_modules/karma/bin/karma start karma.conf.js",
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
         "watch": "node node_modules/toloframework/bin/tfw.js build debug test php watch",
@@ -40,7 +39,7 @@
         },
         "output": "www"
     },
-    "version": "0.4.0",
+    "version": "0.4.2",
     "reservedModules": [
         "fs",
         "path",
@@ -78,5 +77,5 @@
         "width": 800,
         "height": 600
     },
-    "debug": false
+    "debug": true
 }

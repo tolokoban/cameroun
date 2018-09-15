@@ -1,5 +1,10 @@
 "use strict";
 
+exports.start = prepareStart;
+exports.onPage = onPage;
+
+
+
 //require("offline");
 require("font.josefin");
 
@@ -24,10 +29,6 @@ var pages = {
 };
 
 
-exports.start = start;
-exports.onPage = onPage;
-
-
 function onPage( pageId ) {
   console.info("pageId=", pageId);
   var page = pages[pageId.toLowerCase()];
@@ -36,21 +37,25 @@ function onPage( pageId ) {
 };
 
 
-function start() {
+function prepareStart() {
   var lang = Preferences.get( "lang", "fr" );
   Cfg.lang( lang );
-  
+
   var manifest = nw.App.manifest;
   if (manifest && manifest.debug) {
     nw.Window.get().showDevTools( null, start );
   } else {
-    location.hash = "#Loading";
-    Structure().then(function() {
-      location.hash = "#Home";
-    }).catch(function(err) {
-      err.context = "Loading...";
-      console.error( err );
-      Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
-    });
+    start();
   }
-};
+}
+
+function start() {
+  location.hash = "#Loading";
+  Structure().then(function() {
+    location.hash = "#Home";
+  }).catch(function(err) {
+    err.context = "Loading...";
+    console.error( err );
+    Modal.alert( _('loading-error', JSON.stringify( err, null, '  ' ) ) );
+  });
+}
