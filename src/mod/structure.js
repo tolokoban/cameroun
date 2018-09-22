@@ -24,8 +24,6 @@ var FS = require("node://fs");
 
 // Name of the local backup for structure.
 var FILENAME = "data/structure.json";
-// URL of the service delivering structure.
-var URL = "http://tolokoban.org/Cameroun/tfw/svc.php?s=GetOrg";
 
 var g_structure = null;
 var g_source = null;
@@ -35,23 +33,18 @@ var g_source = null;
  */
 function createPromise() {
   return new Promise(function (resolve, reject) {
-    Synchro.start().then(function() {
-      Msg(_('synchro-success'));
-    }, function() {
-      Err(_('synchro-failure'));
-    });
     if( g_structure ) resolve( g_structure );
     else {
+      Synchro.start().then(function() {
+        console.log(_('synchro-success'));
+      }, function() {
+        Err(_('synchro-failure'));
+      });
       // Load structure from internet or from local disk if network is unreachable.
-      Files.mkdir( "data" )
+      Files
+        .mkdir( "data" )
         .then(function() {
-          return fetch( URL );
-        })
-        .then(function( response ) {
-          if( response.ok == false) {
-            throw( "Error " + response.status + " - " + response.statusText );
-          }
-          return response.json();
+          return Synchro.structure();
         })
         .then(function( data ) {
           if( !loadStructure( data ) ) {
@@ -87,13 +80,12 @@ function loadStructure( data ) {
   g_source = {};
 
   var key, val;
-  for( key in data ) {
+  ['exams', 'vaccins', 'patient', 'forms', 'types'].forEach(function (key) {
     val = data[key];
     if( typeof val !== 'string' ) val = '';
     try {
       g_source[key] = val;
       g_structure[key] = Parser.parse( val );
-      console.info("[structure] exports[", key, "]=", g_structure[key]);
     }
     catch (ex) {
       Modal.alert($.div([
@@ -102,6 +94,6 @@ function loadStructure( data ) {
       ]));
       return false;
     }
-  }
+  });
   return true;
 }

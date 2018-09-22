@@ -139,7 +139,8 @@ exports.onExport = function() {
  * To get to the admin page, the current user must be authentificated.
  */
 exports.onAdmin = function() {
-  location = "admin.html";
+  window.open( Synchro.remoteServer );
+  //location = "admin.html";
 };
 
 

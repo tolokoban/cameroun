@@ -24,6 +24,10 @@ exports.start = start;
  * slow the app.
  */
 exports.update = Timer.debounce( update, 5000 );
+/**
+ * Return a promise which resolves into a structure. Or reject with the error.
+ */
+exports.structure = structure;
 
 
 exports.NETWORK_FAILURE = -1;
@@ -202,7 +206,7 @@ function update() {
 
 function start() {
   return new Promise(function (resolve, reject) {
-    if( g_state == 0 ) {
+    if( g_state === 0 ) {
       g_state = 1;
       getStatus( exports.remoteServer, exports.secretCode ).then(
         function( status ) {
@@ -221,7 +225,7 @@ function start() {
        }
       );
     }
-    else if( g_state == 1 ) {
+    else if( g_state === 1 ) {
       reject( exports.ALREADY_STARTING );
     }
     else {
@@ -258,6 +262,19 @@ function getStatus( remoteServer, secretCode ) {
   });
 }
 
+
+function structure( carecenterId ) {
+  return new Promise(function (resolve, reject) {
+    query({cmd: 'structure' }).then(function( data ) {
+      console.info("[synchro.structure] Received: ", data);
+      resolve( data );
+    }, function( err ) {
+      console.error("Unable to query structure for " + carecenterId + "!");
+      console.error(err);
+      reject( err );
+    });
+  });
+}
 
 function query( args ) {
   var remoteServer = ("" + exports.remoteServer).trim();
