@@ -1,4 +1,4 @@
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.14\"","major":"0","minor":"4","revision":"14","date":"2018-09-23T19:33:27.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.15\"","major":"0","minor":"4","revision":"15","date":"2018-11-17T11:03:56.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
 var currentLang = null;
 exports.lang = function(lang) {
     if (lang === undefined) {
