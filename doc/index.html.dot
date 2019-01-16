@@ -1,0 +1,471 @@
+digraph dependencies {
+    "wdg.layout-stack" -> "$"
+
+    "wdg.layout-stack" -> "dom"
+
+    "wdg.layout-stack" -> "tfw.data-binding"
+
+    "wdg.layout-stack" -> "tfw.hash-watcher"
+    "tfw.hash-watcher" -> "$"
+
+    "tfw.hash-watcher" -> "tfw.listeners"
+    "tfw.listeners" -> "$"
+    "tfw.data-binding" -> "$"
+
+    "tfw.data-binding" -> "polyfill.string"
+
+    "tfw.data-binding" -> "dom"
+
+    "tfw.data-binding" -> "tfw.css"
+
+    "tfw.data-binding" -> "tfw.listeners"
+    "tfw.css" -> "$"
+    "dom" -> "$"
+
+    "dom" -> "polyfill.classList"
+
+    "dom" -> "tfw.pointer-events"
+    "tfw.pointer-events" -> "$"
+    "polyfill.classList" -> "$"
+    "polyfill.string" -> "$"
+    "x-widget" -> "$"
+
+    "x-widget" -> "dom"
+
+    "x-widget" -> "tfw.data-binding"
+    "page.exam" -> "$"
+
+    "page.exam" -> "polyfill.promise"
+
+    "page.exam" -> "dom"
+
+    "page.exam" -> "x-widget"
+
+    "page.exam" -> "tfw.message"
+
+    "page.exam" -> "files"
+
+    "page.exam" -> "tfw.archive"
+
+    "page.exam" -> "wdg.showhide"
+
+    "page.exam" -> "patients"
+
+    "page.exam" -> "wdg.checkbox"
+
+    "page.exam" -> "structure"
+    "structure" -> "$"
+
+    "structure" -> "polyfill.promise"
+
+    "structure" -> "dom"
+
+    "structure" -> "tfw.web-service"
+
+    "structure" -> "tfw.message"
+
+    "structure" -> "files"
+
+    "structure" -> "wdg.modal"
+
+    "structure" -> "structure.parser"
+
+    "structure" -> "synchro"
+
+    "structure" -> "tfw.storage"
+    "tfw.storage" -> "$"
+    "synchro" -> "$"
+
+    "synchro" -> "tfw.timer"
+
+    "synchro" -> "preferences"
+
+    "synchro" -> "patients"
+
+    "synchro" -> "tfw.web-service"
+    "tfw.web-service" -> "$"
+
+    "tfw.web-service" -> "polyfill.promise"
+
+    "tfw.web-service" -> "tfw.storage"
+
+    "tfw.web-service" -> "tfw.listeners"
+    "polyfill.promise" -> "$"
+    "patients" -> "$"
+
+    "patients" -> "guid"
+
+    "patients" -> "fatal"
+
+    "patients" -> "files"
+
+    "patients" -> "date"
+
+    "patients" -> "synchro"
+    "date" -> "$"
+    "files" -> "$"
+
+    "files" -> "fatal"
+    "fatal" -> "$"
+    "guid" -> "$"
+    "preferences" -> "$"
+
+    "preferences" -> "tfw.timer"
+    "tfw.timer" -> "$"
+
+    "tfw.timer" -> "polyfill.promise"
+    "structure.parser" -> "$"
+    "wdg.modal" -> "$"
+
+    "wdg.modal" -> "dom"
+
+    "wdg.modal" -> "tfw.data-binding"
+
+    "wdg.modal" -> "wdg.flex"
+
+    "wdg.modal" -> "wdg.button"
+    "wdg.button" -> "$"
+
+    "wdg.button" -> "dom"
+
+    "wdg.button" -> "tfw.data-binding"
+
+    "wdg.button" -> "wdg.icon"
+
+    "wdg.button" -> "tfw.touchable"
+    "tfw.touchable" -> "$"
+
+    "tfw.touchable" -> "dom"
+
+    "tfw.touchable" -> "dom.fx"
+
+    "tfw.touchable" -> "tfw.listeners"
+    "dom.fx" -> "$"
+
+    "dom.fx" -> "polyfill.promise"
+
+    "dom.fx" -> "dom"
+
+    "dom.fx" -> "tfw.data-binding"
+    "wdg.icon" -> "$"
+
+    "wdg.icon" -> "dom"
+
+    "wdg.icon" -> "tfw.data-binding"
+
+    "wdg.icon" -> "tfw.touchable"
+    "wdg.flex" -> "$"
+
+    "wdg.flex" -> "dom"
+
+    "wdg.flex" -> "tfw.data-binding"
+    "tfw.message" -> "$"
+
+    "tfw.message" -> "dom"
+    "wdg.checkbox" -> "$"
+
+    "wdg.checkbox" -> "dom"
+
+    "wdg.checkbox" -> "tfw.data-binding"
+
+    "wdg.checkbox" -> "wdg.icon"
+
+    "wdg.checkbox" -> "tfw.touchable"
+    "wdg.showhide" -> "$"
+
+    "wdg.showhide" -> "dom"
+
+    "wdg.showhide" -> "tfw.data-binding"
+
+    "wdg.showhide" -> "wdg.icon"
+
+    "wdg.showhide" -> "tfw.focusable"
+    "tfw.focusable" -> "$"
+
+    "tfw.focusable" -> "dom"
+
+    "tfw.focusable" -> "tfw.data-binding"
+    "tfw.archive" -> "$"
+
+    "tfw.archive" -> "polyfill.promise"
+
+    "tfw.archive" -> "tfw.zip"
+    "tfw.zip" -> "$"
+    "page.visit-summary" -> "$"
+
+    "page.visit-summary" -> "dom"
+
+    "page.visit-summary" -> "format"
+
+    "page.visit-summary" -> "patients"
+
+    "page.visit-summary" -> "structure"
+    "format" -> "$"
+
+    "format" -> "utils"
+
+    "format" -> "date"
+
+    "format" -> "structure"
+    "utils" -> "$"
+    "page.visit" -> "$"
+
+    "page.visit" -> "dom"
+
+    "page.visit" -> "form"
+
+    "page.visit" -> "wdg.modal"
+
+    "page.visit" -> "input"
+
+    "page.visit" -> "format"
+
+    "page.visit" -> "patients"
+
+    "page.visit" -> "wdg.showhide"
+
+    "page.visit" -> "date"
+
+    "page.visit" -> "structure"
+    "input" -> "$"
+
+    "input" -> "dom"
+
+    "input" -> "tfw.data-binding"
+
+    "input" -> "wdg.text"
+
+    "input" -> "format"
+
+    "input" -> "patients"
+
+    "input" -> "structure"
+
+    "input" -> "input.list"
+    "input.list" -> "$"
+
+    "input.list" -> "dom"
+
+    "input.list" -> "tfw.data-binding"
+
+    "input.list" -> "wdg.icon"
+
+    "input.list" -> "wdg.text"
+
+    "input.list" -> "wdg.flex"
+
+    "input.list" -> "wdg.modal"
+
+    "input.list" -> "wdg.button"
+
+    "input.list" -> "format"
+    "wdg.text" -> "$"
+
+    "wdg.text" -> "dom"
+
+    "wdg.text" -> "tfw.data-binding"
+
+    "wdg.text" -> "wdg.lang"
+
+    "wdg.text" -> "tfw.timer"
+    "wdg.lang" -> "$"
+
+    "wdg.lang" -> "dom"
+
+    "wdg.lang" -> "tfw.data-binding"
+
+    "wdg.lang" -> "wdg.modal"
+
+    "wdg.lang" -> "wdg.button"
+
+    "wdg.lang" -> "wdg.box-button"
+    "wdg.box-button" -> "$"
+
+    "wdg.box-button" -> "dom"
+
+    "wdg.box-button" -> "tfw.data-binding"
+
+    "wdg.box-button" -> "tfw.touchable"
+    "form" -> "$"
+
+    "form" -> "dom"
+
+    "form" -> "tfw.data-binding"
+
+    "form" -> "wdg.text"
+
+    "form" -> "wdg.date2"
+
+    "form" -> "format"
+
+    "form" -> "structure"
+    "wdg.date2" -> "$"
+
+    "wdg.date2" -> "dom"
+
+    "wdg.date2" -> "tfw.data-binding"
+
+    "wdg.date2" -> "date"
+    "picture" -> "$"
+
+    "picture" -> "dom"
+
+    "picture" -> "tfw.data-binding"
+
+    "picture" -> "tfw.message"
+
+    "picture" -> "wdg.flex"
+
+    "picture" -> "wdg.modal"
+
+    "picture" -> "wdg.button"
+
+    "picture" -> "patients"
+
+    "picture" -> "tfw.touchable"
+    "page.patient" -> "$"
+
+    "page.patient" -> "dom"
+
+    "page.patient" -> "x-widget"
+
+    "page.patient" -> "tfw.message"
+
+    "page.patient" -> "wdg.text"
+
+    "page.patient" -> "wdg.flex"
+
+    "page.patient" -> "wdg.icon"
+
+    "page.patient" -> "wdg.modal"
+
+    "page.patient" -> "wdg.button"
+
+    "page.patient" -> "format"
+
+    "page.patient" -> "date"
+
+    "page.patient" -> "patients"
+
+    "page.patient" -> "structure"
+
+    "page.patient" -> "modal.patient"
+    "modal.patient" -> "$"
+
+    "modal.patient" -> "dom"
+
+    "modal.patient" -> "tfw.message"
+
+    "modal.patient" -> "form"
+
+    "modal.patient" -> "wdg.flex"
+
+    "modal.patient" -> "wdg.modal"
+
+    "modal.patient" -> "wdg.button"
+
+    "modal.patient" -> "structure"
+    "page.home" -> "$"
+
+    "page.home" -> "dom"
+
+    "page.home" -> "x-widget"
+
+    "page.home" -> "tfw.data-binding"
+
+    "page.home" -> "tfw.message"
+
+    "page.home" -> "form"
+
+    "page.home" -> "wdg.icon"
+
+    "page.home" -> "wdg.text"
+
+    "page.home" -> "files"
+
+    "page.home" -> "wdg.modal"
+
+    "page.home" -> "format"
+
+    "page.home" -> "wdg.button"
+
+    "page.home" -> "synchro"
+
+    "page.home" -> "patients"
+
+    "page.home" -> "structure"
+
+    "page.home" -> "input.search"
+
+    "page.home" -> "preferences"
+
+    "page.home" -> "modal.patient"
+
+    "page.home" -> "tfw.local-download"
+    "tfw.local-download" -> "$"
+    "input.search" -> "$"
+
+    "input.search" -> "dom"
+
+    "input.search" -> "tfw.data-binding"
+
+    "input.search" -> "wdg.text"
+
+    "input.search" -> "format"
+
+    "input.search" -> "wdg.button"
+
+    "input.search" -> "patients"
+    "wdg.wait" -> "$"
+
+    "wdg.wait" -> "dom"
+
+    "wdg.wait" -> "tfw.data-binding"
+
+    "wdg.wait" -> "wdg.icon"
+    "x-intl" -> "$"
+    "app" -> "$"
+
+    "app" -> "font.josefin"
+
+    "app" -> "dom"
+
+    "app" -> "tfw.message"
+
+    "app" -> "form"
+
+    "app" -> "wdg.modal"
+
+    "app" -> "structure"
+
+    "app" -> "preferences"
+
+    "app" -> "page.loading"
+
+    "app" -> "page.home"
+
+    "app" -> "page.list"
+
+    "app" -> "page.patient"
+
+    "app" -> "page.visit"
+
+    "app" -> "page.visit-summary"
+
+    "app" -> "page.exam"
+    "page.list" -> "$"
+
+    "page.list" -> "dom"
+
+    "page.list" -> "wdg.button"
+
+    "page.list" -> "format"
+
+    "page.list" -> "patients"
+    "page.loading" -> "$"
+
+    "page.loading" -> "font.mystery-quest"
+    "font.mystery-quest" -> "$"
+    "font.josefin" -> "$"
+
+}
