@@ -55,6 +55,10 @@
 
 
 
+## `registerAndApplyTheme()`
+
+
+
 ## `replace()`
 
 [object Object]
@@ -89,4 +93,5 @@
 ## Dependencies
 * [$]($.md)
 * [polyfill.classList](polyfill.classList.md)
-* [tfw.pointer-events](tfw.pointer-events.md)
+* [dom.theme](dom.theme.md)
+* [tfw.gestures](tfw.gestures.md)

@@ -2,6 +2,7 @@
 
 const
     $ = require("dom"),
+    PM = require("tfw.binding.property-manager"),
     DB = require("tfw.data-binding"),
     Text = require("wdg.text"),
     Combo = require("tfw.view.combo"),
@@ -55,8 +56,8 @@ function addWidget(container, def, patient, visit) {
         wdg = new Combo({
             wide: true,
             label: def.caption,
-            values: completion.list,
-            keys: Object.keys(completion.map),
+            items: prependEmpty(completion.list),
+            keys: prependEmpty(Object.keys(completion.map)),
             value: Format.expand(value.new, def.type)
         });
 
@@ -67,7 +68,7 @@ function addWidget(container, def, patient, visit) {
         list: completion.list,
         placeholder: Format.expand(value.old, def.type),
         value: Format.expand(value.new, def.type)
-    });*/
+    });
     DB.bind(wdg, 'value', function(v) {
         if (typeof v !== 'string')
             return;
@@ -81,10 +82,22 @@ function addWidget(container, def, patient, visit) {
             console.log(def.id, "=", visit.data[def.id]);
         }
         Patients.save(patient);
+    });*/
+    PM(wdg).on("value", _v => {
+        if (typeof _v !== 'string') return;
+        const v = _v.trim();
+        if (v.length === 0) {
+            delete visit.data[def.id];
+        } else {
+            // Quand c'est possible, on essaie de stoquer un ID plutôt qu'un texte libre.
+            const valueID = completion.map[v.toLowerCase()];
+            visit.data[def.id] = valueID || v;
+            console.log(def.id, "=", visit.data[def.id]);
+        }
+        Patients.save(patient);
     });
 
-    $.add(container, $.div([ //$.div([def.caption]),
-    $.div([wdg])]));
+    $.add(container, $.div([$.div([wdg])]));
 
     addHierarchicalWidget(container, wdg, def, patient, visit);
 }
@@ -209,6 +222,19 @@ function getFirstChild(def) {
         return def.children[k];
     }
     return null;
+}
+
+/**
+ * Add a empty string as first element of the given array.
+ *
+ * @param  {array} arr -
+ *
+ * @return {array} Copy of the given array with a "" as first element.
+ */
+function prependEmpty(arr) {
+    const output = [""];
+    output.push(...arr);
+    return output;
 }
 
 module.exports = Input;
