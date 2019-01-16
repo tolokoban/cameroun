@@ -26,14 +26,13 @@ exports.pad = pad;
 exports.getCompletion = getCompletion;
 
 
-
-var Utils = require("utils");
-var DateUtil = require("date");
-var Structure = require("structure");
+const
+    Utils = require("utils"),
+    DateUtil = require("date"),
+    Structure = require("structure");
 
 
 function getPatientCaption(patientData) {
-    console.info("[format] patientData=", patientData);
     var lastname = (patientData['#PATIENT-LASTNAME'] || '').trim();
     var firstname = (patientData['#PATIENT-FIRSTNAME'] || '').trim();
     var secondname = (patientData['#PATIENT-SECONDNAME'] || '').trim();
