@@ -53,9 +53,10 @@ function addWidget(container, def, patient, visit) {
     const
         value = Patients.value(patient, def.id),
         completion = Format.getCompletion(def.type),
+        oldValue = Format.expand(value.old, def.type),
         wdg = new Combo({
             wide: true,
-            label: def.caption,
+            label: def.caption + (oldValue ? ` (${oldValue})` : ""),
             items: prependEmpty(completion.list),
             keys: prependEmpty(Object.keys(completion.map)),
             value: Format.expand(value.new, def.type)
@@ -232,8 +233,10 @@ function getFirstChild(def) {
  * @return {array} Copy of the given array with a "" as first element.
  */
 function prependEmpty(arr) {
+    console.info("[prependEmpty] arr=", arr);
     const output = [""];
     output.push(...arr);
+    console.info("[prependEmpty] output=", output);
     return output;
 }
 
