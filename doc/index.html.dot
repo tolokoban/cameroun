@@ -43,6 +43,8 @@ digraph dependencies {
 
     "page.exam" -> "tfw.message"
 
+    "page.exam" -> "tfw.message"
+
     "page.exam" -> "files"
 
     "page.exam" -> "tfw.archive"
@@ -61,6 +63,8 @@ digraph dependencies {
     "structure" -> "dom"
 
     "structure" -> "tfw.web-service"
+
+    "structure" -> "tfw.message"
 
     "structure" -> "tfw.message"
 
@@ -235,6 +239,8 @@ digraph dependencies {
 
     "input" -> "wdg.text"
 
+    "input" -> "tfw.view.combo"
+
     "input" -> "format"
 
     "input" -> "patients"
@@ -286,6 +292,72 @@ digraph dependencies {
     "wdg.box-button" -> "tfw.data-binding"
 
     "wdg.box-button" -> "tfw.touchable"
+    "tfw.view.combo" -> "$"
+
+    "tfw.view.combo" -> "dom"
+
+    "tfw.view.combo" -> "tfw.binding.property-manager"
+
+    "tfw.view.combo" -> "tfw.touchable"
+
+    "tfw.view.combo" -> "tfw.view"
+
+    "tfw.view.combo" -> "tfw.binding.link"
+
+    "tfw.view.combo" -> "tfw.binding.converters"
+
+    "tfw.view.combo" -> "tfw.view.icon"
+    "tfw.view.icon" -> "$"
+
+    "tfw.view.icon" -> "polyfill.object.values"
+
+    "tfw.view.icon" -> "dom"
+
+    "tfw.view.icon" -> "tfw.icons"
+
+    "tfw.view.icon" -> "dom"
+
+    "tfw.view.icon" -> "tfw.binding.property-manager"
+
+    "tfw.view.icon" -> "tfw.view"
+
+    "tfw.view.icon" -> "tfw.binding.link"
+
+    "tfw.view.icon" -> "tfw.view"
+
+    "tfw.view.icon" -> "tfw.binding.converters"
+    "tfw.binding.converters" -> "$"
+
+    "tfw.binding.converters" -> "$"
+
+    "tfw.binding.converters" -> "tfw.binding.list"
+
+    "tfw.binding.converters" -> "tfw.color"
+    "tfw.color" -> "$"
+    "tfw.binding.list" -> "$"
+
+    "tfw.binding.list" -> "tfw.binding.property-manager"
+
+    "tfw.binding.list" -> "tfw.listeners"
+    "tfw.binding.property-manager" -> "$"
+
+    "tfw.binding.property-manager" -> "tfw.event"
+    "tfw.event" -> "$"
+    "tfw.view" -> "$"
+
+    "tfw.view" -> "dom"
+
+    "tfw.view" -> "tfw.binding.property-manager"
+
+    "tfw.view" -> "external.hammer"
+
+    "tfw.view" -> "tfw.binding.converters"
+    "external.hammer" -> "$"
+    "tfw.binding.link" -> "$"
+
+    "tfw.binding.link" -> "tfw.binding.property-manager"
+    "tfw.icons" -> "$"
+    "polyfill.object.values" -> "$"
     "form" -> "$"
 
     "form" -> "dom"
