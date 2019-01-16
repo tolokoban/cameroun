@@ -54,14 +54,15 @@ function addWidget(container, def, patient, visit) {
         value = Patients.value(patient, def.id),
         completion = Format.getCompletion(def.type),
         oldValue = Format.expand(value.old, def.type),
+        items = Object.keys(completion.map).sort(),
+        keys = items.map(item => completion.map[item].trim().toUpperCase()),
         wdg = new Combo({
             wide: true,
             label: def.caption + (oldValue ? ` (${oldValue})` : ""),
-            items: prependEmpty(completion.list),
-            keys: prependEmptyToKeys(completion.map),
+            items: prependEmpty(items),
+            keys: prependEmpty(keys),
             value: Format.expand(value.new, def.type)
         });
-
     /*
     wdg = new Text({
         wide: true,
@@ -93,7 +94,6 @@ function addWidget(container, def, patient, visit) {
             // Quand c'est possible, on essaie de stoquer un ID plutôt qu'un texte libre.
             const valueID = completion.map[v.toLowerCase()];
             visit.data[def.id] = valueID || v;
-            console.log(def.id, "=", visit.data[def.id]);
         }
         Patients.save(patient);
     });

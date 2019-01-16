@@ -134,7 +134,7 @@ var NO_COMPLETION = {
  *
  * @param  {string} typeName -
  *
- * @return {object|NO_COMPLETION} `{ list: ["Oui", "Non"], map: {YES: "Oui", NO: "Non"} }`
+ * @return {object|NO_COMPLETION} `{ list: ["Oui", "Non"], map: { Oui: "YES": Non: "NO"} }`
  */
 function getCompletion(typeName) {
     if (typeof typeName === 'undefined')
