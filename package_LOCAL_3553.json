@@ -12,10 +12,10 @@
         "start": "node node_modules/toloframework/bin/tfw.js build debug && nw www",
         "test": "node node_modules/karma/bin/karma start karma.conf.js",
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
-        "watch": "node node_modules/toloframework/bin/tfw.js build debug test watch",
-        "debug": "node node_modules/toloframework/bin/tfw.js build debug test && nw www/",
+        "watch": "node node_modules/toloframework/bin/tfw.js build debug test php watch",
+        "debug": "node node_modules/toloframework/bin/tfw.js build debug test php",
         "clean": "node node_modules/toloframework/bin/tfw.js clean",
-        "release": "node node_modules/toloframework/bin/tfw.js build version clean"
+        "release": "node node_modules/toloframework/bin/tfw.js build version php clean"
     },
     "bugs": {
         "url": "https://github.com/tolokoban/cameroun/issues"
@@ -25,7 +25,8 @@
         "compile": {
             "type": "desktop",
             "files": [
-                "index.html$"
+                "\\.html$",
+                "test/\\.html$"
             ]
         },
         "consts": {
@@ -63,12 +64,12 @@
         "zlib"
     ],
     "dependencies": {
-        "jasmine-core": "^2.99.1",
+        "jasmine-core": "^2.4",
         "karma": "^0.13",
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
-        "toloframework": "^0.50.3"
+        "toloframework": "0.47.14"
     },
     "main": "index.html",
     "window": {

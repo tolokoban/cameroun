@@ -1,9 +1,13 @@
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.15\"","major":"0","minor":"4","revision":"15","date":"2018-11-17T11:03:56.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
-var currentLang = null;
-exports.lang = function(lang) {
-    if (lang === undefined) {
-        if (window.localStorage) {
-            lang = window.localStorage.getItem("Language");
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.15\"","major":"0","minor":"4","revision":"15","date":"2019-01-16T10:11:28.833Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
+"use strict";
+
+const ZERO_CHAR_CODE = '0'.charCodeAt( 0 );
+
+exports.lang = function lang( _lang ) {
+    let language = _lang;
+    if ( typeof language === 'undefined' ) {
+        if ( window.localStorage ) {
+            language = window.localStorage.getItem( "Language" );
         }
         if (!lang) {
             lang = window.navigator.language;
