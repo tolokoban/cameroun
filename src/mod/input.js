@@ -58,7 +58,7 @@ function addWidget(container, def, patient, visit) {
             wide: true,
             label: def.caption + (oldValue ? ` (${oldValue})` : ""),
             items: prependEmpty(completion.list),
-            keys: prependEmpty(Object.keys(completion.map)),
+            keys: prependEmptyToKeys(completion.map),
             value: Format.expand(value.new, def.type)
         });
 
@@ -233,11 +233,20 @@ function getFirstChild(def) {
  * @return {array} Copy of the given array with a "" as first element.
  */
 function prependEmpty(arr) {
-    console.info("[prependEmpty] arr=", arr);
     const output = [""];
     output.push(...arr);
-    console.info("[prependEmpty] output=", output);
     return output;
+}
+
+/**
+ * Add a empty string as first element of the given object keys.
+ *
+ * @param  {object} obj - Object from which ew want to extrac the keys.
+ *
+ * @return {array} Copy of the given array with a "" as first element.
+ */
+function prependEmptyToKeys(obj) {
+    return prependEmpty(Object.keys(obj).map(key => key.trim().toUpperCase()));
 }
 
 module.exports = Input;
