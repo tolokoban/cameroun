@@ -68,7 +68,7 @@
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
-        "toloframework": "^0.50.3"
+        "toloframework": "^0.50.5"
     },
     "main": "index.html",
     "window": {

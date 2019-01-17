@@ -1,0 +1,23 @@
+{View DIV class:cameroun-view-combo
+    view.attribs: {
+        value: {string ""}
+        items: {array []}
+        keys: {array []}
+        label: {string ...}
+        old-value: {string ""}
+    }
+
+    [
+        {DIV class:left [
+            {DIV class:label textcontent:{Bind label}}
+            {tfw.view.combo
+                value: {Bind value}
+                keys: {Bind keys}
+                items: {Bind items}
+                label: ""
+                wide: false
+            }
+        ]}
+        {DIV class:old-value textcontent: {Bind old-value}}
+    ]
+}

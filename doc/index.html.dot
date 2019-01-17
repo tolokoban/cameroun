@@ -246,7 +246,9 @@ digraph dependencies {
 
     "input" -> "wdg.text"
 
-    "input" -> "tfw.view.combo"
+    "input" -> "cameroun.view.combo"
+
+    "input" -> "tfw.view.textbox"
 
     "input" -> "format"
 
@@ -299,6 +301,52 @@ digraph dependencies {
     "wdg.box-button" -> "tfw.data-binding"
 
     "wdg.box-button" -> "tfw.touchable"
+    "tfw.view.textbox" -> "$"
+
+    "tfw.view.textbox" -> "dom"
+
+    "tfw.view.textbox" -> "tfw.binding.property-manager"
+
+    "tfw.view.textbox" -> "tfw.view"
+
+    "tfw.view.textbox" -> "tfw.binding.link"
+
+    "tfw.view.textbox" -> "tfw.binding.converters"
+    "tfw.binding.converters" -> "$"
+
+    "tfw.binding.converters" -> "tfw.binding.list"
+
+    "tfw.binding.converters" -> "tfw.color"
+    "tfw.binding.list" -> "$"
+
+    "tfw.binding.list" -> "tfw.binding.property-manager"
+
+    "tfw.binding.list" -> "tfw.listeners"
+    "tfw.binding.property-manager" -> "$"
+
+    "tfw.binding.property-manager" -> "tfw.event"
+    "tfw.event" -> "$"
+    "tfw.binding.link" -> "$"
+
+    "tfw.binding.link" -> "tfw.binding.property-manager"
+    "tfw.view" -> "$"
+
+    "tfw.view" -> "dom"
+
+    "tfw.view" -> "tfw.binding.property-manager"
+
+    "tfw.view" -> "tfw.binding.converters"
+    "cameroun.view.combo" -> "dom"
+
+    "cameroun.view.combo" -> "tfw.binding.property-manager"
+
+    "cameroun.view.combo" -> "tfw.view"
+
+    "cameroun.view.combo" -> "tfw.binding.link"
+
+    "cameroun.view.combo" -> "tfw.binding.converters"
+
+    "cameroun.view.combo" -> "tfw.view.combo"
     "tfw.view.combo" -> "$"
 
     "tfw.view.combo" -> "dom"
@@ -329,30 +377,6 @@ digraph dependencies {
     "tfw.view.icon" -> "tfw.binding.link"
 
     "tfw.view.icon" -> "tfw.binding.converters"
-    "tfw.binding.converters" -> "$"
-
-    "tfw.binding.converters" -> "tfw.binding.list"
-
-    "tfw.binding.converters" -> "tfw.color"
-    "tfw.binding.list" -> "$"
-
-    "tfw.binding.list" -> "tfw.binding.property-manager"
-
-    "tfw.binding.list" -> "tfw.listeners"
-    "tfw.binding.property-manager" -> "$"
-
-    "tfw.binding.property-manager" -> "tfw.event"
-    "tfw.event" -> "$"
-    "tfw.binding.link" -> "$"
-
-    "tfw.binding.link" -> "tfw.binding.property-manager"
-    "tfw.view" -> "$"
-
-    "tfw.view" -> "dom"
-
-    "tfw.view" -> "tfw.binding.property-manager"
-
-    "tfw.view" -> "tfw.binding.converters"
     "tfw.icons" -> "$"
     "polyfill.object.values" -> "$"
     "form" -> "$"
