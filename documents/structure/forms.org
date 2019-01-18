@@ -1,0 +1,34 @@
+* #CONSULTATION-DATE Date de la consultation @DATE
+* #CONSULTATION-LOCATION Lieu de la consultation (#CONSULTATION-LOCATION)
+* #MATRIMONIAL-STATUS Status matrimonial (#MATRIMONIAL-STATUS)
+* #REFERENCE Référence (#MATRIMONIAL-STATUS)
+* #MOTIF-CONSULTATION Motif de consultation (#MOTIF-CONSULTATION)
+
+* Antécédents
+** #MENOPAUSE Ménopause @bool
+** #CONTRACEPTION-IN-PROGRESS Contraception en cours (#CONTRACEPTION-IN-PROGRESS)
+** IST
+*** #VIH-TEST VIH (#TEST)
+**** #VIH-DATE Date du dernier test @date
+*** #HBV-TEST HBV (#TEST)
+**** #HBV-DATE Date du dernier test @date
+*** #HCV-TEST HCV (#TEST)
+**** #HCV-DATE Date du dernier test @date
+** Examen du col
+*** #VIA-TEST VIA (#TEST)
+*** #VILI-TEST VILI (#TEST)
+*** #CERVICAL-BIOPSY VIA (#TEST)
+** Examens labo faits pendant la consultation
+*** #CERVICAL-BRUSHING Brossage du col (#BOOL)
+*** #CYTOLOGY Cytologie (#BOOL)
+*** GenXpert
+
+*** Sérologie
+*** #PREGNANCY-TEST Test de grossesse (#TEST)
+
+
+
+
+
+
+
