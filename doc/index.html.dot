@@ -221,21 +221,71 @@ digraph dependencies {
 
     "page.visit" -> "dom"
 
-    "page.visit" -> "form"
-
-    "page.visit" -> "wdg.modal"
-
     "page.visit" -> "input"
 
     "page.visit" -> "format"
 
     "page.visit" -> "patients"
 
+    "page.visit" -> "tfw.view.expand"
+
     "page.visit" -> "wdg.showhide"
 
     "page.visit" -> "date"
 
     "page.visit" -> "structure"
+    "tfw.view.expand" -> "dom"
+
+    "tfw.view.expand" -> "tfw.binding.property-manager"
+
+    "tfw.view.expand" -> "tfw.view"
+
+    "tfw.view.expand" -> "tfw.binding.link"
+
+    "tfw.view.expand" -> "tfw.binding.converters"
+
+    "tfw.view.expand" -> "tfw.view.icon"
+    "tfw.view.icon" -> "$"
+
+    "tfw.view.icon" -> "polyfill.object.values"
+
+    "tfw.view.icon" -> "dom"
+
+    "tfw.view.icon" -> "tfw.icons"
+
+    "tfw.view.icon" -> "tfw.binding.property-manager"
+
+    "tfw.view.icon" -> "tfw.view"
+
+    "tfw.view.icon" -> "tfw.binding.link"
+
+    "tfw.view.icon" -> "tfw.binding.converters"
+    "tfw.binding.converters" -> "$"
+
+    "tfw.binding.converters" -> "tfw.binding.list"
+
+    "tfw.binding.converters" -> "tfw.color"
+    "tfw.binding.list" -> "$"
+
+    "tfw.binding.list" -> "tfw.binding.property-manager"
+
+    "tfw.binding.list" -> "tfw.listeners"
+    "tfw.binding.property-manager" -> "$"
+
+    "tfw.binding.property-manager" -> "tfw.event"
+    "tfw.event" -> "$"
+    "tfw.binding.link" -> "$"
+
+    "tfw.binding.link" -> "tfw.binding.property-manager"
+    "tfw.view" -> "$"
+
+    "tfw.view" -> "dom"
+
+    "tfw.view" -> "tfw.binding.property-manager"
+
+    "tfw.view" -> "tfw.binding.converters"
+    "tfw.icons" -> "$"
+    "polyfill.object.values" -> "$"
     "input" -> "$"
 
     "input" -> "dom"
@@ -248,9 +298,11 @@ digraph dependencies {
 
     "input" -> "cameroun.view.combo"
 
+    "input" -> "format"
+
     "input" -> "tfw.view.textbox"
 
-    "input" -> "format"
+    "input" -> "tfw.view.checkbox"
 
     "input" -> "patients"
 
@@ -301,6 +353,19 @@ digraph dependencies {
     "wdg.box-button" -> "tfw.data-binding"
 
     "wdg.box-button" -> "tfw.touchable"
+    "tfw.view.checkbox" -> "$"
+
+    "tfw.view.checkbox" -> "tfw.binding.property-manager"
+
+    "tfw.view.checkbox" -> "tfw.touchable"
+
+    "tfw.view.checkbox" -> "dom"
+
+    "tfw.view.checkbox" -> "tfw.view"
+
+    "tfw.view.checkbox" -> "tfw.binding.link"
+
+    "tfw.view.checkbox" -> "tfw.binding.converters"
     "tfw.view.textbox" -> "$"
 
     "tfw.view.textbox" -> "dom"
@@ -312,30 +377,6 @@ digraph dependencies {
     "tfw.view.textbox" -> "tfw.binding.link"
 
     "tfw.view.textbox" -> "tfw.binding.converters"
-    "tfw.binding.converters" -> "$"
-
-    "tfw.binding.converters" -> "tfw.binding.list"
-
-    "tfw.binding.converters" -> "tfw.color"
-    "tfw.binding.list" -> "$"
-
-    "tfw.binding.list" -> "tfw.binding.property-manager"
-
-    "tfw.binding.list" -> "tfw.listeners"
-    "tfw.binding.property-manager" -> "$"
-
-    "tfw.binding.property-manager" -> "tfw.event"
-    "tfw.event" -> "$"
-    "tfw.binding.link" -> "$"
-
-    "tfw.binding.link" -> "tfw.binding.property-manager"
-    "tfw.view" -> "$"
-
-    "tfw.view" -> "dom"
-
-    "tfw.view" -> "tfw.binding.property-manager"
-
-    "tfw.view" -> "tfw.binding.converters"
     "cameroun.view.combo" -> "dom"
 
     "cameroun.view.combo" -> "tfw.binding.property-manager"
@@ -362,36 +403,6 @@ digraph dependencies {
     "tfw.view.combo" -> "tfw.binding.converters"
 
     "tfw.view.combo" -> "tfw.view.icon"
-    "tfw.view.icon" -> "$"
-
-    "tfw.view.icon" -> "polyfill.object.values"
-
-    "tfw.view.icon" -> "dom"
-
-    "tfw.view.icon" -> "tfw.icons"
-
-    "tfw.view.icon" -> "tfw.binding.property-manager"
-
-    "tfw.view.icon" -> "tfw.view"
-
-    "tfw.view.icon" -> "tfw.binding.link"
-
-    "tfw.view.icon" -> "tfw.binding.converters"
-    "tfw.icons" -> "$"
-    "polyfill.object.values" -> "$"
-    "form" -> "$"
-
-    "form" -> "dom"
-
-    "form" -> "tfw.data-binding"
-
-    "form" -> "wdg.text"
-
-    "form" -> "wdg.date2"
-
-    "form" -> "format"
-
-    "form" -> "structure"
     "wdg.date2" -> "$"
 
     "wdg.date2" -> "dom"
@@ -458,6 +469,19 @@ digraph dependencies {
     "modal.patient" -> "wdg.button"
 
     "modal.patient" -> "structure"
+    "form" -> "$"
+
+    "form" -> "dom"
+
+    "form" -> "tfw.data-binding"
+
+    "form" -> "wdg.text"
+
+    "form" -> "wdg.date2"
+
+    "form" -> "format"
+
+    "form" -> "structure"
     "page.home" -> "$"
 
     "page.home" -> "dom"

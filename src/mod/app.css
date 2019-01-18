@@ -1,5 +1,5 @@
 html {
-    font-family: josefin;
+    font-family: josefin-sans;
     text-align: center;
     background-color: #cdc;
     margin: 0;
@@ -68,7 +68,7 @@ h1, h2 {
     line-height: 150%;
     text-shadow: none;
     font-weight: 700;
-    border: none;    
+    border: none;
     background: rgba(0,0,0,.1);
     text-align: left;
 }
@@ -116,4 +116,3 @@ body.style .wdg-button.simple {
 body.style .wdg-button.warning {
   background: #724E10;
 }
-

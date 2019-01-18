@@ -1,34 +1,84 @@
 * #CONSULTATION-DATE Date de la consultation @DATE
 * #CONSULTATION-LOCATION Lieu de la consultation (#CONSULTATION-LOCATION)
 * #MATRIMONIAL-STATUS Status matrimonial (#MATRIMONIAL-STATUS)
-* #REFERENCE Référence (#MATRIMONIAL-STATUS)
+* #REFERENCE Référence (#REFERENCE)
 * #MOTIF-CONSULTATION Motif de consultation (#MOTIF-CONSULTATION)
 
 * Antécédents
 ** #MENOPAUSE Ménopause @bool
 ** #CONTRACEPTION-IN-PROGRESS Contraception en cours (#CONTRACEPTION-IN-PROGRESS)
 ** IST
-*** #VIH-TEST VIH (#TEST)
-**** #VIH-DATE Date du dernier test @date
-*** #HBV-TEST HBV (#TEST)
-**** #HBV-DATE Date du dernier test @date
-*** #HCV-TEST HCV (#TEST)
-**** #HCV-DATE Date du dernier test @date
+*** #VIH VIH (#TEST)
+*** #VIH-DATE Date du dernier test @date
+*** #HBV HBV (#TEST)
+*** #HBV-DATE Date du dernier test @date
+*** #HCV HCV (#TEST)
+*** #HCV-DATE Date du dernier test @date
 ** Examen du col
 *** #VIA-TEST VIA (#TEST)
 *** #VILI-TEST VILI (#TEST)
 *** #CERVICAL-BIOPSY VIA (#TEST)
 ** Examens labo faits pendant la consultation
 *** #CERVICAL-BRUSHING Brossage du col (#BOOL)
+**** Cytologie
+***** #CERVICAL-BRUSHING-CYTOLOGY-LAB-RESULT-LSIL LSIL, CIN 1 (#TEST)
+***** #CERVICAL-BRUSHING-CYTOLOGY-LAB-RESULT-HSIL HSIL, CIN 2/3 (#TEST)
+***** #CERVICAL-BRUSHING-CYTOLOGY-LAB-RESULT-CANCER Cancer (#TEST)
+**** Biopsie
+***** #CERVICAL-BRUSHING-BIOPSY-LAB-RESULT-LSIL LSIL, CIN 1 (#TEST)
+***** #CERVICAL-BRUSHING-BIOPSY-LAB-RESULT-HSIL HSIL, CIN 2/3 (#TEST)
+***** #CERVICAL-BRUSHING-BIOPSY-LAB-RESULT-CANCER Cancer (#TEST)
+**** Brossage endocervical
+***** #CERVICAL-BRUSHING-ENDOCERVICAL-LAB-RESULT-LSIL LSIL, CIN 1 (#TEST)
+***** #CERVICAL-BRUSHING-ENDOCERVICAL-LAB-RESULT-HSIL HSIL, CIN 2/3 (#TEST)
+***** #CERVICAL-BRUSHING-ENDOCERVICAL-LAB-RESULT-CANCER Cancer (#TEST)
 *** #CYTOLOGY Cytologie (#BOOL)
 *** GenXpert
-
+**** #HPV-TEST HPV (#TEST)
+**** #GONOCOQUE Gonocoque (#TEST)
+**** #CLAMYDIA Clamydia (#TEST)
 *** Sérologie
+**** #HIV-TEST HIV (#TEST)
+**** #HBSAG-TEST HBsAG (#TEST)
+**** #VDRL-TEST VDRL (#TEST)
+**** #TPHA-TEST TPHA (#TEST)
 *** #PREGNANCY-TEST Test de grossesse (#TEST)
 
-
-
-
-
-
-
+* Conclusion
+** Diagnostic
+*** #DIAGNOSIS-VAGINITIS Vaginite @BOOL
+*** #DIAGNOSIS-VERVICITE Vervicite @BOOL
+*** #DIAGNOSIS-ULCÈRE Ulcère @BOOL
+*** #DIAGNOSIS-HERPES Herpes @BOOL
+*** #DIAGNOSIS-CONDYLOME Condylome @BOOL
+*** #DIAGNOSIS-PID PID @BOOL
+*** #DIAGNOSIS-VIH VIH @BOOL
+*** #DIAGNOSIS-GENITAL-SCHISTOSOMIASIS Schistosomiase génitale @BOOL
+*** #DIAGNOSIS-SUSPICIOUS-CERVICAL-LESION Lésion cervicale suspecte @BOOL
+*** #DIAGNOSIS-BREAST-CANCER Cancer du sein @BOOL
+*** #DIAGNOSIS-CYCLE-DISORDERS Troubles du cycle @BOOL
+*** #DIAGNOSIS-SEXUAL-ASSAULT-RAPE Agression sexuelle, viol @BOOL
+*** #DIAGNOSIS-SPONTANEOUS-ABORTION Avortement spontané @BOOL
+*** #DIAGNOSIS-INDUCED-ABORTION Avortement induit @BOOL
+*** #DIAGNOSIS-FISTULA Fistule @BOOL
+*** #DIAGNOSIS-INFERTILITY Infertilité @BOOL
+*** #DIAGNOSIS-SEXUAL-DYSFUNCTION Dysfonctionnement sexuel @BOOL
+** Planification familliale
+*** #FAMILY-PLANNING-COC COC @BOOL
+*** #FAMILY-PLANNING-SPS PSP @BOOL
+*** #FAMILY-PLANNING-INJECTABLE Injectable @BOOL
+*** #FAMILY-PLANNING-IMPLANT Implant @BOOL
+*** #FAMILY-PLANNING-DIU DIU @BOOL
+*** #FAMILY-PLANNING-TUBAL-LIGATION-VASECTOMY Ligature des trompes / Vasectomie @BOOL
+*** #FAMILY-PLANNING-CONDOM Préservatif @BOOL
+*** #FAMILY-PLANNING-EMERGENCY-PILL Pilule d'urgence @BOOL
+*** #FAMILY-PLANNING-OTHER Autre...
+** Examens complémentaires
+*** #EXAM-PELVIUC-ULTRASOUND Échographie pelvienne @BOOL
+*** #EXAM-OBSTETRICAL-ULTRASOUND Échographie obstétricale @BOOL
+** Décision thérapie
+*** #DECIDED-THERAPY-THERMOABLATION Thermoablation @BOOL
+*** #DECIDED-THERAPY-CONIZATION Conisation / LEEP @BOOL
+*** #DECIDED-THERAPY-HYSTERECTOMY Hystérectomie @BOOL
+*** #DECIDED-THERAPY-REFERENCE Référence @BOOL
+*** #DECIDED-THERAPY-OTHER Autre

@@ -6,8 +6,9 @@ const
     DB = require( "tfw.data-binding" ),
     Text = require( "wdg.text" ),
     Combo = require( "cameroun.view.combo" ),
-    TextBox = require( "tfw.view.textbox" ),
     Format = require( "format" ),
+    TextBox = require( "tfw.view.textbox" ),
+    CheckBox = require( "tfw.view.checkbox" ),
     Patients = require( "patients" ),
     Structure = require( "structure" ),
     InputList = require( "input.list" );
@@ -21,7 +22,7 @@ const
 @param {array} args.def.tags - Liste des éventuels tags. Par exemple "OPTIONAL".
 @param {object} args.def.children - Types enfants.
  */
-var Input = function ( args ) {
+function Input( args ) {
     var that = this;
     var visit;
 
@@ -41,11 +42,11 @@ function createBestWidget( value, completion, def ) {
     if ( completion.list.length > 1 ) {
         return createComboWidget( value, completion, def );
     }
+    if ( hasTag( def, "BOOL" ) ) return createBoolWidget( value, completion, def );
     return createTextWidget( value, completion, def );
 }
 
 function createTextWidget( value, completion, def ) {
-    console.info( "def=", def );
     const
         oldValue = Format.expand( value.old, def.type ),
         items = Object.keys( completion.map ).sort(),
@@ -56,6 +57,19 @@ function createTextWidget( value, completion, def ) {
             placeholder: oldValue,
             list: items,
             value: Format.expand( value.new, def.type )
+        } );
+    return wdg;
+}
+
+function createBoolWidget( value, completion, def ) {
+    const
+        items = Object.keys( completion.map ).sort(),
+        keys = items.map( item => completion.map[ item ].trim().toUpperCase() ),
+        wdg = new CheckBox( {
+            wide: false,
+            content: def.caption,
+            list: items,
+            value: Format.expand( value.old, def.type )
         } );
     return wdg;
 }
@@ -224,11 +238,14 @@ function createHierarchicalWidget( container, visit, mapValueToID, parentWidget,
     return wdg;
 }
 
+/**
+ *
+ * @param   {object} def - `{ children: [] }`
+ * @returns {object} First item of `def.children`.
+ */
 function getFirstChild( def ) {
-    if ( typeof def.children === 'undefined' )
-        return null;
-    var k;
-    for ( k in def.children ) {
+    if ( typeof def.children === 'undefined' ) return null;
+    for ( const k of Object.keys( def.children ) ) {
         return def.children[ k ];
     }
     return null;
@@ -248,6 +265,18 @@ function surround( prefix, arr, postfix ) {
     output.push( ...arr );
     output.push( postfix );
     return output;
+}
+
+/**
+ * Look if there is a given tag in the given def.
+ *
+ * @param   {object}  def - `{ tags: [...] }`
+ * @param   {string}  tag - Tag name.
+ * @returns {Boolean} -
+ */
+function hasTag( def, tag ) {
+    if ( !Array.isArray( def.tags ) ) return false;
+    return def.tags.indexOf( tag.toUpperCase() ) !== -1;
 }
 
 module.exports = Input;

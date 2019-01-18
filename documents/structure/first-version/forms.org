@@ -1,0 +1,159 @@
+* Informations clef (adresse, contact, médecins, informations socio-familiales, antécédents, Conduites addictives, conduites addictives, traitement, contraception, conjoint...)
+** Adresse
+*** #COUNTRY Pays (#COUNTRY)
+**** #REGION Region
+***** #DISTRICT District
+****** #HEALTH-AREA Aire de santé
+******* #VILLAGE Village de résidence
+******** #QUARTIER Quartier
+
+** Contact
+*** #TELEPHONE Téléphone
+*** #MAIL Courriel
+*** #TO-WARN Personne à prévenir
+*** #TO-WARN-CONTACT Téléphone de cette personne
+*** #TO-WARN-RELATION Relation de cette personne avec le patient (#TO-WARN-RELATIONSHIP)
+
+** Réseau de soins
+*** #NETWORK Autres médecins de référence (HIV, diabète...)@list
+
+** Informations socio-familiales
+*** #FAMILY-SITUATION Situation familiale (#FAMILY-SITUATION)
+*** #CHILDREN Nombre d’enfant (#INT)
+*** #PROFESSION Profession (#PROFESSION)
+**** #PROFESSION-OTHER Si autre profession, laquelle
+
+** Antécédents familiaux
+*** #FAMILY-HISTORY Antécédents familiaux @list
+
+** Antécédents gynécologiques
+*** #FIRST-PERIOD Age de survenue des premières règles
+*** #REGULARITY-PERIOD Régularité (#YES-NO-UNDOCUMENTED)
+*** #QUANTITY-PERIOD Abondance des règles (#QUANTITY-PERIOD)
+*** #DURATION-PERIOD Durée en jour (#INT)
+*** #DURATION-CYCLE Durée du cycle en jour (#INT)
+*** #PREMENSTRUAL-PERIOD Syndrome PréMenstruel (#YES-NO-UNDOCUMENTED)
+*** #CONTRACEPTION-1 Nature de la contraception (#CONTRACEPTION)
+**** #CONTRACEPTION-2 Nature de la contraception (#CONTRACEPTION)
+**** #CONTRACEPTION-3 Nature de la contraception (#CONTRACEPTION)
+*** #MENOPAUSE Ménopause (#YES-NO-UNDOCUMENTED)
+*** #GYNECOLOGICAL-TUMOR Pathologie tumorale gynécologique diagnostiquée (#GYNECOLOGICAL-TUMOR)
+**** #GYNECOLOGICAL-TUMOR-OTHER Si autre pathologie gynécologique tumorale, laquelle
+*** #GYNECOLOGICAL-HISTORY-OTHER Autres antécédents gynécologiques
+
+** Antécédents obstétricaux
+*** #GRAVIDIY Gestité (#INT)
+*** #PARITY Parité (#INT)
+*** #DELIVERY-DATE Dates des accouchements (#DATE)
+**** #DELIVERY-WHERE Où a-t-elle l'habitude d'accoucher? (#DELIVERY)
+
+*** #MISCARRIAGE Nombre de Fausses couches spontanées
+*** #ECTOPIC-PREGNANCY Nombre de Grossesses extra utérines (#INT)
+*** #ABORTION Nombre interruption volontaire de la grossesse (#INT)
+*** #OBSTETRIC-HISTORY-OTHER Autres antécédents obstétricaux
+
+** Autres antécédents (IST, médicaux, chirurgicaux)
+*** #SMALLPOX-VACCIN-SCAR Cicatrice de vaccination variole (#YES-NO)
+*** IST
+**** #HIV VIH (#YES-NO-UNDOCUMENTED)
+**** #SYPHILIS Syphilis diagnostiqué (#YES-NO-UNDOCUMENTED)
+***** #SYPHILIS-WHEN Si oui, quand et quel traitement reçu
+**** #STD-OTHER Autre IST diagnostiquée
+*** Antécédant médicaux autres
+*** #GENERAL-MEDICAL-HISTORY Antédédants médicaux (#GENERAL-MEDICAL-HISTORY)
+**** chirurgicaux
+**** #SURGERY-GEN Type de chirurgie générale
+***** #DATE Date (#DATE)
+**** #SURGERY-GYN Type de chirurgie gynecologique (#SURGERY-GYN)
+***** #DATE Date (#DATE)
+
+** Allergies
+*** #ALLERGY-DRUG Allergies médicamenteuses (#DRUG+)
+*** #ALLERGY-OTHER Autres allergies (#DRUG+)
+
+** Conduites addictives
+*** #TABACCO Tabac (#YES-NO-UNDOCUMENTED)
+*** #ALCOHOL Alcool (#YES-NO-UNDOCUMENTED)
+*** #ILLEGAL-DRUG Autres drogues (#YES-NO-UNDOCUMENTED)
+
+** Médicaments
+*** #DRUG-HISTORY Médicaments (#DRUG+)
+
+** Contraception
+*** #CONTRACEPTION-CURRENT Contraception actuelle (#CONTRACEPTION)@list
+
+** Conjoint
+*** #PARTNER Nombre de partenaires dans les trois derniers mois (#INT)
+
+* Consultant
+** #CONSULTANT Nom du consultant (#CONSULTANT)
+
+* Anamnèse
+** #MOTIF-CONSULTATION Motif de consultation (#MOTIF-CONSULTATION)
+** #MEDICAL-HISTORY Histoire clinique de l’épisode
+** #LAST-PERIOD_DATE Date des dernières règles (#DATE)
+** #PERIOD-ABNORMALITY Problème lié aux règles (#PERIOD-ABNORMALITY)
+** #PELVIC-PAIN les algies pelviennes (#PELVIC-PAIN)
+** #LEUCORRHEA Leucorrhée (#LEUCORRHEA)
+** #PRURITIS Prurit vulvaire (#POSITIVE-NEGATIVE-UNDOCUMENTED)
+** #DYSPAREUNIA Dyspareunie (#DYSPAREUNIA)
+** #POST-COIT-BLEEDING Saignements post-coitaux (#POSITIVE-NEGATIVE-UNDOCUMENTED)
+** #SEXUAL-TROUBLE Troubles de la vie sexuelle
+*** #SEXUAL-TROUBLE-WHAT Si oui lequel?
+** #URINARY-INCONTINANCE Incontinance urinaire (#POSITIVE-NEGATIVE-UNDOCUMENTED)
+*** #URINARY-INCONTINANCE-TYPE Si oui, quel type?
+** #PREGNANCY-NOW Grossesse connue (#YES-NO-UNDOCUMENTED)
+*** #PREGNANCY-NOW-DURATION Si oui, date des dernières règles (#DATE)
+** #BREAST-DISEASE Pathologie mammaire
+***#BREAST-DISEASE-WHAT Si oui laquelle?
+
+* Examen clinique général
+** #TA Tension artérielle
+** #TEMPERATURE Température (#FLOAT)
+** #WEIGHT Poids (#FLOAT)
+** #POUL Pulsation (#INT)
+
+* Examen clinique gynécologique
+** #VAGINAL-EXAMINATION Examen vulvo-vaginal
+** #CERVICAL-EXAMINATION Examen du col natif
+** #VIA VIA (#POS-NEG-UNDOC)
+** #VILI VILI (#POS-NEG-UNDOC)
+** Prolapsus génital @optional
+*** #GENITAL-PROLAPSE Prolapsus génital (#POSITIVE-NEGATIVE-UNDOCUMENTED)
+*** #GENITAL-PROLAPSE-KIND Si oui, quel type
+*** #GENITAL-PROLAPSE-GRADE Quel grade?
+** #BREAST-EXAMINATION Examen des seins
+** #VAGINAL-TOUCH Examen bimanuel, Toucher vaginal
+
+* Conclusion
+** Diagnostic (basé sur ICD)
+*** #DIAGNOSTIC1 Diagnostic de présomption 1 (#DIAGNOSTIC)
+*** #DIAGNOSTIC2 Diagnostic de présomption 2 (#DIAGNOSTIC)
+*** #DIAGNOSTIC3 Diagnostic de présomption 3 (#DIAGNOSTIC)
+*** #DIAGNOSTIC4 Diagnostic de présomption 4 (#DIAGNOSTIC)
+*** #DIAGNOSTIC5 Diagnostic de présomption 5 (#DIAGNOSTIC)
+
+** Traitement prescrit
+*** #TREATMENTPRESCR1 Traitement prescrit 1 (#TREATMENT)
+*** #TREATMENTPRESCR2 Traitement prescrit 2 (#TREATMENT)
+*** #TREATMENTPRESCR3 Traitement prescrit 3 (#TREATMENT)
+*** #TREATMENTPRESCR4 Traitement prescrit 4 (#TREATMENT)
+*** #TREATMENTPRESCR5 Traitement prescrit 5 (#TREATMENT)
+
+
+** Traitement administré
+*** #TREATMENTADM1 Traitement administré 1 (#TREATMENT)
+*** #TREATMENTADM2 Traitement administré 2 (#TREATMENT)
+*** #TREATMENTADM3 Traitement administré 3 (#TREATMENT)
+*** #TREATMENTADM4 Traitement administré 4 (#TREATMENT)
+*** #TREATMENTADM5 Traitement administré 5 (#TREATMENT)
+
+** Chirurgie
+*** #SURGERY-GYN Chirurgie (#SURGERY-GYN)
+
+** Prochain rendez-vous
+*** #NEXT-APPOINTEMENT Rendez-vous de contrôle (#DATE)
+
+* Diagnostics de confirmation
+** #DEFINITIVEDIAGNOSTIC1 diagnotic de confirmation 1 (#CONSULTATION-SYNTHESIS)
+** #DEFINITIVEDIAGNOSTIC2 diagnotic de confirmation 2 (#CONSULTATION-SYNTHESIS)

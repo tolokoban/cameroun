@@ -21,11 +21,10 @@
 ## Dependencies
 * [$]($.md)
 * [dom](dom.md)
-* [form](form.md)
-* [wdg.modal](wdg.modal.md)
 * [input](input.md)
 * [format](format.md)
 * [patients](patients.md)
+* [tfw.view.expand](tfw.view.expand.md)
 * [wdg.showhide](wdg.showhide.md)
 * [date](date.md)
 * [structure](structure.md)

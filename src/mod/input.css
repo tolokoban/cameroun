@@ -1,7 +1,17 @@
 div.input,
 div.input > div {
     display: block;
-    margin: 2px 0;
     padding: 0;
-    width: 100%;
+    margin: 2px 0;
+}
+
+div.tfw-view-expand.custom {
+    background: rgba(255,255,255,.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+div.tfw-view-expand {
+    display: inline-block;
+    vertical-align: top;
 }

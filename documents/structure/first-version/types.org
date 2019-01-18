@@ -1,63 +1,6 @@
-* #CONSULTATION-LOCATION
-** #IN Salle de gyneco
-** #OUT Externe
-
-* #MOTIF-CONSULTATION
-** #GENITAL-LEAK Écoulement génital
-** #GENITAL-ULCER Ulcère génital
-** #PELVIC-PAIN Douleurs pelviennes
-** #CERVICAL-CANCER-SCREENING Dépistage du cancer du col
-** #VIH-HEPB-SCREENING Dépistage VIH / Hépatite B
-** #PREGNANCY-COMPLICATION Complication grossesse
-** #SEXUAL-DYSFUNCTION Dysfonctionement sexuel
-** #TREATMENT Traitement
-** #FAMILY-PLANNING Planning familial
-** #CYCLE-DISORDER-OR-METRORRAGIE Trouble du cycle / métrorragie
-** #PREGNANCY-WISH Désir de conception / infertilité
-** #SEXUAL-ASSAULT Agression sexuelle
-** #BREAST-PROBLEM Problème mammaire
-** #POST-PARTUM Post partum
-
-* #MATRIMONIAL-STATUS
-** #SINGLE Célibataire
-** #MARRIED-MONOGAMY Marié(e) monogamie
-** #MARRIED-POLYGAMY Marié(e) polygamie
-** #WIDOW Veuve / Veuf
-** #DIVORCED Divorcé(e)
-
-* #REFERENCE
-** #RECEPTION Accueil
-** #UPEC UPEC
-** #SRH SRH
-** #HEALTH-CENTER Centre de santé
-** #RADIO Radio
-** #HOSPITAL Hôpital
-** #COMMUNITY-AGENT Agent communautaire
-** #POSTERS Affiches / Flyers
-** #COMMUNICATED Communiqué
-** #WORD-OF-MOUTH Bouche à oreille
-
-* #CONTRACEPTION-IN-PROGRESS
-** #COC COC
-** #PSP PSP
-** #INJECTABLE Injectable
-** #IMPLANT Implant
-** #DIU DIU
-** #TUBAL-LIGATION-VASECTOMY Ligature trompes / Vasectomie
-** #CONDOM Préservatif
-** #PILL-OF-TOMORROW Pilule de lendemain
-
 * #BOOL
 ** #YES Oui
 ** #NO Non
-
-* #TEST
-** #POSITIVE Positif
-** #NEGATIVE Négatif
-** #NOT-DONE Non fait
-
-
-
 
 * #ADMISSION
 ** #EXTERNE Consultation externe
@@ -2651,7 +2594,22 @@
 ** #NURSE-1 Aimé ASSIGUI
 
 
-
+* #MOTIF-CONSULTATION
+** #PELVIC-PAIN douleurs pelviennes
+** #VAGINAL-ITCHING prurit vaginal
+** #LEUCORRHEA leucorrhées
+** #DYSPAREUNIA Dyspareunie
+** #ABNORMAL-VAGINAL-BLEEDING saignements vaginaux anormaux
+** #POST-COITAL-BLEEDING saignements post coitaux
+** #MENORRAGIA ménorragies
+** #METRORRAGIA métrorragies
+** #SPANIOMENORRHEA spanioménorrhées
+** #POLLAKIMENORRHEA pollakiménorrhées
+** #PREGNANCY-WISH désir de conception
+** #CONTRACEPTIVE-WISH désir de contraception
+** #CERVICAL-CANCER-SCREENING dépistage du cancer du col
+** #BREAST-PAIN douleur mammaire
+** #BREAST-NODULE nodule mammaire
 
 * #DELIVERY
 ** #HOME Domicile
