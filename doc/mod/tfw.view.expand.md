@@ -3,6 +3,7 @@
 ----
 
 ## Dependencies
+* [$]($.md)
 * [dom](dom.md)
 * [tfw.binding.property-manager](tfw.binding.property-manager.md)
 * [tfw.view](tfw.view.md)
