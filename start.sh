@@ -1,4 +1,4 @@
 #!/bin/bash
 
-node ../tfw/bin/tfw.js build version debug && nw www/
+node node_modules/toloframework/bin/tfw.js build version debug && nw www/
 

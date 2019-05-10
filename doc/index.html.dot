@@ -223,6 +223,8 @@ digraph dependencies {
 
     "page.visit" -> "input"
 
+    "page.visit" -> "x-widget"
+
     "page.visit" -> "format"
 
     "page.visit" -> "patients"

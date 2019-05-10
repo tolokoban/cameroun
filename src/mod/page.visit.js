@@ -1,19 +1,18 @@
 "use strict";
 
-const
-    $ = require( "dom" ),
-    Input = require( "input" ),
-    Format = require( "format" ),
-    Patients = require( "patients" ),
-    Expand = require( "tfw.view.expand" ),
-    ShowHide = require( "wdg.showhide" ),
-    DateUtil = require( "date" ),
-    Structure = require( "structure" );
+const $ = require( "dom" ),
+      Input = require( "input" ),
+      Widget = require("x-widget"),
+      Format = require( "format" ),
+      Patients = require( "patients" ),
+      Expand = require( "tfw.view.expand" ),
+      ShowHide = require( "wdg.showhide" ),
+      DateUtil = require( "date" ),
+      Structure = require( "structure" );
 
 
-
-let g_patient;
-
+let g_patient = null;
+let g_wdgVisitDate = null;
 
 exports.onPage = onPage;
 exports.onClose = onClose;
@@ -22,38 +21,44 @@ exports.onNewVisit = onNewVisit;
 
 
 function onPage() {
-    var hash = location.hash.split( '/' );
-    var patientId = hash[ 1 ];
+    const hash = location.hash.split( '/' );
+    const patientId = hash[ 1 ];
     Patients.get( patientId ).then( function ( patient ) {
         g_patient = patient;
         patient.data.id = patientId;
         document.getElementById( 'visit.title' ).textContent =
             Format.getPatientCaption( patient.data );
-        var container = document.getElementById( "visit.data" );
+        const container = document.getElementById( "visit.data" );
         $.clear( container );
         addForm( container, Structure.value.forms );
+        g_wdgVisitDate = Widget.getById("visit.date");
+        console.info("[page.visit] g_wdgVisitDate=", g_wdgVisitDate);
+        g_wdgVisitDate.value = DateUtil.now();
     } );
-};
+}
 
 function onClose() {
-    var visit = Patients.lastVisit( g_patient );
-    visit.exit = DateUtil.now();
+    const visit = Patients.lastVisit( g_patient );
+    visit.enter = g_wdgVisitDate.value;
+    visit.exit = g_wdgVisitDate.value;
+    console.info("[page.visit] g_wdgVisitDate.value, DateUtil.now()=", g_wdgVisitDate.value, DateUtil.now());
+    // visit.exit = DateUtil.now();
     Patients.save( g_patient );
-    location.hash = "#Patient/" + g_patient.id;
-};
+    location.hash = `#Patient/${g_patient.id}`;
+}
 
 function onBack() {
-    location.hash = "#Patient/" + g_patient.id;
-};
+    location.hash = `#Patient/${g_patient.id}`;
+}
 
 function onNewVisit() {
-    Patients.createVisit().then( function ( visit ) {
-        var len = g_patient.admissions.length;
-        var lastAdmission = g_patient.admissions[ len - 1 ];
-        location.hash = "#Visit/" + g_patient.id + "/" + ( len - 1 ) + "/" +
-            ( lastAdmission.visits.length - 1 );
+    Patients.createVisit().then( function () {
+        const len = g_patient.admissions.length;
+        const lastAdmission = g_patient.admissions[ len - 1 ];
+        location.hash = `#Visit/${g_patient.id}/${len - 1}/${
+             lastAdmission.visits.length - 1}`;
     } );
-};
+}
 
 
 /**
@@ -66,8 +71,8 @@ function onNewVisit() {
 function addForm( parent, def ) {
     if ( typeof def === 'undefined' ) return;
 
-    var key, val;
-    var wdg, div;
+    let key, val;
+    let wdg, div;
     for ( key in def ) {
         val = def[ key ];
         if ( key.charAt( 0 ) == '#' ) {

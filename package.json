@@ -9,11 +9,12 @@
     "homepage": "https://github.com/tolokoban/cameroun",
     "license": "GPL-3.0",
     "scripts": {
-        "start": "node node_modules/toloframework/bin/tfw.js build debug && nw www",
+        "start": "nw www/",
         "test": "node node_modules/karma/bin/karma start karma.conf.js",
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
         "watch": "node node_modules/toloframework/bin/tfw.js build debug test watch",
-        "debug": "node node_modules/toloframework/bin/tfw.js build debug test && nw www/",
+        "debug": "tfw build debug test && cp -vf package.json www/ && nw www/",
+        "tfw": "node ../tp/website/submodules/tfw/bin/tfw.js build debug test",
         "clean": "node node_modules/toloframework/bin/tfw.js clean",
         "release": "node node_modules/toloframework/bin/tfw.js build version clean"
     },
@@ -63,12 +64,13 @@
         "zlib"
     ],
     "dependencies": {
+        "core-js": "^3.0.1",
         "jasmine-core": "^2.99.1",
         "karma": "^0.13",
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
-        "toloframework": "^0.50.6"
+        "toloframework": "^0.53.2"
     },
     "main": "index.html",
     "window": {
