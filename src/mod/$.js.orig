@@ -1,4 +1,12 @@
-exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.19\"","major":"0","minor":"4","revision":"19","date":"2019-05-10T14:51:04.243Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
+<<<<<<< HEAD
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.15\"","major":"0","minor":"4","revision":"15","date":"2018-11-17T11:03:56.000Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
+var currentLang = null;
+exports.lang = function(lang) {
+    if (lang === undefined) {
+        if (window.localStorage) {
+            lang = window.localStorage.getItem("Language");
+=======
+exports.config={"name":"\"cameroun\"","description":"\"Cameroun\"","author":"\"tolokoban\"","version":"\"0.4.15\"","major":"0","minor":"4","revision":"15","date":"2019-01-16T10:11:28.833Z","consts":{"tfw":"http://tolokoban.org/Cameroun/tfw"}};
 "use strict";
 
 const ZERO_CHAR_CODE = '0'.charCodeAt( 0 );
@@ -8,6 +16,7 @@ exports.lang = function lang( _lang ) {
     if ( typeof language === 'undefined' ) {
         if ( window.localStorage ) {
             language = window.localStorage.getItem( "Language" );
+>>>>>>> cdbc14cdbf1f524e5664a86f9da7fb7eb23cb971
         }
         if ( !language ) {
             language = window.navigator.language;

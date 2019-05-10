@@ -382,6 +382,33 @@ digraph dependencies {
 
     "tfw.view.textbox" -> "tfw.binding.converters"
     "cameroun.view.combo" -> "$"
+
+    "cameroun.view.combo" -> "dom"
+
+    "cameroun.view.combo" -> "tfw.binding.property-manager"
+
+    "cameroun.view.combo" -> "tfw.view"
+
+    "cameroun.view.combo" -> "tfw.binding.link"
+
+    "cameroun.view.combo" -> "tfw.binding.converters"
+
+    "cameroun.view.combo" -> "tfw.view.combo"
+    "tfw.view.combo" -> "$"
+
+    "tfw.view.combo" -> "dom"
+
+    "tfw.view.combo" -> "tfw.binding.property-manager"
+
+    "tfw.view.combo" -> "tfw.touchable"
+
+    "tfw.view.combo" -> "tfw.view"
+
+    "tfw.view.combo" -> "tfw.binding.link"
+
+    "tfw.view.combo" -> "tfw.binding.converters"
+
+    "tfw.view.combo" -> "tfw.view.icon"
     "wdg.date2" -> "$"
 
     "wdg.date2" -> "dom"
