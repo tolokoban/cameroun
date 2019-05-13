@@ -370,6 +370,8 @@ digraph dependencies {
     "tfw.view.checkbox" -> "tfw.binding.link"
 
     "tfw.view.checkbox" -> "tfw.binding.converters"
+
+    "tfw.view.checkbox" -> "tfw.view.icon"
     "tfw.view.textbox" -> "$"
 
     "tfw.view.textbox" -> "dom"

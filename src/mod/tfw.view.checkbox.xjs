@@ -6,6 +6,7 @@
     visible: {boolean true},
     wide: {boolean true},
     content: {string Checkbox}
+    icon: {string ""}
   }
 
   view.init: init
@@ -25,6 +26,7 @@
       {DIV class:"bar thm-ele2", view.id: bar, class.thm-bgSL|thm-bg0: {Bind value} }
       {DIV class:"btn thm-ele2", view.id: btn, class.thm-bgS|thm-bg0: {Bind value} }
     ]}
-    {DIV class:txt {Bind content}}    
+    {DIV class:txt {Bind content}}
+    {tfw.view.icon content: {Bind icon}}
   ]
 }

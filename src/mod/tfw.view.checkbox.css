@@ -22,6 +22,9 @@ button.tfw-view-checkbox.hide {
   display: none;
 }
 
+button.tfw-view-checkbox > svg {
+  order: 2;
+}
 button.tfw-view-checkbox > div.txt {
   order: 1;
   opacity: .6;
@@ -31,6 +34,9 @@ button.tfw-view-checkbox > div.txt {
   flex-grow: 1;
   text-align: left;
   transition: opacity .2s;
+}
+button.tfw-view-checkbox.inverted > svg {
+  order: -2;
 }
 button.tfw-view-checkbox.inverted > div.txt {
   order: -1;
