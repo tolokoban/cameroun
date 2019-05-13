@@ -14,7 +14,7 @@
         "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
         "watch": "node node_modules/toloframework/bin/tfw.js build debug test watch",
         "debug": "tfw build debug test && cp -vf package.json www/ && nw www/",
-        "tfw": "node ../tp/website/submodules/tfw/bin/tfw.js build debug test",
+        "tfw": "node ../tfw/bin/tfw.js build debug test",
         "clean": "node node_modules/toloframework/bin/tfw.js clean",
         "release": "node node_modules/toloframework/bin/tfw.js build version clean"
     },
@@ -70,7 +70,7 @@
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
-        "toloframework": "^0.53.2"
+        "toloframework": "^0.53.3"
     },
     "main": "index.html",
     "window": {
