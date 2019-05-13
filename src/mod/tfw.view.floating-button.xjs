@@ -1,0 +1,25 @@
+{View BUTTON
+  view.attribs: {
+    icon: {string add}
+    action: {action}
+    small: {boolean false}
+    enabled: {boolean true behind:onEnabledChanged}
+    tag: {any true}  // Value used in action attribute.
+    type: [S SD SL P PD PL "0" "1" "2" "3"]
+    visible: {boolean true}
+    href: {string ""}
+    target: {string ""}
+  }
+
+  view.init: init
+  view.prototype: [on, fire]
+  
+  class:"tfw-view-floating-button thm-ele8"
+  class.|hide:{Bind visible}
+  class.|disabled:{Bind enabled}
+  class.small:{Bind small}
+  event.keyup: onKeyUp
+  class.*: {[type] getClasses}
+ 
+  [{tfw.view.icon content:{Bind icon} size:24}]
+}

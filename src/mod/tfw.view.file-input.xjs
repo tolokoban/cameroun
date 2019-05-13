@@ -1,0 +1,24 @@
+{View DIV
+  view.attribs: {
+    text: {string}
+    type: {[default, primary, secondary] default}
+    action: {action behind:onAction}
+    file: {any}
+  }
+
+  class: tfw-view-file-input
+  [
+    {DIV [
+      {tfw.view.button
+        icon: import
+        flat: true
+        wide: true
+        text: {Bind text}
+        action: {Bind action}}
+    ]}
+    {DIV [
+      {DIV view.id:filename class:"filename hide" }
+    ]}
+    {INPUT view.id:input type:file}
+  ]
+}

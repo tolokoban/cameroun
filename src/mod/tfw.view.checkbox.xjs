@@ -1,0 +1,30 @@
+// tfw.view.checkbox
+{View BUTTON view.debug: false
+  view.attribs: {
+    value: {boolean false},
+    inverted: {boolean false},
+    visible: {boolean true},
+    wide: {boolean true},
+    content: {string Checkbox}
+  }
+
+  view.init: init
+  view.prototype: [on]
+
+  class: tfw-view-checkbox
+  class.ok: {Bind value}
+  class.inverted: {Bind inverted}
+  class.wide: {Bind wide}
+  class.|hide: {Bind visible}
+
+  event.tap: {Toggle value}
+  event.keyup: onKeyUp
+
+  [
+    {DIV class:pin [
+      {DIV class:"bar thm-ele2", view.id: bar, class.thm-bgSL|thm-bg0: {Bind value} }
+      {DIV class:"btn thm-ele2", view.id: btn, class.thm-bgS|thm-bg0: {Bind value} }
+    ]}
+    {DIV class:txt {Bind content}}    
+  ]
+}

@@ -1,0 +1,35 @@
+{View DIV class:"tfw-view-textarea thm-bg3"
+  view.attribs: {
+    value: {string "" behind: onValueChanged}
+    label: {string ""}
+    focus: {boolean false}
+    visible: {boolean true}
+    width: {unit "auto"}
+    rows: {integer 5}
+    cols: {integer 80}
+    resize: {[none, horizontal, vertical, both] none}
+  }
+
+  class.focus: {Bind focus}
+  class.|hide: {Bind visible}
+  class.thm-bg3: {Bind focus back:false}
+
+  view.prototype: gotoLine
+
+  [
+    {DIV view.id: head class:"head thm-bgPL" {Bind label}}
+    {DIV view.id: body class: body
+      [
+        {TEXTAREA
+          class:thm-bg3
+          view.id: input
+          cols: {Bind cols}
+          rows: 1
+          value: {Bind value}
+          focus: {Bind focus}
+          style.width: {Bind width}}
+      ]}
+    {DIV view.id: foot, class: foot}
+    {DIV view.id: bottom, class: "bottom thm-bgS"}
+  ]
+}

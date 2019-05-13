@@ -1,0 +1,35 @@
+{View DIV class:tfw-view-cropped-image
+  view.attribs: {
+    width: {integer 800}
+    height: {integer 400}
+    src: {string}
+    label: {string {Intl label}}
+    // `ask` means we have to ask the user.
+    cropping: {[cover contain ask] contain}
+    align-x: {[start middle end ask] middle}
+    align-y: {[start middle end ask] middle}
+    action: {action}
+    wide: {boolean true}
+    // Becomes `true` if a new image has been choosen.
+    changed: {boolean false}
+  }
+
+  view.prototype: toDataURL
+  class.wide: {Bind wide}
+  
+  [
+    {DIV view.id:label
+      class:label
+      textcontent:{Bind label}
+      class.hide:{Bind label converter:isEmpty}}
+    {DIV class:"visual thm-ele4"
+      style.width: {Bind width converter: unit}
+      style.height: {Bind height converter: unit}
+      event.tap: {Set action true}
+      [{tfw.view.image view.id:img width:{Bind width} height:{Bind height} src:{Bind src}}]}
+    {tfw.view.file-input class:hide
+      view.id: input
+      on.file: onFileChanged
+      action: {Bind action}}
+  ]
+}

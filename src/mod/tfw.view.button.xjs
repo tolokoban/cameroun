@@ -1,0 +1,54 @@
+// tfw.view.button
+{View BUTTON view.debug: false
+  view.attribs: {
+    action: {action}
+    tag: {string ACTION} // The value that `action` will take on every tap.
+    icon: {string ""}
+    text: {string "Click me!"}
+    href: {string ""}
+    target: {string ""}
+    pressed: {boolean false}
+    flat: {boolean false}
+    type: [primary default secondary]
+    enabled: {boolean true behind:onEnabledChanged}
+    inverted: {boolean false}
+    visible: {boolean true}
+    wide: {boolean false}
+    width: {unit "auto" behind: onWidthChanged}
+    responsive: {boolean false}
+    small: {boolean false, behind: onSmallChanged}
+    wait: {boolean false behind:onEnabledChanged}
+    focus: {boolean false}
+  }
+
+  focus: {Bind focus}
+
+  view.init: init
+  view.prototype: [on, fire]
+
+  class: "tfw-view-button"
+  class.flat: {Bind flat}
+  class.wait: {Bind wait}
+  class.*: {[flat,type,pressed] getClasses}
+  class.inverted: {Bind inverted}
+  class.|hide: {Bind visible}
+  class.wide: {Bind wide}
+  class.responsive: {Bind responsive}
+  class.small: {Bind small}
+  class.|disabled: {Bind enabled}
+  event.keyup: onKeyUp
+  event.down: {Set pressed true}
+  event.up: {Set pressed false}
+
+  [
+    {DIV
+        class:icon
+        class.hide: {Bind icon converter:isEmpty}
+        [ {tfw.view.icon view.id:icon content:{Bind icon} animate:{Bind wait}} ]}
+    {DIV view.id:text
+      class: "text thm-fg"
+      class.*: {[flat,type] getClassesForText}
+      class.hide: {Bind text converter:isEmpty}
+      {Bind text}}
+  ]
+}

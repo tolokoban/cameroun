@@ -1,0 +1,20 @@
+button.tfw-view-language {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 2px;
+  font: inherit;
+  line-height: 34px;
+  font-size: .6em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.tfw-view-language.hide {
+  display: none;
+}

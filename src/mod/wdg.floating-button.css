@@ -1,0 +1,43 @@
+.wdg-floating-button {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  border: none;
+}
+
+.wdg-floating-button.small {
+  width: 40px;
+  height: 40px;
+}
+
+.wdg-floating-button.disabled,
+.wdg-floating-button.disabled.thm-ele6 {
+  cursor: default;
+  box-shadow: none;
+}
+
+.wdg-floating-button.disabled > * {
+  opacity: .5;
+}
+
+.wdg-floating-button > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+@media (max-width: 460px) {
+  .wdg-floating-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .wdg-floating-button.small {
+    width: 32px;
+    height: 32px;
+  }
+}
