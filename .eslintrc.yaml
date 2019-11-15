@@ -52,15 +52,17 @@
     prefer-spread: 1 # IE11 prevents us to use this.
     quote-props: 0
     quotes: 0    # We can put single or double quotes if we want to.
+    require-jsdoc: 0
     sort-keys: 0
     sort-vars: 0
     space-before-function-paren: 0
     space-in-parens: 0
     strict: [2, 'global']
-    valid-jsdoc: [2, { requireReturn: false }]
+    valid-jsdoc: 0
   globals:
     console: false
     exports: false
     module: false
+    nw: false
     require: false
     _: true

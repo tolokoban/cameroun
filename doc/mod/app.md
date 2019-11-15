@@ -14,8 +14,6 @@
 * [$]($.md)
 * [font.josefin](font.josefin.md)
 * [dom](dom.md)
-* [tfw.message](tfw.message.md)
-* [form](form.md)
 * [wdg.modal](wdg.modal.md)
 * [structure](structure.md)
 * [preferences](preferences.md)

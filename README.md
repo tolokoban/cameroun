@@ -14,7 +14,7 @@ Une fois installé, assurez-vous que le programme `nw` (`nw.exe` sous Windows) e
 
 Télécharger et décompresser [cette archive](https://github.com/tolokoban/tlk-app-shell/archive/gh-pages.zip) dans le répertoire de votre choix.
 
-Vous allez obtenir un répertoire nommé `tlk-app-shell-hp-pages` que vous pouvez renommer comme bon vous semble.
+Vous allez obtenir un répertoire nommé `tlk-app-shell-gh-pages` que vous pouvez renommer comme bon vous semble.
 Ouvrez un terminal dans ce répertoire puis tapez :
 ```
 nw .
@@ -33,7 +33,7 @@ Si vous êtes développeur, vous pouvez récupérer les sources comme ceci :
 ```
 git clone https://github.com/tolokoban/cameroun.git
 cd cameroun
-npm update
+npm install
 ```
 
 Il vous faut donc [git](https://git-scm.com/) et [nodejs](https://nodejs.org).
@@ -152,5 +152,3 @@ Ce fichier représente un objet avec les attributs suivants :
 * __vaccins__: Dictionnaire des vaccins réalisés. Les valeurs sont des objets avec eux attributs : `date` et `lot`.
 * __exams__: Liste des examens.
 * ...
-
-

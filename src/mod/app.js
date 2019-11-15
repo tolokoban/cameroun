@@ -8,38 +8,39 @@ require( "font.josefin" );
 const
     $ = require( "dom" ),
     Cfg = require( "$" ),
-    Err = require( "tfw.message" ).error,
-    Msg = require( "tfw.message" ).info,
-    Form = require( "form" ),
     Modal = require( "wdg.modal" ),
     Structure = require( "structure" ),
-    Preferences = require( "preferences" );
+    Preferences = require( "preferences" ),
+    PageLoading = require( "page.loading" ),
+    PageHome = require( "page.home" ),
+    PageList = require( "page.list" ),
+    PagePatient = require( "page.patient" ),
+    PageVisit = require( "page.visit" ),
+    PageVisitsummary = require( "page.visit-summary" ),
+    PageExam = require( "page.exam" );
 
 
-var pages = {
-    loading: require( "page.loading" ),
-    home: require( "page.home" ),
-    list: require( "page.list" ),
-    patient: require( "page.patient" ),
-    visit: require( "page.visit" ),
-    visitsummary: require( "page.visit-summary" ),
-    exam: require( "page.exam" )
+const pages = {
+    loading: PageLoading,
+    home: PageHome,
+    list: PageList,
+    patient: PagePatient,
+    visit: PageVisit,
+    visitsummary: PageVisitsummary,
+    exam: PageExam
 };
 
 
 function onPage( pageId ) {
-    console.info( "pageId=", pageId );
-    var page = pages[ pageId.toLowerCase() ];
-    console.info( "page=", page );
+    const page = pages[ pageId.toLowerCase() ];
     if ( typeof page !== 'undefined' ) page.onPage();
-};
+}
 
 
 function prepareStart() {
-    var lang = Preferences.get( "lang", "fr" );
+    const lang = Preferences.get( "lang", "fr" );
     Cfg.lang( lang );
-
-    var manifest = nw.App.manifest;
+    const manifest = nw.App.manifest;
     if ( manifest && manifest.debug ) {
         nw.Window.get().showDevTools( null, start );
     } else {

@@ -2,28 +2,33 @@
 
 
 module.exports = {
+
   /**
    * @resolve patients
    */
   all: getAllPatients,
   count: countPatients,
   get: getPatient,
+
   /**
    * @param {object} data - (optional) Initial data.
    * @resolve {object} patient.
    */
   create: createPatient,
-  save: save,
+  save,
   exit: closeAdmission,
+
   /**
    * @param {object} patient.
    * @resolve {object} visit.
    */
   createVisit: createVisit,
+
   /**
    * @resolve {string} Full path to the resulting `*.tgz` file.
    */
   export: exportPatients,
+
   /**
    * @param {object} patient.
    * @param {string} filename.
@@ -31,6 +36,7 @@ module.exports = {
    * @resolve {string} filename.
    */
   attach: addAttachment,
+
   /**
    * @param {object} patient.
    * @param {string} attachment's ID.
@@ -212,7 +218,7 @@ function createPatient( data ) {
       id: Guid(),
       created: DateUtil.now(),
       edited: DateUtil.now(),
-      data: data,
+      data,
       admissions: [],
       vaccins: {},
       exams: [],

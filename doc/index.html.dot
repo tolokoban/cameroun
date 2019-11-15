@@ -69,8 +69,6 @@ digraph dependencies {
 
     "structure" -> "dom"
 
-    "structure" -> "tfw.web-service"
-
     "structure" -> "tfw.message"
 
     "structure" -> "files"
@@ -80,9 +78,6 @@ digraph dependencies {
     "structure" -> "structure.parser"
 
     "structure" -> "synchro"
-
-    "structure" -> "tfw.storage"
-    "tfw.storage" -> "$"
     "synchro" -> "$"
 
     "synchro" -> "tfw.timer"
@@ -99,6 +94,7 @@ digraph dependencies {
     "tfw.web-service" -> "tfw.storage"
 
     "tfw.web-service" -> "tfw.listeners"
+    "tfw.storage" -> "$"
     "polyfill.promise" -> "$"
     "patients" -> "$"
 
@@ -554,10 +550,6 @@ digraph dependencies {
     "app" -> "font.josefin"
 
     "app" -> "dom"
-
-    "app" -> "tfw.message"
-
-    "app" -> "form"
 
     "app" -> "wdg.modal"
 

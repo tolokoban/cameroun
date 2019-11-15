@@ -2,38 +2,32 @@
 
 module.exports = createPromise;
 
-Object.defineProperty( module.exports, 'value', { get: function() { return g_structure; } });
-Object.defineProperty( module.exports, 'source', { get: function() { return g_source; } });
+let gStructure = null;
+let gSource = null;
 
-
-//############################################################
+Object.defineProperty( module.exports, 'value', { get: () => gStructure });
+Object.defineProperty( module.exports, 'source', { get: () => gSource });
 
 
 require("polyfill.promise");
-var $ = require("dom");
-var WS = require("tfw.web-service");
-var Err = require("tfw.message").error;
-var Msg = require("tfw.message").info;
-var Files = require("files");
-var Modal = require("wdg.modal");
-var Parser = require("structure.parser");
-var Synchro = require("synchro");
-var Storage = require("tfw.storage").session;
+const $ = require("dom");
+const Err = require("tfw.message").error;
+const Files = require("files");
+const Modal = require("wdg.modal");
+const Parser = require("structure.parser");
+const Synchro = require("synchro");
 
-var FS = require("node://fs");
+const FS = require("node://fs");
 
 // Name of the local backup for structure.
-var FILENAME = "data/structure.json";
-
-var g_structure = null;
-var g_source = null;
+const FILENAME = "data/structure.json";
 
 /**
  * Resolves in the complete structure.
  */
 function createPromise() {
   return new Promise(function (resolve, reject) {
-    if( g_structure ) resolve( g_structure );
+    if( gStructure ) resolve( gStructure );
     else {
       Synchro.start().then(function() {
         console.log(_('synchro-success'));
@@ -51,7 +45,7 @@ function createPromise() {
             throw( "Unparsable JSON!" );
           }
           FS.writeFile( FILENAME, JSON.stringify( data, null, '    ' ) );
-          resolve( g_structure );
+          resolve( gStructure );
         })
         .catch(function( err ) {
           // Unable to  retrieve structure from the  network (or
@@ -65,7 +59,7 @@ function createPromise() {
                 reject( "Unable to read backup file for structure!\n" + err );
               } else {
                 loadStructure( JSON.parse( data.toString() ) );
-                resolve( g_structure );
+                resolve( gStructure );
               }
             });
           }
@@ -76,16 +70,16 @@ function createPromise() {
 
 
 function loadStructure( data ) {
-  g_structure = {};
-  g_source = {};
+  gStructure = {};
+  gSource = {};
 
   var key, val;
   ['exams', 'vaccins', 'patient', 'forms', 'types'].forEach(function (key) {
     val = data[key];
     if( typeof val !== 'string' ) val = '';
     try {
-      g_source[key] = val;
-      g_structure[key] = Parser.parse( val );
+      gSource[key] = val;
+      gStructure[key] = Parser.parse( val );
     }
     catch (ex) {
       Modal.alert($.div([
