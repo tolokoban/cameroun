@@ -1,0 +1,6 @@
+# Corriger les dates de consultation.
+
+Dés qu'on trouve un champ `#CONSULTATION-DATE`, on essaie de le convertir
+en vraie date de consultation. Et on envoie au serveur tout le patient.
+
+Il faut donc avoir du réseau pour faire ça.

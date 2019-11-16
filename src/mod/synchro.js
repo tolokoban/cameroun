@@ -78,6 +78,146 @@ let gState = 0;
 let gCurrentStatus = {};
 
 
+function update() {
+    start().then(updateStatus, function(errorCode) {
+        if (errorCode === exports.NETWORK_FAILURE) {
+            // We can ask again later because it may just be a network unavailibility.
+            exports.update();
+        }
+        else if (errorCode === exports.ALREADY_STARTING) {
+            console.info("[synchro] Already starting.")
+        }
+        else {
+            console.error("[synchro/update] start() returned ", errorCode)
+        }
+    });
+}
+
+
+/**
+* @return Promise<{
+*     patients: {
+*         [key: string]: {
+*             admissions: Array<{
+*                 enter: number,
+*                 exit: number,
+*                 visits: Array<{
+*                     data: number
+*                 }>
+*             }>
+*         }
+*     }
+* }>
+ */
+function start() {
+    return new Promise(function(resolve, reject) {
+        if (gState === 0) {
+            gState = 1;
+            getStatus(exports.secretCode).then(
+                function(_status) {
+                    const status = _status || {}
+                    if (!status.patients || typeof status.patients !== 'object') {
+                        status.patients = {};
+                    }
+                    gCurrentStatus = status;
+                    gState = 2;
+                    exports.update();
+                    resolve(status);
+                },
+                function(errorCode) {
+                    gState = 0;
+                    reject(errorCode);
+                }
+            );
+        } else if (gState === 1) {
+            reject(exports.ALREADY_STARTING);
+        } else {
+            resolve(gCurrentStatus);
+        }
+    });
+}
+
+
+/**
+ * @return Promise<{
+ *     patients: {
+ *         [key: string]: {
+ *             admissions: Array<{
+ *                 enter: number,
+ *                 exit: number,
+ *                 visits: Array<{
+ *                     data: number
+ *                 }>
+ *             }>
+ *         }
+ *     }
+ * }>
+ */
+function getStatus(secretCode) {
+    return new Promise(function(resolve, reject) {
+        query({ cmd: 'status', code: secretCode })
+        .then(
+            ret => {
+                console.info("[synchro/getStatus] ret=", ret);
+                if (typeof ret === 'number') {
+                    console.error("Service 'synchro' failed with error code: ", ret);
+                    if (ret === -3) reject(exports.BAD_SECRET_CODE);
+                    reject(exports.SERVER_ERROR);
+                } else {
+                    resolve(ret);
+                }
+            },
+            function(err) {
+                console.error("NETWORK_FAILURE: ", err);
+                reject(exports.NETWORK_FAILURE);
+            }
+        );
+    });
+}
+
+
+function updateStatus() {
+    if (gState !== 2) {
+        // Updating in progress... Try later.
+        exports.update();
+        return;
+    }
+    gState = 3;
+    Patients.all().then(function(allCurrentPatients) {
+        const localPatients = allCurrentPatients.records
+        const patientIds = Object.keys(localPatients)
+        updateNextPatient(patientIds)
+    });
+}
+
+
+/**
+ * Take next patient id  and process it. As soon as the process  ends,
+ * call updateNextPatient again, until `patientIds` is empty.
+ * @param {array} patientIds - Array of patient ids.
+ */
+function updateNextPatient(patientIds) {
+    if (patientIds.length === 0) {
+        // Updating is done.
+        gState = 2;
+        return;
+    }
+    const patientId = patientIds.shift();
+    Patients.get(patientId).then(
+        patient => {
+            updatePatient(patient).then(function() {
+                updateNextPatient(patientIds);
+            });
+        },
+        errorMessage => {
+            console.error(
+                `Unable to load patient ${patientId}: `, errorMessage);
+            updateNextPatient(patientIds);
+        }
+    );
+}
+
+
 function updatePatient(patient) {
     return new Promise(resolve => {
         if (!patient) {
@@ -110,7 +250,6 @@ function updatePatient(patient) {
  * Look in the `gCurrentStatus` and find what `patient` has more.
  */
 function getPatientDelta(patient) {
-    console.info("patient=", patient)
     let previousPatient = gCurrentStatus.patients[patient.id];
     if (typeof previousPatient === 'undefined') previousPatient = {
         admissions: [{ enter: 0, visits: [{ date: 0 }] }],
@@ -128,6 +267,7 @@ function getPatientDelta(patient) {
     return delta;
 }
 
+
 function getDataDelta(current, previous) {
     if (!previous) return current;
     let hasDifferences = false;
@@ -141,6 +281,7 @@ function getDataDelta(current, previous) {
     return hasDifferences ? data : null;
 }
 
+
 function getAdmissionsDelta(current, previous) {
     if (!previous) return current;
     if (!Array.isArray(previous)) return current;
@@ -152,130 +293,6 @@ function getAdmissionsDelta(current, previous) {
 
     const admissions = current.filter(admission => admission.enter >= lastEnter);
     return admissions.length > 0 ? admissions : null;
-}
-
-/**
- * Take next patient id  and process it. As soon as the process  ends, call updateNextPatient again,
- * until `patientIds` is empty.
- * @param {array} patientIds - Array of patient ids.
- */
-function updateNextPatient(patientIds) {
-    if (patientIds.length === 0) {
-        // Updating is done.
-        gState = 2;
-        return;
-    }
-    var patientId = patientIds.shift();
-    Patients.get(patientId).then(
-        function(patient) {
-            updatePatient(patient).then(function() {
-                updateNextPatient(patientIds);
-            });
-        },
-        function(errorMessage) {
-            console.error("Unable to load patient " + patientId + ": ", errorMessage);
-            updateNextPatient(patientIds);
-        }
-    );
-}
-
-function updatePatients(patients) {
-    const patientIds = Object.keys(patients).slice();
-    updateNextPatient(patientIds);
-}
-
-function updateStatus() {
-    if (gState !== 2) {
-        // Updating in progress... Try later.
-        exports.update();
-        return;
-    }
-    gState = 3;
-    Patients.all().then(function(allPatients) {
-        // Adding missing patients.
-        const promises = []
-        for (const patientId of Object.keys(gCurrentStatus.patients)) {
-            if (typeof allPatients.records[patientId] === 'undefined') {
-                const patient = { admissions: [] };
-                promises.push(Patients.save({
-                    id: patientId,
-                    admissions: [],
-                    vaccins: {},
-                    exams: [],
-                    picture: null,
-                    attachments: {}
-                }));
-                allPatients.records[patientId] = patient;
-            }
-        }
-        Promise.all(promises).then(() => updatePatients(allPatients.records));
-    });
-}
-
-function update() {
-    start().then(updateStatus, function(errorCode) {
-        if (errorCode === exports.NETWORK_FAILURE) {
-            // We can ask again later because it may just be a network unavailibility.
-            exports.update();
-        }
-    });
-}
-
-
-function start() {
-    return new Promise(function(resolve, reject) {
-        if (gState === 0) {
-            gState = 1;
-            getStatus(exports.remoteServer, exports.secretCode).then(
-                function(_status) {
-                    const status = _status || {}
-                    if (!status.patients || typeof status.patients !== 'object') {
-                        status.patients = {};
-                    }
-                    gCurrentStatus = status;
-                    gState = 2;
-                    exports.update();
-                    resolve(status);
-                },
-                function(errorCode) {
-                    gState = 0;
-                    reject(errorCode);
-                }
-            );
-        } else if (gState === 1) {
-            reject(exports.ALREADY_STARTING);
-        } else {
-            resolve(gCurrentStatus);
-        }
-    });
-}
-
-
-function getStatus(_remoteServer, secretCode) {
-    let remoteServer = `${_remoteServer}`.trim();
-    if (remoteServer.charAt(remoteServer.length - 1) !== '/') {
-        remoteServer += '/';
-    }
-    remoteServer += "tfw";
-
-    return new Promise(function(resolve, reject) {
-        WebService.get("synchro", { cmd: 'status', code: secretCode }, remoteServer).then(
-            ret => {
-                console.info("[synchro/getStatus] ret=", ret);
-                if (typeof ret === 'number') {
-                    console.error("Service 'synchro' failed with error code: ", ret);
-                    if (ret === -3) reject(exports.BAD_SECRET_CODE);
-                    reject(exports.SERVER_ERROR);
-                } else {
-                    resolve(ret);
-                }
-            },
-            function(err) {
-                console.error("NETWORK_FAILURE: ", err);
-                reject(exports.NETWORK_FAILURE);
-            }
-        );
-    });
 }
 
 
@@ -292,10 +309,12 @@ function structure(carecenterId) {
     });
 }
 
+
 function query(args) {
-    var remoteServer = ("" + exports.remoteServer).trim();
-    if (remoteServer.charAt(remoteServer.length - 1) !== '/')
+    let remoteServer = `${exports.remoteServer}`.trim();
+    if (remoteServer.charAt(remoteServer.length - 1) !== '/') {
         remoteServer += '/';
+    }
     remoteServer += "tfw";
 
     args.code = exports.secretCode;

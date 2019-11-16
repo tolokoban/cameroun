@@ -1,0 +1,17 @@
+digraph Synchro {
+    node [shape=box];
+    update -> start [label=1];
+    update -> updateStatus [label=2];
+
+    start -> getStatus;
+    getStatus -> "WebService(cmd: 'status')";
+
+    updateStatus -> updatePatients;
+    updatePatients -> updateNextPatient;
+    updateNextPatient -> updatePatient;
+    updatePatient -> getPatientDelta [label=1];
+    updatePatient -> "WebService(cmd: 'update')" [label=2];
+
+    getPatientDelta -> getDataDelta [label=1];
+    getPatientDelta -> getAdmissionsDelta [label=2];
+}
