@@ -1,25 +1,27 @@
-var $ = require("dom");
-var W = require("x-widget").getById;
-var DB = require("tfw.data-binding");
-var Cfg = require("$").config;
-var Err = require("tfw.message").error;
-var Msg = require("tfw.message").info;
-var Form = require("form");
-var Icon = require("wdg.icon");
-var Text = require("wdg.text");
-var Path = require("node://path");
-var Files = require("files");
-var Modal = require("wdg.modal");
-var Spawn = require('node://child_process').spawn;
-var Format = require("format");
-var Button = require("wdg.button");
-var Synchro = require("synchro");
-var Patients = require("patients");
-var Structure = require("structure");
-var InputSearch = require("input.search");
-var Preferences = require("preferences");
-var ModalPatient = require("modal.patient");
-var LocalDownload = require("tfw.local-download");
+"use strict"
+
+const $ = require("dom");
+const W = require("x-widget").getById;
+const DB = require("tfw.data-binding");
+const Cfg = require("$").config;
+const Err = require("tfw.message").error;
+const Msg = require("tfw.message").info;
+const Form = require("form");
+const Icon = require("wdg.icon");
+const Text = require("wdg.text");
+const Path = require("node://path");
+const Files = require("files");
+const Modal = require("wdg.modal");
+const Spawn = require('node://child_process').spawn;
+const Format = require("format");
+const Button = require("wdg.button");
+const Synchro = require("synchro");
+const Patients = require("patients");
+const Structure = require("structure");
+const InputSearch = require("input.search");
+const Preferences = require("preferences");
+const ModalPatient = require("modal.patient");
+const LocalDownload = require("tfw.local-download");
 
 
 exports.onPage = function() {
@@ -102,7 +104,7 @@ exports.onExport = function() {
       }
     );
   });
-  
+
   btnSave.on(function() {
     btnSave.wait = true;
     exp.then(function( src ) {
@@ -117,7 +119,7 @@ exports.onExport = function() {
       });
     });
   });
-  
+
   btnEMail.on(function() {
     modal.detach();
     exp.then(function( src ) {

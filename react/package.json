@@ -1,0 +1,55 @@
+{
+    "name": "web-soins-consultation",
+    "version": "0.0.1",
+    "private": true,
+    "proxy": "http://localhost:7474/web-soins/",
+    "homepage": "./",
+    "dependencies": {
+        "@types/jest": "24.0.21",
+        "@types/node": "12.12.5",
+        "@types/ol": "^4.6.5",
+        "@types/react": "^16.9.11",
+        "@types/react-dom": "^16.9.3",
+        "@types/react-redux": "^7.1.5",
+        "archiver": "^3.1.1",
+        "eslint-config-react-app": "^4.0.1",
+        "eslint-plugin-react-hooks": "^2.2.0",
+        "markdown-to-jsx": "^6.10.3",
+        "ol": "^5.3.3",
+        "react": "^16.11.0",
+        "react-dom": "^16.11.0",
+        "react-redux": "^6.0.1",
+        "redux": "^4.0.4",
+        "tfw": "^0.1.1"
+    },
+    "scripts": {
+        "lamp": "docker run --name LAMP -p '7474:80' -v ~/www:/app -v ~/databases:/var/lib/mysql mattrayner/lamp:latest-1804",
+        "start": "react-app-rewired start",
+        "watch": "watch 'npm run build' src/",
+        "build": "react-app-rewired build",
+        "postbuild": "cp -rf build/* ../www/ && date",
+        "test": "react-app-rewired test",
+        "test:dbg": "node --inspect-brk ./node_modules/.bin/jest --runInBand",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "devDependencies": {
+        "gh-pages": "^2.1.1",
+        "react-app-rewire-multiple-entry": "^2.0.0",
+        "react-app-rewire-yaml": "^1.1.0",
+        "react-app-rewired": "^2.1.4",
+        "react-dev-utils": "^8.0.0",
+        "react-scripts": "^3.2.0",
+        "redux-devtools-extension": "^2.13.8",
+        "typescript": "^3.6.4",
+        "watch": "^1.0.2"
+    }
+}

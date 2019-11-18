@@ -26,7 +26,7 @@
         "compile": {
             "type": "desktop",
             "files": [
-                "index.html$"
+                "app.html$"
             ]
         },
         "consts": {
@@ -72,7 +72,7 @@
         "karma-jasmine": "^0.3.6",
         "toloframework": "^0.53.3"
     },
-    "main": "index.html",
+    "main": "app.html",
     "window": {
         "fullscreen": false,
         "width": 800,
