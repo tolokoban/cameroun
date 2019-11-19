@@ -64,13 +64,16 @@
         "zlib"
     ],
     "dependencies": {
-        "core-js": "^3.0.1",
+        "@types/request-promise-native": "^1.0.17",
+        "core-js": "^3.4.1",
         "jasmine-core": "^2.99.1",
         "karma": "^0.13",
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
-        "toloframework": "^0.53.3"
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.8",
+        "toloframework": "^0.53.4"
     },
     "main": "app.html",
     "window": {
