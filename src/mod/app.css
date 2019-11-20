@@ -116,3 +116,17 @@ body.style .wdg-button.simple {
 body.style .wdg-button.warning {
   background: #724E10;
 }
+
+div.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+div.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

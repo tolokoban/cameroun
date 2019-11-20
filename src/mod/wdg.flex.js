@@ -1,15 +1,15 @@
 /**
  * @module wdg.flex
- * 
+ *
  * @class flex
- * @param {string} opts.orientation - One of `H`, `V`, `W`, `N`. 
+ * @param {string} opts.orientation - One of `H`, `V`, `W`, `N`.
  * Default is `H`.
  * * `H`: Horizontal.
  * * `V`: Vertical.
  * * `W`: Wide. In direction of the wider dimension: H in landscape and V in portrait.
  * * `N`: Narrow. Exact opposite of `W`.
  * @param {string} opts.type - One of `default`, `fill`. Default is `default`.
- * @param {string} opts.justify - One of `center', 'end', 'start', 'between', 'around'. 
+ * @param {string} opts.justify - One of `center', 'end', 'start', 'between', 'around'.
  * Default is 'around'.
  *
  * @description
@@ -18,12 +18,12 @@
  * @example
  * var mod = require('wdg.flex');
  */
-var $ = require( "dom" );
-var DB = require( "tfw.data-binding" );
+const $ = require( "dom" );
+const DB = require( "tfw.data-binding" );
 
 
-var ENUM_ORIENTATION = [ 'H', 'V', 'W', 'N' ];
-var ENUM_TYPE = [ 'default', 'fill' ];
+const ENUM_ORIENTATION = [ 'H', 'V', 'W', 'N' ];
+const ENUM_TYPE = [ 'default', 'fill' ];
 
 
 function Flex( opts ) {

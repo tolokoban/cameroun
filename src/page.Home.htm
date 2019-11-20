@@ -1,6 +1,6 @@
 <header><intl:title-home/></header>
 
-<div>
+<div class="flex-column">
     <wdg:flex>
         <content>
             <div id="search"></div>
@@ -20,6 +20,10 @@
         </content>
     </wdg:flex>
     <hr/>
-    <div id="version"></div>
-    <a href="index.html">Vérifier les dates de consultation</a>
+    <div class="flex-row">
+        <div id="version"></div>
+        <wdg:button $text="Vérifier les dates de consultation"
+                    $icon="gear"
+                    $href="index.html" />
+    </div>
 </div>
