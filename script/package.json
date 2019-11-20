@@ -1,0 +1,15 @@
+{
+  "name": "script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "download-patients.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tolokoban",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "request-promise-native": "^1.0.8"
+  }
+}

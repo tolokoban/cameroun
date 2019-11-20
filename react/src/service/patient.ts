@@ -3,12 +3,14 @@ import FileSystem from "./file-system"
 
 export default { getAllPatientIds, getPatient }
 
+interface IRecord {
+    id: string,
+    [key: string]: string
+}
+
 interface IPatientsFile {
     count: number,
-    records: {
-        id: string,
-        [key: string]: string
-    }[]
+    records: { [key: string]: IRecord }
 }
 
 const PATIENTS_FILENAME = 'data/patients.json'
@@ -17,8 +19,21 @@ async function getAllPatientIds(): Promise<string[]> {
     try {
         const patientsFileContent = await FileSystem.readText(PATIENTS_FILENAME)
         const patientsFile = JSON.parse(patientsFileContent) as IPatientsFile
-
-        return Object.keys(patientsFile.records)
+        const listToSort = Object.keys(patientsFile.records)
+            .map(key => patientsFile.records[key])
+            .map((record: IRecord) => {
+                const { id } = record
+                const label = `${record["#PATIENT-LASTNAME"]}\t${record["#PATIENT-FIRSTNAME"]}`
+                return [id, label]
+            })
+        const sortedList = listToSort.sort((a: any[], b: any[]) => {
+            const [A] = a
+            const [B] = b
+            if (A < B) return -1
+            if (A > B) return +1
+            return 0
+        })
+        return sortedList.map(item => item[0])
     }
     catch (ex) {
         console.error(`Unable to load "${PATIENTS_FILENAME}"!`, ex)

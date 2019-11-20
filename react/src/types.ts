@@ -1,4 +1,4 @@
-export interface IVisit {
+export interface IConsultation {
     /** Seconds since Epoc. */
     enter: number,
     data: {
@@ -9,7 +9,7 @@ export interface IVisit {
 export interface IAdmission {
     /** Seconds since Epoc. */
     enter: number,
-    visits: IVisit[]
+    visits: IConsultation[]
 }
 
 export interface IPatient {

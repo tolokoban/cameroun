@@ -1,4 +1,21 @@
+div.App {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+div.App > div {
+    flex: 1 1 auto;
+}
+
 div.App > header {
+    flex: 0 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -15,4 +32,37 @@ div.App > header > div {
 div.App > header > div.title {
     flex: 1 1 auto;
     text-align: center;
+}
+
+div.App div.patients {
+    overflow: auto;
+}
+
+div.App div.name {
+    font-weight: bold;
+}
+
+div.App span.count {
+    font-weight: normal;
+    padding: 0 1rem;
+    opacity: .6;
+}
+
+div.App span.error {
+    display: inline-block;
+    margin: 2px 4px;
+    padding: 3px 6px;
+    background: red;
+    color: #fff;
+}
+
+
+div.App div.patient {
+    margin: .2rem;
+    padding: .5rem;
+    border: var(--thm-black-6);
+}
+
+div.App div.patient > span {
+    margin: 0 .2rem;
 }
