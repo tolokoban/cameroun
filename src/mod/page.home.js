@@ -2,30 +2,24 @@
 
 const $ = require("dom");
 const W = require("x-widget").getById;
-const DB = require("tfw.data-binding");
 const Cfg = require("$").config;
 const Err = require("tfw.message").error;
 const Msg = require("tfw.message").info;
-const Form = require("form");
 const Icon = require("wdg.icon");
 const Text = require("wdg.text");
-const Path = require("node://path");
 const Files = require("files");
 const Modal = require("wdg.modal");
 const Spawn = require('node://child_process').spawn;
-const Format = require("format");
 const Button = require("wdg.button");
 const Synchro = require("synchro");
 const Patients = require("patients");
-const Structure = require("structure");
 const InputSearch = require("input.search");
 const Preferences = require("preferences");
 const ModalPatient = require("modal.patient");
-const LocalDownload = require("tfw.local-download");
 
 
 exports.onPage = function() {
-  var search = new InputSearch();
+  const search = new InputSearch();
   $.clear( 'search', search );
   search.focus = true;
 
@@ -42,30 +36,36 @@ exports.onPage = function() {
 
 
 exports.onExport = function() {
-  var exp = Patients.export();
-  var btnBrowse = $.tag( 'input', { type: "file", nwsaveas: "data.tgz" } );
+  const exp = Patients.export();
+  const btnBrowse = $.tag( 'input', { type: "file", nwsaveas: "data.tgz" } );
   $.css( btnBrowse, { display: "none" } );
-  var btnSelect = new Icon({ button: true, content: "search", size: "1.5rem" });
+  const btnSelect = new Icon({ button: true, content: "search", size: "1.5rem" });
   btnSelect.on(function() {
     btnBrowse.click();
   });
-  var inpSave = new Text({ label: "Enregistrer sous", wide: true,
-                           width: "320px",
-                           value: Preferences.get( 'saveas', '' ) });
-  var btnSave = new Button({ icon: "export", text: "Enregistrer sous" });
+  const inpSave = new Text({
+    label: "Enregistrer sous",
+    wide: true,
+    width: "320px",
+    value: Preferences.get( 'saveas', '' )
+  });
+  const btnSave = new Button({ icon: "export", text: "Enregistrer sous" });
   btnBrowse.addEventListener("change", function(evt) {
-    inpSave.value = this.value;
+    inpSave.value = evt.target.value;
   }, false);
 
-  var inpEMail = new Text({ label: "Adresse mail du destinataire", wide: true,
-                            value: Preferences.get( 'email', '' ) });
-  var btnEMail = new Button({ icon: "mail", text: "Envoyer par mail" });
+  const inpEMail = new Text({
+    label: "Adresse mail du destinataire",
+    wide: true,
+    value: Preferences.get( 'email', '' )
+  });
+  const btnEMail = new Button({ icon: "mail", text: "Envoyer par mail" });
 
-  var txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer, wide: true });
-  var txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
-  var btnCheck = new Button({ text: _('check') });
+  const txtRemoteServer = new Text({ label: _('remote-server'), value: Synchro.remoteServer, wide: true });
+  const txtSecretCode = new Text({ label: _('secret-code'), value: Synchro.secretCode });
+  const btnCheck = new Button({ text: _('check') });
 
-  var modal = Modal.alert($.div([
+  const modal = Modal.alert($.div([
     $.tag( 'h1', [_('synchro')]),
     txtRemoteServer, txtSecretCode, btnCheck,
     $.tag( 'hr' ),
@@ -79,8 +79,11 @@ exports.onExport = function() {
 
   btnCheck.on(function() {
     btnCheck.wait = true;
+    console.info("txtRemoteServer.value=", txtRemoteServer.value)
+    console.info("txtSecretCode.value=", txtSecretCode.value)
     Synchro.check( txtRemoteServer.value, txtSecretCode.value ).then(
       function( status ) {
+        console.info("status=", status)
         btnCheck.wait = false;
         Synchro.remoteServer = txtRemoteServer.value;
         Synchro.secretCode = txtSecretCode.value;

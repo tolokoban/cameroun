@@ -41,7 +41,7 @@ exports.ALREADY_STARTING = -4;
 
 const Preferences = require("preferences");
 
-Preferences.definePersistentProperty(exports, 'remoteServer', "localhost/www/web-soins/");
+Preferences.definePersistentProperty(exports, 'remoteServer', "http://localhost:7474/web-soins/");
 Preferences.definePersistentProperty(exports, 'secretCode', "");
 
 
@@ -79,62 +79,16 @@ let gCurrentStatus = {};
 
 
 function update() {
-    start().then(updateStatus, function(errorCode) {
-        if (errorCode === exports.NETWORK_FAILURE) {
-            // We can ask again later because it may just be a network unavailibility.
-            exports.update();
-        }
-        else if (errorCode === exports.ALREADY_STARTING) {
-            console.info("[synchro] Already starting.")
-        }
-        else {
-            console.error("[synchro/update] start() returned ", errorCode)
-        }
-    });
-}
-
-
-/**
-* @return Promise<{
-*     patients: {
-*         [key: string]: {
-*             admissions: Array<{
-*                 enter: number,
-*                 exit: number,
-*                 visits: Array<{
-*                     data: number
-*                 }>
-*             }>
-*         }
-*     }
-* }>
- */
-function start() {
-    return new Promise(function(resolve, reject) {
-        if (gState === 0) {
-            gState = 1;
-            getStatus(exports.secretCode).then(
-                function(_status) {
-                    const status = _status || {}
-                    if (!status.patients || typeof status.patients !== 'object') {
-                        status.patients = {};
-                    }
-                    gCurrentStatus = status;
-                    gState = 2;
-                    exports.update();
-                    resolve(status);
-                },
-                function(errorCode) {
-                    gState = 0;
-                    reject(errorCode);
-                }
-            );
-        } else if (gState === 1) {
-            reject(exports.ALREADY_STARTING);
-        } else {
-            resolve(gCurrentStatus);
-        }
-    });
+  start().then(updateStatus, function(errorCode) {
+    if (errorCode === exports.NETWORK_FAILURE) {
+      // We can ask again later because it may just be a network unavailibility.
+      exports.update();
+    } else if (errorCode === exports.ALREADY_STARTING) {
+      console.info("[synchro] Already starting.")
+    } else {
+      console.error("[synchro/update] start() returned ", errorCode)
+    }
+  });
 }
 
 
@@ -153,41 +107,91 @@ function start() {
  *     }
  * }>
  */
-function getStatus(secretCode) {
-    return new Promise(function(resolve, reject) {
-        query({ cmd: 'status', code: secretCode })
-        .then(
-            ret => {
-                console.info("[synchro/getStatus] ret=", ret);
-                if (typeof ret === 'number') {
-                    console.error("Service 'synchro' failed with error code: ", ret);
-                    if (ret === -3) reject(exports.BAD_SECRET_CODE);
-                    reject(exports.SERVER_ERROR);
-                } else {
-                    resolve(ret);
-                }
-            },
-            function(err) {
-                console.error("NETWORK_FAILURE: ", err);
-                reject(exports.NETWORK_FAILURE);
-            }
-        );
-    });
+function start() {
+  return new Promise(function(resolve, reject) {
+    if (gState === 0) {
+      gState = 1;
+      getStatus(exports.remoteServer, exports.secretCode).then(
+        function(_status) {
+          const status = _status || {}
+          if (!status.patients || typeof status.patients !== 'object') {
+            status.patients = {};
+          }
+          gCurrentStatus = status;
+          gState = 2;
+          exports.update();
+          resolve(status);
+        },
+        function(errorCode) {
+          gState = 0;
+          reject(errorCode);
+        }
+      );
+    } else if (gState === 1) {
+      reject(exports.ALREADY_STARTING);
+    } else {
+      resolve(gCurrentStatus);
+    }
+  });
+}
+
+
+/**
+ * @return Promise<{
+ *     patients: {
+ *         [key: string]: {
+ *             admissions: Array<{
+ *                 enter: number,
+ *                 exit: number,
+ *                 visits: Array<{
+ *                     data: number
+ *                 }>
+ *             }>
+ *         }
+ *     }
+ * }>
+ */
+function getStatus(remoteServer, secretCode) {
+  exports.remoteServer = remoteServer
+  exports.secretCode = secretCode
+
+  return new Promise(function(resolve, reject) {
+    query({
+        cmd: 'status',
+        code: secretCode
+      })
+      .then(
+        ret => {
+          console.info("[synchro/getStatus] ret=", ret);
+          if (typeof ret === 'number') {
+            console.error("Service 'synchro' failed with error code: ", ret);
+            if (ret === -3) reject(exports.BAD_SECRET_CODE);
+            reject(exports.SERVER_ERROR);
+          } else {
+            resolve(ret);
+          }
+        },
+        function(err) {
+          console.error("NETWORK_FAILURE: ", err);
+          reject(exports.NETWORK_FAILURE);
+        }
+      );
+  });
 }
 
 
 function updateStatus() {
-    if (gState !== 2) {
-        // Updating in progress... Try later.
-        exports.update();
-        return;
-    }
-    gState = 3;
-    Patients.all().then(function(allCurrentPatients) {
-        const localPatients = allCurrentPatients.records
-        const patientIds = Object.keys(localPatients)
-        updateNextPatient(patientIds)
-    });
+  if (gState !== 2) {
+    // Updating in progress... Try later.
+    exports.update();
+    return;
+  }
+  gState = 3;
+  Patients.all().then(function(allCurrentPatients) {
+    const localPatients = allCurrentPatients.records
+    const patientIds = Object.keys(localPatients)
+    updateNextPatient(patientIds)
+  });
 }
 
 
@@ -197,126 +201,139 @@ function updateStatus() {
  * @param {array} patientIds - Array of patient ids.
  */
 function updateNextPatient(patientIds) {
-    if (patientIds.length === 0) {
-        // Updating is done.
-        gState = 2;
-        return;
+  if (patientIds.length === 0) {
+    // Updating is done.
+    gState = 2;
+    return;
+  }
+  const patientId = patientIds.shift();
+  Patients.get(patientId).then(
+    patient => {
+      updatePatient(patient).then(function() {
+        updateNextPatient(patientIds);
+      });
+    },
+    errorMessage => {
+      console.error(
+        `Unable to load patient ${patientId}: `, errorMessage);
+      updateNextPatient(patientIds);
     }
-    const patientId = patientIds.shift();
-    Patients.get(patientId).then(
-        patient => {
-            updatePatient(patient).then(function() {
-                updateNextPatient(patientIds);
-            });
-        },
-        errorMessage => {
-            console.error(
-                `Unable to load patient ${patientId}: `, errorMessage);
-            updateNextPatient(patientIds);
-        }
-    );
+  );
 }
 
 
 function updatePatient(patient) {
-    return new Promise(resolve => {
-        if (!patient) {
-            resolve();
-            return;
-        }
-        const delta = getPatientDelta(patient);
-        if (!delta) {
-            resolve();
-            return;
-        }
-        query({ cmd: 'update', patient: delta }).then(
-            function() {
-                console.log("Patient synchronized: ", delta);
-                resolve();
-                if (!gCurrentStatus.patients) gCurrentStatus.patients = {};
-                gCurrentStatus.patients[patient.id] = patient;
-            },
-            function(err) {
-                console.error("Failed to synchronized: ", delta);
-                console.error(err);
-                // Failure is not a big issue. We just go on and the patient will be updated later.
-                resolve();
-            }
-        );
-    });
+  return new Promise(resolve => {
+    if (!patient) {
+      resolve();
+      return;
+    }
+    const delta = getPatientDelta(patient);
+    if (!delta) {
+      resolve();
+      return;
+    }
+    query({
+      cmd: 'update',
+      patient: delta
+    }).then(
+      function() {
+        console.log("Patient synchronized: ", delta);
+        resolve();
+        if (!gCurrentStatus.patients) gCurrentStatus.patients = {};
+        gCurrentStatus.patients[patient.id] = patient;
+      },
+      function(err) {
+        console.error("Failed to synchronized: ", delta);
+        console.error(err);
+        // Failure is not a big issue. We just go on and the patient will be updated later.
+        resolve();
+      }
+    );
+  });
 }
 
 /**
  * Look in the `gCurrentStatus` and find what `patient` has more.
  */
 function getPatientDelta(patient) {
-    let previousPatient = gCurrentStatus.patients[patient.id];
-    if (typeof previousPatient === 'undefined') previousPatient = {
-        admissions: [{ enter: 0, visits: [{ date: 0 }] }],
-        data: {},
-        edited: 0
-    };
+  let previousPatient = gCurrentStatus.patients[patient.id];
+  if (typeof previousPatient === 'undefined') previousPatient = {
+    admissions: [{
+      enter: 0,
+      visits: [{
+        date: 0
+      }]
+    }],
+    data: {},
+    edited: 0
+  };
 
-    if (patient.edited <= previousPatient.edited) return null;
-    const delta = { id: patient.id, edited: patient.edited };
-    const data = getDataDelta(patient.data, previousPatient.data);
-    if (data) delta.data = data;
-    const admissions = getAdmissionsDelta(patient.admissions, previousPatient.admissions);
-    if (admissions) delta.admissions = admissions;
+  if (patient.edited <= previousPatient.edited) return null;
+  const delta = {
+    id: patient.id,
+    edited: patient.edited
+  };
+  const data = getDataDelta(patient.data, previousPatient.data);
+  if (data) delta.data = data;
+  const admissions = getAdmissionsDelta(patient.admissions, previousPatient.admissions);
+  if (admissions) delta.admissions = admissions;
 
-    return delta;
+  return delta;
 }
 
 
 function getDataDelta(current, previous) {
-    if (!previous) return current;
-    let hasDifferences = false;
-    const data = {};
-    Object.keys(current).forEach(function(key) {
-        if (current[key] !== previous[key]) {
-            data[key] = current[key];
-            hasDifferences = true;
-        }
-    });
-    return hasDifferences ? data : null;
+  if (!previous) return current;
+  let hasDifferences = false;
+  const data = {};
+  Object.keys(current).forEach(function(key) {
+    if (current[key] !== previous[key]) {
+      data[key] = current[key];
+      hasDifferences = true;
+    }
+  });
+  return hasDifferences ? data : null;
 }
 
 
 function getAdmissionsDelta(current, previous) {
-    if (!previous) return current;
-    if (!Array.isArray(previous)) return current;
-    if (previous.length === 0) return current;
+  if (!previous) return current;
+  if (!Array.isArray(previous)) return current;
+  if (previous.length === 0) return current;
 
-    const lastAdmission = previous[previous.length - 1];
-    let lastEnter = parseInt(lastAdmission.enter, 10);
-    if (isNaN(lastEnter)) lastEnter = 0;
+  const lastAdmission = previous[previous.length - 1];
+  let lastEnter = parseInt(lastAdmission.enter, 10);
+  if (isNaN(lastEnter)) lastEnter = 0;
 
-    const admissions = current.filter(admission => admission.enter >= lastEnter);
-    return admissions.length > 0 ? admissions : null;
+  const admissions = current.filter(admission => admission.enter >= lastEnter);
+  return admissions.length > 0 ? admissions : null;
 }
 
 
 function structure(carecenterId) {
-    return new Promise(function(resolve, reject) {
-        query({ cmd: 'structure' }).then(function(data) {
-            console.info("[synchro.structure] Received: ", data);
-            resolve(data);
-        }, function(err) {
-            console.error("Unable to query structure for " + carecenterId + "!");
-            console.error(err);
-            reject(err);
-        });
+  return new Promise(function(resolve, reject) {
+    query({
+      cmd: 'structure'
+    }).then(function(data) {
+      console.info("[synchro.structure] Received: ", data);
+      resolve(data);
+    }, function(err) {
+      console.error("Unable to query structure for " + carecenterId + "!");
+      console.error(err);
+      reject(err);
     });
+  });
 }
 
 
 function query(args) {
-    let remoteServer = `${exports.remoteServer}`.trim();
-    if (remoteServer.charAt(remoteServer.length - 1) !== '/') {
-        remoteServer += '/';
-    }
-    remoteServer += "tfw";
+  let remoteServer = `${exports.remoteServer}`.trim();
+  if (remoteServer.charAt(remoteServer.length - 1) !== '/') {
+    remoteServer += '/';
+  }
+  remoteServer += "tfw";
 
-    args.code = exports.secretCode;
-    return WebService.get("synchro", args, remoteServer);
+  args.code = exports.secretCode;
+  return WebService.get("synchro", args, remoteServer);
 }
