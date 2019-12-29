@@ -1,11 +1,11 @@
 "use strict";
 
-var $ = require("dom");
-var DB = require("tfw.data-binding");
-var Icon = require("wdg.icon");
-var Touchable = require("tfw.touchable");
+const $ = require("dom");
+const DB = require("tfw.data-binding");
+const Icon = require("wdg.icon");
+const Touchable = require("tfw.touchable");
 
-var TYPES = ['standard', 'simple', 'warning', 'shadow', 'special'];
+const TYPES = ['standard', 'simple', 'warning', 'shadow', 'special'];
 
 /**
  * Liste des classes CSS applicables sur un bouton :
@@ -85,15 +85,15 @@ var Button = function(opts) {
             that.anim = true;
         } else {
             that.enabled = waitBackup.enabled;
-            that.icon = waitBackup.icon;            
-            that.anim = waitBackup.anim;            
+            that.icon = waitBackup.icon;
+            that.anim = waitBackup.anim;
         }
     });
     DB.propString(this, 'text')(function(v) {
         refresh();
     });
     var touchable = new Touchable( elem, {
-        classToAdd: 'theme-elevation-8'        
+        classToAdd: 'theme-elevation-8'
     });
     DB.propBoolean(this, 'enabled')(function(v) {
         touchable.enabled = touchable;

@@ -82,8 +82,8 @@ class WebService {
     }
 
     getAbsoluteUrl(url: string): string {
-        if( typeof url !== 'string' ) return url;
-        if( url.startsWith("https://") || url.startsWith("http://") )
+        if (typeof url !== 'string') return url;
+        if (url.startsWith("https://") || url.startsWith("http://"))
             return url;
         return `${this.root}${url}`;
     }
@@ -162,7 +162,8 @@ function hash(code: number[], pwd: string): number[] {
 const gInstance = new WebService();
 
 function setRoot(root: string) {
-        gInstance.setRoot(root)
+    console.log("WebService.setRoot:", root)
+    gInstance.setRoot(root)
 }
 
 async function exec(name: string, args: any = null): Promise<any> {

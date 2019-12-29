@@ -61,6 +61,8 @@ div.App div.patient {
     margin: .2rem;
     padding: .5rem;
     border: var(--thm-black-6);
+    display: inline-block;
+    vertical-align: top;
 }
 
 div.App div.patient > span {

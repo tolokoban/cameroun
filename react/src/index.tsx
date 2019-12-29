@@ -7,8 +7,11 @@ import App from "./app"
 import Theme from "./tfw/theme"
 import WebService from './tfw/web-service'
 
-console.info("window.location.hostname=", window.location.hostname);
-if (window.location.hostname !== 'localhost') {
+const hostname = window.location.hostname
+console.info("=", hostname);
+if (hostname.indexOf('/') === -1 || hostname.indexOf('//localhost') !== -1) {
+    WebService.setRoot("http://localhost:7474/web-soins/");
+} else {
     WebService.setRoot("https://web-soins.com/");
 }
 
