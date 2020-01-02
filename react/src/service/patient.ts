@@ -1,7 +1,7 @@
 import { IPatient } from '../types'
 import FileSystem from "./file-system"
 
-export default { getAllPatientIds, getPatient }
+export default { getAllPatientIds, getPatient, setPatient }
 
 interface IRecord {
     id: string,
@@ -50,6 +50,19 @@ async function getPatient(id: string): Promise<IPatient> {
     }
     catch (ex) {
         console.error(`Unable to load patient #${id}!`, ex)
+        throw ex
+    }
+}
+
+
+async function setPatient(patient: IPatient): Promise<IPatient> {
+    try {
+        const patientContent = JSON.stringify(patient)
+        await FileSystem.writeText(`data/${patient.id}/patient.json`, patientContent)
+        return patient
+    }
+    catch (ex) {
+        console.error(`Unable to save patient #${patient.id}!`, ex)
         throw ex
     }
 }

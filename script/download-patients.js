@@ -7,8 +7,10 @@ const Chalk = require("chalk")
 
 console.log()
 
-if (process.argv.length < 3) {
-    console.error("Please pass the carecenter code as argument!")
+if (process.argv.length < 4) {
+    console.error("Please pass the carecenter code and the URL as argument!")
+    console.error(`Example: node ${process.argv[1]} 1-GObgkAcMfr "https://web-soins.com"`)
+    console.error()
     process.exit(1)
 }
 
@@ -35,9 +37,10 @@ async function start() {
     const path = Path.resolve(__dirname, "data")
     ensurePathIsEmpty(path)
 
-    console.log(Chalk.cyan("Contacting web-soins server..."))
     const carecenterCode = process.argv[2]
-    const url = `https://web-soins.com/tfw/svc.php?s=snapshot&i="${carecenterCode}"`
+    const baseUrl = process.argv[3]
+    console.log("Contacting web-soins server on " + Chalk.cyan(baseUrl) + "...")
+    const url = `${baseUrl}/tfw/svc.php?s=snapshot&i="${carecenterCode}"`
     const data = parse(await Query(url))
     if (data === -1) {
         console.error(Chalk.red("Unknown carecenter code:"), carecenterCode)
