@@ -492,11 +492,7 @@ digraph dependencies {
 
     "page.home" -> "x-widget"
 
-    "page.home" -> "tfw.data-binding"
-
     "page.home" -> "tfw.message"
-
-    "page.home" -> "form"
 
     "page.home" -> "wdg.icon"
 
@@ -506,24 +502,17 @@ digraph dependencies {
 
     "page.home" -> "wdg.modal"
 
-    "page.home" -> "format"
-
     "page.home" -> "wdg.button"
 
     "page.home" -> "synchro"
 
     "page.home" -> "patients"
 
-    "page.home" -> "structure"
-
     "page.home" -> "input.search"
 
     "page.home" -> "preferences"
 
     "page.home" -> "modal.patient"
-
-    "page.home" -> "tfw.local-download"
-    "tfw.local-download" -> "$"
     "input.search" -> "$"
 
     "input.search" -> "dom"

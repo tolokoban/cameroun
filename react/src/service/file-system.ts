@@ -1,6 +1,7 @@
+import mkdirp from './mkdirp'
+
 const FS = window.require('fs')
 const Path = window.require('path')
-const mkdirp = window.require('mkdirp')
 
 export default { readText, writeText }
 

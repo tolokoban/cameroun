@@ -95,6 +95,7 @@ Pour publier votre application, il faut déposer les fichiers suivants (__et uni
 * `tfw/svc.php`
 
 Ajoutez-y aussi les répertoires suivants, mais pas d'autres pour ne pas écraser les données de la base commune :
+* `static/`
 * `css/`
 * `js/`
 * `tfw/php`

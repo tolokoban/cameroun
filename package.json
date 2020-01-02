@@ -26,7 +26,7 @@
         "compile": {
             "type": "desktop",
             "files": [
-                "app.html$"
+                "index.html$"
             ]
         },
         "consts": {
@@ -39,7 +39,7 @@
         },
         "output": "www"
     },
-    "version": "0.4.21",
+    "version": "0.5.4",
     "reservedModules": [
         "fs",
         "path",
@@ -75,7 +75,7 @@
         "request-promise-native": "^1.0.8",
         "toloframework": "^0.53.4"
     },
-    "main": "app.html",
+    "main": "index.html",
     "window": {
         "fullscreen": false,
         "width": 800,
