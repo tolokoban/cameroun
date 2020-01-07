@@ -5,6 +5,7 @@ import Intl from "../../tfw/intl"
 import ConsultationService from "../../service/consultation"
 import PatientService from "../../service/patient"
 import DateService from "../../service/date"
+import SplashService from "../../service/splash"
 import { IPatient, IConsultation } from '../../types'
 
 import "./app.css"
@@ -56,15 +57,8 @@ export default class App extends React.Component<TAppProps, TAppState> {
         const patientIds = await PatientService.getAllPatientIds()
         this.setState({ patientsCount: patientIds.length })
 
-        document.body.classList.add("start");
-        setTimeout(() => {
-            const body = document.body;
-            const splash1 = document.getElementById("splash1");
-            const splash2 = document.getElementById("splash2");
-            if (splash1) body.removeChild(splash1);
-            if (splash2) body.removeChild(splash2);
-            this.uploadPatients()
-        }, 1000);
+        await SplashService.hide()
+        this.uploadPatients()
 
         const patientIdsToCheck = new Set<string>()
         const tasks: ITask[] = []

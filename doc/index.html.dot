@@ -205,46 +205,23 @@ digraph dependencies {
     "page.visit-summary" -> "patients"
 
     "page.visit-summary" -> "structure"
-    "format" -> "$"
 
-    "format" -> "utils"
+    "page.visit-summary" -> "tfw.view.button"
+    "tfw.view.button" -> "$"
 
-    "format" -> "date"
+    "tfw.view.button" -> "dom"
 
-    "format" -> "structure"
-    "utils" -> "$"
-    "page.visit" -> "$"
+    "tfw.view.button" -> "tfw.binding.property-manager"
 
-    "page.visit" -> "dom"
+    "tfw.view.button" -> "tfw.touchable"
 
-    "page.visit" -> "input"
+    "tfw.view.button" -> "tfw.view"
 
-    "page.visit" -> "x-widget"
+    "tfw.view.button" -> "tfw.binding.link"
 
-    "page.visit" -> "format"
+    "tfw.view.button" -> "tfw.binding.converters"
 
-    "page.visit" -> "patients"
-
-    "page.visit" -> "tfw.view.expand"
-
-    "page.visit" -> "wdg.showhide"
-
-    "page.visit" -> "date"
-
-    "page.visit" -> "structure"
-    "tfw.view.expand" -> "$"
-
-    "tfw.view.expand" -> "dom"
-
-    "tfw.view.expand" -> "tfw.binding.property-manager"
-
-    "tfw.view.expand" -> "tfw.view"
-
-    "tfw.view.expand" -> "tfw.binding.link"
-
-    "tfw.view.expand" -> "tfw.binding.converters"
-
-    "tfw.view.expand" -> "tfw.view.icon"
+    "tfw.view.button" -> "tfw.view.icon"
     "tfw.view.icon" -> "$"
 
     "tfw.view.icon" -> "polyfill.object.values"
@@ -286,6 +263,46 @@ digraph dependencies {
     "tfw.view" -> "tfw.binding.converters"
     "tfw.icons" -> "$"
     "polyfill.object.values" -> "$"
+    "format" -> "$"
+
+    "format" -> "utils"
+
+    "format" -> "date"
+
+    "format" -> "structure"
+    "utils" -> "$"
+    "page.visit" -> "$"
+
+    "page.visit" -> "dom"
+
+    "page.visit" -> "input"
+
+    "page.visit" -> "x-widget"
+
+    "page.visit" -> "format"
+
+    "page.visit" -> "patients"
+
+    "page.visit" -> "tfw.view.expand"
+
+    "page.visit" -> "wdg.showhide"
+
+    "page.visit" -> "date"
+
+    "page.visit" -> "structure"
+    "tfw.view.expand" -> "$"
+
+    "tfw.view.expand" -> "dom"
+
+    "tfw.view.expand" -> "tfw.binding.property-manager"
+
+    "tfw.view.expand" -> "tfw.view"
+
+    "tfw.view.expand" -> "tfw.binding.link"
+
+    "tfw.view.expand" -> "tfw.binding.converters"
+
+    "tfw.view.expand" -> "tfw.view.icon"
     "input" -> "$"
 
     "input" -> "dom"

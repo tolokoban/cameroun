@@ -1,39 +1,39 @@
 "use strict";
 
-var $ = require( "dom" );
-var Format = require( "format" );
-var Patients = require( "patients" );
-var Structure = require( "structure" );
+const $ = require( "dom" );
+const Format = require( "format" );
+const Patients = require( "patients" );
+const Structure = require( "structure" );
+const Button = require("tfw.view.button")
 
-var g_patient;
+let g_patient = null;
 
 
 exports.onPage = function () {
-  var hash = location.hash.split( '/' );
-  var patientId = hash[ 1 ];
-  var date = parseInt( hash[ 2 ] );
+  const hash = location.hash.split( '/' );
+  const patientId = hash[ 1 ];
+  const date = parseInt( hash[ 2 ], 10 );
 
   Patients.get( patientId ).then( function ( patient ) {
     g_patient = patient;
     document.getElementById( 'visit-summary.title' ).textContent =
       Format.getPatientCaption( patient.data );
-    var container = document.getElementById( "visit-summary.data" );
+    const container = document.getElementById( "visit-summary.data" );
     $.clear( container, $.tag( 'h1', [
-      "Consultation du " + Format.date( date )
+      `Consultation du ${Format.date( date )}`
     ] ) );
     g_patient.admissions.forEach( function ( admission ) {
       admission.visits.forEach( function ( visit ) {
-        var enter = visit.enter;
-        if ( enter != date ) return;
-        var ul = $.tag( 'ul' );
+        const enter = visit.enter;
+        if ( enter !== date ) return;
+        const ul = $.tag( 'ul' );
         $.add( container, ul );
-        var id, value, type, field;
-        for ( id in visit.data ) {
-          field = getField( id ) || {
+        for ( const id of Object.keys(visit.data) ) {
+          const field = getField( id ) || {
             caption: id,
             type: id
           };
-          type = undefined;
+          let type
           if( field.type ) {
             if ( field.type.charAt( field.type.length - 1 ) === '+' ) {
               type = Structure.value.types[ field.type.substr( 0, field.type.length - 1 ) ];
@@ -41,17 +41,21 @@ exports.onPage = function () {
               type = Structure.value.types[ field.type ];
             }
           }
-          value = visit.data[ id ];
+          let value = visit.data[ id ];
           if ( !Array.isArray( value ) ) value = [ value ];
           value = value.map( function ( x ) {
             return Format.expand( x, type ? type.id : undefined );
           } );
-          var b = $.tag( 'b', [ value.join( ", " ) ] );
-          var li = $.tag( 'li', [ field.caption + ": ", b ] );
+          const b = $.tag( 'b', [ value.join( ", " ) ] );
+          const li = $.tag( 'li', [ field.caption + ": ", b ] );
           $.add( ul, li );
         }
       } );
     } );
+    $.add( container, new Button({
+        href: `react.html#consultation/edit/${patientId}/${date}`,
+        icon: 'edit'
+    }))
   } );
 };
 

@@ -8,7 +8,7 @@
         "@types/jest": "24.0.21",
         "@types/node": "12.12.5",
         "@types/ol": "^4.6.5",
-        "@types/react": "^16.9.11",
+        "@types/react": "^16.9.17",
         "@types/react-dom": "^16.9.3",
         "@types/react-redux": "^7.1.5",
         "archiver": "^3.1.1",
@@ -20,8 +20,8 @@
         "react-dom": "^16.11.0",
         "react-redux": "^6.0.1",
         "react-router-dom": "^5.1.2",
-        "redux": "^4.0.4",
-        "tfw": "^0.1.1"
+        "redux": "^4.0.5",
+        "tfw": "^0.6.4"
     },
     "scripts": {
         "lamp": "docker run --name LAMP -p '7474:80' -v ~/www:/app -v ~/databases:/var/lib/mysql mattrayner/lamp:latest-1804",
@@ -43,14 +43,14 @@
         "not op_mini all"
     ],
     "devDependencies": {
-        "gh-pages": "^2.1.1",
-        "react-app-rewire-multiple-entry": "^2.0.0",
+        "gh-pages": "^2.2.0",
+        "react-app-rewire-multiple-entry": "^2.1.0",
         "react-app-rewire-yaml": "^1.1.0",
         "react-app-rewired": "^2.1.4",
         "react-dev-utils": "^8.0.0",
-        "react-scripts": "^3.2.0",
+        "react-scripts": "^3.3.0",
         "redux-devtools-extension": "^2.13.8",
-        "typescript": "^3.6.4",
+        "typescript": "^3.7.4",
         "watch": "^1.0.2"
     }
 }
