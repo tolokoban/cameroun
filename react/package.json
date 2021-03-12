@@ -47,7 +47,7 @@
         "react-app-rewire-multiple-entry": "^2.1.0",
         "react-app-rewire-yaml": "^1.1.0",
         "react-app-rewired": "^2.1.4",
-        "react-dev-utils": "^8.0.0",
+        "react-dev-utils": "^11.0.4",
         "react-scripts": "^3.3.0",
         "redux-devtools-extension": "^2.13.8",
         "typescript": "^3.7.4",
