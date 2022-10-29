@@ -67,7 +67,7 @@
         "@types/request-promise-native": "^1.0.17",
         "core-js": "^3.4.1",
         "jasmine-core": "^2.99.1",
-        "karma": "^0.13",
+        "karma": "^6.4",
         "karma-chrome-launcher": "^0.2",
         "karma-firefox-launcher": "^0.1",
         "karma-jasmine": "^0.3.6",
